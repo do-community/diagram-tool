@@ -1,0 +1,130 @@
+@import '_normalize.styl'
+@import '_typography.styl'
+@import '_animations.styl'
+
+body
+  background offwhite
+
+.scaffold
+  border:1px solid lightgray
+
+.main
+  height: 90vh
+  margin: 0
+  padding: 0
+  display: flex
+  flex-flow: row
+
+.diagram
+  @extend .scaffold
+  position:relative
+  height: calc(90vh - 2rem)
+  overflow: hidden
+  background-image:url('/img/grid.png')
+  background-repeat: repeat
+  background-position: -10rem -10rem
+  text-align:left
+  margin: 1rem
+  padding: 1rem
+  flex: 3 1 90%
+  order: 2
+
+
+  .node, .connector
+    position:absolute
+    width: 10rem
+    height: 10rem
+    margin-top: calc(45vh - 7rem)
+    margin-left: calc(50% - 5rem)
+
+    svg
+      path
+        fill: none
+        stroke-width: 1.5
+        stroke-linecap: round
+        pointer-events: none
+
+      circle, .delete
+        opacity:0
+        transition: opacity .25s ease-in-out;
+        -moz-transition: opacity .25s ease-in-out;
+        -webkit-transition: opacity .25s ease-in-out;
+      circle.delete
+        fill: #f25041
+      text.delete
+        fill: #FFF
+        cursor: pointer
+
+    svg:hover
+      circle
+        opacity:0.25
+      .delete
+        opacity:1
+
+    svg circle:hover
+      stroke-width:5
+      stroke: #000
+
+    svg circle.w:hover
+      cursor: w-resize
+    svg circle.e:hover
+      cursor: e-resize
+    svg circle.s:hover
+      cursor: s-resize
+    svg circle.n:hover
+      cursor: n-resize
+
+
+    figcaption
+      text-align:center
+      position:relative
+      top:-3rem
+      z-index:-1
+
+  .connector svg path
+    stroke-width: 1
+    animation: dash 15s linear
+    animation-iteration-count: infinite
+
+  @keyframes dash
+    to
+      stroke-dashoffset: -1200
+
+  .node:hover
+    cursor: all-scroll
+
+    svg
+      path
+        stroke-width: 2
+
+
+
+.tray
+  @extend .scaffold
+  order: 1
+  flex: 1 6 10%
+  height: calc(90vh - 2rem)
+  min-width: 10em
+  overflow-y: scroll
+  margin: 1rem
+  padding: 1rem
+
+  .node, .connector
+    width: 7rem
+    height: 7rem
+
+    svg circle, svg text
+      display:none
+
+    figcaption
+      text-align:center
+      position:relative
+      top:-3rem
+
+
+.console, .header
+  @extend .scaffold
+  display: block
+  margin: 1rem
+  padding: 1rem
+  height: calc(5vh - 2rem)
