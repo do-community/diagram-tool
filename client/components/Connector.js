@@ -62,7 +62,7 @@ const Connector = React.createClass({
 
       // v - vertical
       if (start[0] == end[0]) {
-        this.w = 100;
+        this.w = 10;
         this.h -= 90;
         this.pos = {
           left:   ((start[0] * 10) + 4.5) + 'rem',
@@ -75,7 +75,7 @@ const Connector = React.createClass({
       }
       else if (start[1] == end[1]) {
         this.dir     = 'h'; // h - horizontal
-        this.h = 100;
+        this.h = 10;
         this.w -= 90;
         this.pos = {
           left:   ((start[0] + 1) * 10) - 0.5 + 'rem',
@@ -144,14 +144,16 @@ const Connector = React.createClass({
       }
     }
 
+    console.log(this);
+
     return (
       <figure className="connector" style={this.pos}>
         <svg width="100%" height="100%" viewBox={this.viewBox}>
           <path d={connector.mode === 'duplex' ? this.lineToString(this.path, this.dir) : this.path}
                 stroke={customization && customization.active === false ? '#999' : connector.color}
                 strokeDasharray={customization && customization.active === false ? '1' : connector.dash} />
-          <circle className="delete" cx={this.w/2} cy={this.h/2} r="6" />
-          <text className="delete" x={(this.w/2) - 3} y={(this.h/2) + 3} fontSize="8" onClick={this.deleteConnector}>✕</text>
+              <circle className="delete" cx={this.w/2.0} cy={this.h/2.0} r="6" />
+          <text className="delete" x={(this.w/2) - 3} y={(this.h/2) + 3} fontSize="8" onClick={this.deleteConnector}>x</text>
         </svg>
       </figure>
     )

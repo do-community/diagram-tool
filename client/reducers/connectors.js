@@ -5,7 +5,7 @@ function connectors(state = [], action) {
       return [
         ...state,
         {
-          type: action.connector_type,
+          type: action.connector_type || 'tcp',
           customization:{},
           between: [action.start, action.end]
         }

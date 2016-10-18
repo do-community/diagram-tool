@@ -34,10 +34,10 @@ export function deleteNode(i) {
   }
 }
 
-export function addConnector(connector_type, start, end) {
+export function addConnector(start, end, connector_type) {
   return {
     type: 'ADD_CONNECTOR',
-    connector_type: connector_type ? connector_type : 'default',
+    connector_type: connector_type,
     start,
     end
   }

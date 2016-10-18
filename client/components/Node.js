@@ -15,7 +15,7 @@ const Node = React.createClass({
   },
   connectorEnd(event) {
     const target_node = helpers.findUpClass(event.toElement, 'node');
-    if(target_node) this.props.addConnector(null, this.props.i, target_node.dataset.id);
+    if(target_node) this.props.addConnector(this.props.i, target_node.dataset.id);
     window.removeEventListener('mouseup',this.connectorEnd, false );
     document.querySelector('div.diagram').className = document.querySelector('div.diagram').className.replace('connecting', '');
   },
