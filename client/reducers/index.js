@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import diagram_metadata from './diagram_metadata';
+
+import metadata from './metadata';
 import connectors from './connectors';
 import nodes from './nodes';
+import selection from './selection';
+import mode from './mode';
 
-const rootReducer = combineReducers({diagram_metadata, connectors, nodes, routing: routerReducer });
+const rootReducer = combineReducers({metadata, connectors, nodes, selection, mode, routing: routerReducer});
 
 export default rootReducer;

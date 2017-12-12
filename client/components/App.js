@@ -5,9 +5,11 @@ import Main from './Main';
 
 function mapStateToProps(state) {
   return {
-    diagram_metadata: state.diagram_metadata,
+    metadata: state.metadata,
     connectors: state.connectors,
-    nodes: state.nodes
+    nodes: state.nodes,
+    selection: state.selection,
+    mode: state.mode
   }
 }
 

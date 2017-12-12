@@ -1,0 +1,11 @@
+import DIAGRAMS from './DIAGRAMS';
+import CONNECTORS from './CONNECTORS';
+import NODES from './NODES';
+
+const DATA = {
+	DIAGRAMS:DIAGRAMS,
+	CONNECTORS:CONNECTORS,
+	NODES:NODES
+}
+
+export default DATA;

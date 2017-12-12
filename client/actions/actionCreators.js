@@ -1,68 +1,161 @@
-//add comment
-export function addNode(node_type, x, y) {
+//addNode - takes a node type, x/y position, and metadata that will override the defaults for this node type
+export function addNode(key, node_type, x, y, metadata) {
   return {
     type: 'ADD_NODE',
+    key,
     node_type,
     x,
-    y
+    y,
+    metadata
   }
 }
 
-//move a node
-export function moveNode(i, x, y) {
+export function addNodeWithConnections(key, node_type, x, y, metadata, connections) {
+  return function (dispatch) {
+
+    dispatch({
+      type: 'ADD_NODE',
+      key,
+      node_type,
+      x,
+      y,
+      metadata
+    });
+
+    connections.map((c) => dispatch({
+      type: 'ADD_CONNECTOR',
+      connector_type: c.type,
+      start: key,
+      end: c.to,
+      metadata: c.metadata
+    }));
+
+  }
+}
+
+//move node ID'd by i
+export function moveNode(key, x, y, relative) {
   return {
     type: 'MOVE_NODE',
-    i,
+    key,
     x,
-    y
+    y,
+    relative
   }
 }
 
-//edit the customizable details of a node
-export function editNode(i, customizations) {
+//edit the customizable metadata of a node
+export function editNode(key, metadata) {
   return {
     type: 'EDIT_NODE',
-    i,
-    customizations
+    key,
+    metadata
   }
 }
 
-export function deleteNode(i) {
+//mark a node as selected and deselect all other nodes
+export function selectNodes(keys, additive=false) {
+  return function (dispatch) {
+    if(!additive)
+      dispatch({
+        type: 'DESELECT_ALL'
+      });
+    dispatch({
+      type: 'SELECT',
+      nodes: typeof(keys) === 'object' ? keys : [keys]
+    });
+  }
+}
+
+export function copyNodes(nodes) {
   return {
-    type: 'DELETE_NODE',
-    i
+    type: 'COPY',
+    nodes
   }
 }
 
-export function addConnector(start, end, connector_type) {
+//deselect everything
+export function deselectNodes(keys) {
+  if(!keys) return {
+    type: 'DESELECT_ALL'
+  };
+  else return {
+    type: 'DESELECT',
+    nodes: typeof(keys) === 'object' ? keys : [keys]
+  }
+}
+
+//delete a node from the diagram
+export function deleteNode(key) {
+  return function (dispatch) {
+    dispatch({
+      type: 'DELETE_ATTACHED_CONNECTORS',
+      key
+    });
+    dispatch({
+      type: 'DELETE_NODE',
+      key
+    });
+
+  }
+}
+
+
+export function addConnector(start, end, connector_type, metadata) {
   return {
     type: 'ADD_CONNECTOR',
-    connector_type: connector_type,
+    connector_type,
+    metadata,
     start,
     end
   }
 }
 
-export function moveConnector(i, start, end) {
+export function moveConnector(key, start, end) {
   return {
     type: 'MOVE_CONNECTOR',
-    i,
+    key,
     start,
     end
   }
 }
 
-export function editConnector(i, customizations) {
+export function editConnector(key, metadata) {
   return {
     type: 'EDIT_CONNECTOR',
-    i,
-    customizations
+    key,
+    metadata
   }
 }
 
-export function deleteConnector(i) {
+export function deleteConnector(key) {
   return {
     type: 'DELETE_CONNECTOR',
-    i
+    key
+  }
+}
+
+export function selectConnectors(keys, additive=false) {
+  return function (dispatch) {
+    if(!additive)
+      dispatch({
+        type: 'DESELECT_ALL'
+      });
+    dispatch({
+      type: 'SELECT',
+      connectors: typeof(keys) === 'object' ? keys : [keys]
+    });
+  }
+}
+
+export function deselectConnectors(keys) {
+  return function (dispatch) {
+    if(!keys) return {
+        type: 'DESELECT_ALL'
+    };
+    else return {
+      type: 'DESELECT',
+      connectors: typeof(keys) === 'object' ? keys : [keys]
+    };
   }
 }

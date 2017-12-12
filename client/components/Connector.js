@@ -1,45 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router';
+import dndHelper from '../dndHelper.js';
 
-const Connector = React.createClass({
-  deleteConnector() {
-    if ( this.props.deleteConnector ) {
-      this.props.deleteConnector(this.props.i);
-    }
-  },
-  round2(num) {
-    return Math.round(num*100.0)/100.0;
-  },
-  lineToString(points, dir) {
-    let st_1 = "", st_2 = "", a, b, offset, i, max=points.length;
-    for(i=0; i<max; i++) {
-        a = (i === 0 ? points[i] : points[i-1]);
-        b = (i === max-1 ? points[i] : points[i+1]);
-        offset = 3 * Math.sin(Math.atan((b[1] - a[1]) / (b[0] - a[0])));
-        if(dir === 'h') {
-          st_1 += "L " + this.round2(points[i][0] - (0.5 * offset)) + " " + (points[i][1]+1.5) + " ";
-          st_2 = "L " + this.round2(points[i][0] + (0.5 * offset)) + " " +  (points[i][1]-1.5) + " " + st_2;
-        } else {
-          st_1 += "L " + (points[i][0]+1.5) + " " + this.round2(points[i][1] - (0.5 * offset)) + " ";
-          st_2 = "L " + (points[i][0]-1.5) + " " +  this.round2(points[i][1] + (0.5 * offset)) + " " + st_2;
-        }
+import helpers from '../helpers.js';
 
-    }
-    return "M" + st_1.substr(1) + st_2;
-  },
-  drawArrows(where) {
+class Connector extends React.Component {
 
-  },
   render() {
-    const { connector, i, customization, between, nodes } = this.props;
+    const { connector_template, id, metadata, between, connectDropTarget, selected} = this.props;
 
-    this.pos = {};
-    this.viewBox = "0 0 10 10";
-    this.path = [[0,5],[10,5]];
-    this.w = 5;
-    this.h = 5;
+    let pos, viewBox, path, w, h, dir, dns_path;
 
     /* If connector is connected to nodes, calculate how to draw the line */
+
     if ( between ) {
       // Break connections into six types
       // (we dont care which is first/last, just always start with leftmost)
@@ -53,111 +25,140 @@ const Connector = React.createClass({
       //     vb/  v  \vt  \__☐
       //     /    |   \
       //    ☐    ☐    ☐
-      const invert = nodes[between[0]].position[0] > nodes[between[1]].position[0],
-            start  = invert ? nodes[between[1]].position : nodes[between[0]].position,
-            end    = invert ? nodes[between[0]].position : nodes[between[1]].position;
-      this.h       = Math.abs(end[1] - start[1]) * 100;
-      this.w       = (end[0] - start[0]) * 100;
-      this.dir     = 'v';
+
+      const invert = between[0][0] > between[1][0],
+            start  = invert ? between[1] : between[0],
+            end    = invert ? between[0] : between[1];
+      h       = Math.abs(end[1] - start[1]) * 100;
+      w       = (end[0] - start[0]) * 100;
+      dir     = 'v';
 
       // v - vertical
       if (start[0] == end[0]) {
-        this.w = 10;
-        this.h -= 90;
-        this.pos = {
-          left:   ((start[0] * 10) + 4.5) + 'rem',
-          top:    (((start[1] < end[1] ? start[1] : end[1]) + .95) * 10) + 'rem',
-          width:  '1rem',
-          height: (this.h/10) + 'rem'
+        w = 20;
+        h -= 80;
+        pos = {
+          left:   ((start[0] * 100) + 40)  + 'px',
+          top:    (((start[1] < end[1] ? start[1] : end[1]) + 0.95) * 100) + 'px',
+          width:  '20px',
+          height: h + 'px'
         }
-        this.path = [[4,0],[4,this.h+3]];
-        this.viewBox = "0 0 10 " + this.h;
+        path = [[w/2,0],[w/2,h+3]];
+        viewBox = "0 0 " + w + " " + h;
+        dns_path = [[w-2,0],[w-2,20]];
       }
       else if (start[1] == end[1]) {
-        this.dir     = 'h'; // h - horizontal
-        this.h = 10;
-        this.w -= 90;
-        this.pos = {
-          left:   ((start[0] + 1) * 10) - 0.5 + 'rem',
-          top:    (((start[1] < end[1] ? start[1] : end[1]) * 10) + 4.5) + 'rem',
-          width:  this.w/10 + 'rem',
-          height: '1rem'
+        dir     = 'h'; // h - horizontal
+        h = 10;
+        w -= 70;
+        pos = {
+          left:   ((start[0] + 1) * 100) - 15 + 'px',
+          top:    (((start[1] < end[1] ? start[1] : end[1]) * 100) + 35) + 'px',
+          width:  w + 'px',
+          height: '30px'
         }
-        this.path = [[0,5],[this.w+3,5]];
-        this.viewBox = "0 0 " + this.w + " 10";
+        path = [[0,15],[w+3,15]];
+        viewBox = "0 0 " + w + " 30";
+        dns_path = [[0,2],[15,2]];
       }
-      else if (this.w >= this.h) {
-        this.w -= 90;
-        // connector travels further in x than in y
-        this.pos = {
-          left:   ((start[0] + .95) * 10) + 'rem',
-          top:    (((start[1] < end[1] ? start[1] : end[1]) * 10) + 5) + 'rem',
-          width:  this.w/10 + 'rem',
-          height: this.h/10 + 'rem'
+      else if (w >= h) {
+        w -= 70;
+        h += 20;
+        // if connector travels further in x than in y
+        pos = {
+          left:   ((start[0] + .95) * 100) - 10 + 'px',
+          top:    (((start[1] < end[1] ? start[1] : end[1]) * 100) + 40) + 'px',
+          width:  w + 'px',
+          height: h + 'px'
         };
-        this.dir     = 'h';
-        this.viewBox = "0 0 " + this.w + ".0 " + this.h + ".0";
+        dir     = 'h';
+        viewBox = "0 0 " + w + ".0 " + h + ".0";
         // hb - horizontal, bottom to top (left to right) NOTE: Y is inverted
         if (start[1] > end[1]) {
-          this.path = [
-                        [0,  this.h - 5],
-                        [25, this.h - 5],
-                        [this.w - 25, 5],
-                        [this.w+3,      5]
-                      ];
+          path =  [
+                    [0,      h - 15],
+                    [Math.min(w/4, 25),     h - 15],
+                    [w - Math.min(w/4, 25), 15],
+                    [w+3,    15]
+                  ];
+          dns_path = [[0, h],[10, h]];
         } else {
           // ht - horizontal, top to bottom (left to right)
-          this.path = [
-                        [0,  5],
-                        [25, 5],
-                        [this.w - 25, this.h-5],
-                        [this.w+3,      this.h-5]
-                      ];
+          path = [
+                    [0,      15],
+                    [Math.min(w/4, 25),     15],
+                    [w - Math.min(w/4, 25), h-15],
+                    [w+3,    h-15]
+                  ];
+          dns_path = [[0, 0],[15, 0]];
         }
       } else {
-        this.h -= 90;
-        // connector travels further in y than x
-        this.pos = {
-          left:   ((start[0] * 10) + 5) + 'rem',
-          top:    (((start[1] < end[1] ? start[1] : end[1]) + 0.95) * 10) + 'rem',
-          width:  this.w/10 + 'rem',
-          height: this.h/10 + 'rem'
+        h -= 80;
+        w += 10;
+        // if connector travels further in y than x
+        pos = {
+          left:   ((start[0] * 100) + 50) + 'px',
+          top:    (((start[1] < end[1] ? start[1] : end[1]) + 0.95) * 100) + 'px',
+          width:  w + 'px',
+          height: h + 'px'
         };
-        this.dir     = 'v';
-        this.viewBox = "0 0 " + this.w + " " + this.h;
+        dir     = 'v';
+        viewBox = "0 0 " + w + " " + h;
         // vb - vertical, bottom to top (left to right) NOTE: Y is inverted
         if(start[1] > end[1]) {
-          this.path = [
-                        [5, this.h],
-                        [5, this.h - 25],
-                        [this.w - 5, 25],
-                        [this.w - 5, -3]
+          path = [
+                        [5, h],
+                        [5, h - Math.min(h/4, 25)],
+                        [w - 10, Math.min(h/4, 25)],
+                        [w - 10, -3]
                       ];
+          dns_path = [[w-1,0],[w-1,20]];
         } else {
-          this.path = [
+          path = [
                         [5, 0],
-                        [5, 25],
-                        [this.w - 5, this.h - 25],
-                        [this.w - 5, this.h+3]
+                        [5, Math.min(h/4, 25)],
+                        [w - 5, h - Math.min(h/4, 25)],
+                        [w - 5, h+3]
                       ];
+          dns_path = [[10, 0],[10, 20]];
         }
       }
     }
 
-    console.log(this);
+    const center = {left:w/2, top:h/2};
+    pos.zIndex = connector_template.mode === 'duplex' ? 10 : 5;
 
-    return (
-      <figure className="connector" style={this.pos}>
-        <svg width="100%" height="100%" viewBox={this.viewBox}>
-          <path d={connector.mode === 'duplex' ? this.lineToString(this.path, this.dir) : this.path}
-                stroke={customization && customization.active === false ? '#999' : connector.color}
-                strokeDasharray={customization && customization.active === false ? '1' : connector.dash} />
-              <circle className="delete" cx={this.w/2.0} cy={this.h/2.0} r="6" />
-          <text className="delete" x={(this.w/2) - 3} y={(this.h/2) + 3} fontSize="8" onClick={this.deleteConnector}>x</text>
+    return connectDropTarget(
+
+      <figure
+        key={id}
+        style={pos}
+        data-category="connector"
+        data-key={id}
+        data-active={!(metadata && metadata.active === false)}
+        data-selected={this.props.selected === true}
+      >
+        <label className="hoverShow">{connector_template.short_name}</label>
+
+        <svg width="100%" height="100%" viewBox={viewBox} data-dropaction="connector" data-category="connector">
+          <path
+            className="offwhite"
+            d={connector_template.mode === 'duplex' ? helpers.lineToSVGString(path, dir) : helpers.lineToSVGString(path, dir, true)}
+          />
+          <path
+            className={connector_template.mode === 'duplex' ? 'nofill' : 'nofill dashed'}
+            d={connector_template.mode === 'duplex' ? helpers.lineToSVGString(path, dir) : helpers.lineToSVGString(path, dir, true)}
+            stroke={metadata && metadata.active === false ? '#999' : metadata.color}
+          />
+
+          {metadata && metadata.dns ? <path d={helpers.lineToSVGString(dns_path, dir, true) } stroke={metadata && metadata.active === false ? '#999' : metadata.color} /> : '' }
+          <circle className="hoverShow add" cx={center.left} cy={center.top} r="6" />
         </svg>
+
+        {metadata && metadata.dns ? <dl className="dns-label" style={{left:dns_path[1][0] - 2, "marginTop":dns_path[1][1]}}><dt style={{borderColor:metadata.color}}>dns:</dt><dd style={{borderColor:metadata.color}}>{metadata.dns}</dd></dl> : ''}
       </figure>
     )
   }
-});
+};
 
-export default Connector;
+export default dndHelper.composeDrop(Connector);

@@ -1,11 +1,10 @@
 import React from 'react';
-
 import { render } from 'react-dom';
 
-//  Import css
+// Import css
 import css from './styles/style.styl';
 
-//Import components
+// Import components
 import App from './components/App';
 import Diagram from './components/Diagram';
 

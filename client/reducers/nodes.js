@@ -1,31 +1,46 @@
 
 function nodes(state = [], action) {
   switch(action.type) {
+    
     case 'MOVE_NODE':
-      console.log(action);
-      //return updated state
-      return [
-        ...state.slice(0,action.i), //before the one we are updating
-        {...state[action.i], position:[action.x, action.y]},
-        ...state.slice(action.i + 1) //after the one we are updating
-      ];
+      return Object.keys(state).reduce((new_obj, key) => {
+        if (key === action.key) {
+          new_obj[key] = {
+            ...state[key],
+            position: [
+              action.relative ? state[key].position[0] + action.x : action.x,
+              action.relative ? state[key].position[1] + action.y : action.y
+            ]
+          };
+        } else {
+          new_obj[key] = {...state[key]};
+        }
+        return new_obj;
+      }, {});
+    
     case 'ADD_NODE':
-      console.log(action);
-      //return updated state
-      return [
+      return {
         ...state,
-        {
+        [action.key]: {
           type: action.node_type,
-          customization:{},
+          metadata:action.metadata,
           position: [action.x, action.y]
         }
-      ];
+      };
+
     case 'DELETE_NODE':
-      //return updated state
-      return [
-        ...state.slice(0,action.i),  //before the one we are updating
-        ...state.slice(action.i + 1) //after the one we are updating
-      ];
+      return Object.keys(state).reduce((new_obj, key) => {
+        if (key != action.key) new_obj[key] = {...state[key]}
+        return new_obj;
+      }, {});
+
+    case 'EDIT_NODE':
+      console.log('edit', action);
+      return Object.keys(state).reduce((new_obj, key) => {
+        if (key === action.key) new_obj[key] = {...state[key], metadata:{...state[key].metadata, ...action.metadata}}
+        else new_obj[key] = {...state[key]}
+        return new_obj;
+      }, {});
     default:
       return state;
   }

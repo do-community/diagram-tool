@@ -1,26 +1,27 @@
-
 function connectors(state = [], action) {
   switch(action.type) {
     case 'ADD_CONNECTOR' :
       return [
         ...state,
         {
-          type: action.connector_type || 'tcp',
-          customization:{},
+          type: action.connector_type,
+          metadata:action.metadata,
           between: [action.start, action.end]
         }
       ];
-    case 'MOVE_CONNECTOR' :
-      return [
-        ...state.slice(0,action.i), //before the one we are updating
-        {...state[action.i], between:[action.start, action.end]},
-        ...state.slice(action.i + 1) //after the one we are updating
-      ];
+    case 'EDIT_CONNECTOR' :
+      return state.map((c,i) => {
+        if(i === action.key) {
+          return {...c, metadata:{...c.metadata, ...action.metadata}};
+        }
+        return c;
+      });
+
     case 'DELETE_CONNECTOR' :
-      return [
-        ...state.slice(0,action.i), //before the one we are deleting
-        ...state.slice(action.i + 1) //after the one we are deleting
-      ];
+      console.log('deleting', action.key);
+      return state.filter(function(c, i) { console.log(i, action.key); return i !== action.key; });
+    case 'DELETE_ATTACHED_CONNECTORS':
+      return state.filter(function(c) { return c.between.indexOf(action.key) === -1; });
     default:
       return state;
   }

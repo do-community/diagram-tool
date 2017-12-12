@@ -1,5 +1,5 @@
 
-function diagram_metadata(state = [], action) {
+function metadata(state = [], action) {
   switch(action.type) {
     case 'EDIT_DIAGRAM' :
       //return updated state
@@ -9,4 +9,4 @@ function diagram_metadata(state = [], action) {
   }
 }
 
-export default diagram_metadata;
+export default metadata;

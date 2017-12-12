@@ -1,18 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+import dndHelper from '../dndHelper.js';
 
-const Main = React.createClass({
+class Main extends React.Component {
   render(){
-    return (
-      <div>
-        <header>
-          <h1>diagram</h1>
-          
-        </header>
-        {React.cloneElement(this.props.children, this.props)}
-      </div>
-    )
+    return React.cloneElement(this.props.children, this.props);
   }
-});
+};
 
-export default Main;
+export default DragDropContext(HTML5Backend)(Main);
