@@ -1,3 +1,5 @@
+// Drag and drop helper
+
 import { DropTarget, DragSource } from "react-dnd";
 import DATA from "./data";
 import helpers from "./helpers.js";

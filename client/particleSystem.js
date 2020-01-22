@@ -1,3 +1,6 @@
+// Not used yet, intended to allow a user to generate a request (particle)
+// at a certain node and see how it bounces through other connectors and nodes
+
 class Particle {
 
   constructor() {
