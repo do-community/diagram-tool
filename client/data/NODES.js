@@ -1,17 +1,22 @@
 const NODES = {
 
   "browser": {
-    name: "Browser (User)",
-    short_name: "Browser",
+    name: "Browser",
     description: "the end-user, communicating via a web browser",
+    category: "End-User Components",
+    metadata: {
+      name: "",
+      favicon: '',
+      color: ''
+    },
     behavior: {
       wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:{type:'https', metadata:{dns:'example.com'}}},
-        {node_types:['cdn'], via:{type:'https', metadata:{'dns':'cdn.example.com'}}}
+        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{dns:'example.com'}},
+        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
       ],
-      connection_limitations:['https', 'http', 'websocket'],
+      connection_preference: ['https', 'http', 'websocket'],
       incompatible_with: ['iot_device', 'mobile'],
-      can_create_requests: true,
+      requests: 'creator',
       min_connections: 1,
       regionless: true
     }
@@ -19,16 +24,88 @@ const NODES = {
 
   "mobile": {
     name: "Mobile App (User)",
-    short_name: "Mobile",
     description: "the end user, communicating via a mobile app",
+    category: "End-User Components",
+    metadata: {
+      name: "",
+      favicon: '',
+      color: ''
+    },
     behavior: {
       wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:{type:'https', metadata:{'dns':'example.com'}}},
-        {node_types:['cdn'], via:{type:'https', metadata:{'dns':'cdn.example.com'}}}
+        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{'dns':'example.com'}},
+        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
       ],
+      connection_preference: ['https', 'http', 'websockets', 'udp'],
       incompatible_with: ['iot_device', 'browser'],
-      connection_limitations:['http', 'https', 'udp', 'websockets'],
-      can_create_requests: true,
+      requests: 'creator',
+      min_connections: 1,
+      regionless: true
+    }
+  },
+
+  "internet": {
+    name: "Internet",
+    description: "the publicly accessible internet.",
+    category: "End-User Components",
+    label_offset: -16,
+    metadata: {
+      name: '',
+      favicon: '',
+      color: ''
+    },
+    behavior: {
+      wants: [
+        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{dns:'example.com'}},
+        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
+      ],
+      connection_preference: ['https', 'http', 'websocket'],
+      incompatible_with: ['iot_device', 'mobile', 'browser'],
+      requests: 'creator',
+      min_connections: 1,
+      regionless: true
+    }
+  },
+
+  "iot_device": {
+    name: "IOT Device",
+    description: "A limited functionality internet-capable device.",
+    category: "End-User Components",
+    metadata: {
+      name: "",
+      favicon: '',
+      color: ''
+    },
+    behavior: {
+      wants: [
+        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{dns:'example.com'}},
+        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
+      ],
+      connection_preference: ['https', 'http', 'websocket'],
+      incompatible_with: ['iot_device', 'mobile'],
+      requests: 'creator',
+      min_connections: 1,
+      regionless: true
+    }
+  },
+
+  "developer_device": {
+    name: "Dev Device",
+    description: "Developer's local device",
+    category: "End-User Components",
+    metadata: {
+      name: "",
+      management_method: 'terminal',
+      favicon: '',
+      color: ''
+    },
+    behavior: {
+      wants: [
+        {node_types:['app_server', 'db_server', 'log_server', 'droplet'], via:'ssh'},
+      ],
+      connection_preference: ['ssh'],
+      incompatible_with: ['iot_device', 'mobile', 'floating_ip', 'load_balancer'],
+      requests: 'creator',
       min_connections: 1,
       regionless: true
     }
@@ -36,258 +113,205 @@ const NODES = {
 
   "floating_ip": {
     name: "Floating IP",
-    short_name: "fl-IP",
     description: "an IP address that can be assigned and reassigned to a single droplet",
+    category: "DO Server Components",
     metadata: {
       ip: '',
-      edge: true,
       cost: 0,
-      scale: 0.7,
-      region: 'nyc3'
+      scale: 0.7
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'browser', 'mobile', 'iot_device'], via: {type:'https'}},
-        {node_types:['load_balancer', 'app_server', 'droplet'], via: {type:'https'}}
+        {node_types:['gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
+        {node_types:['app_server', 'droplet'], via: 'https'}
       ],
-      connection_limitations:['https', 'http', 'websocket', 'udp'],
+      connection_preference:['https', 'http', 'websocket', 'udp'],
+      requests: 'pass_through',
       min_connections: 2,
-      max_connections: 2
+      edge: true
     }
   },
 
   "load_balancer": {
     name: "Load Balancer",
-    short_name: "LB",
     description: "reverse proxy that distributes network or application traffic across a number of servers",
+    category: "DO Server Components",
     metadata: {
-      algo: "round-robin",
-      monitoring: true,
-      edge: true,
-      cost: 20,
-      active: true,
-      region: 'nyc3'
+      name: "",
+      algo: "round-robin"
     },
     behavior: {
       wants: [
-        {node_types:['floating_ip', 'gateway', 'browser', 'mobile', 'iot_device'], via: {type:'https', metadata:{'dns':'example.com'}}},
-        {node_types:['app_server'], via: {type:'https'}, all:true}
+        {node_types:['floating_ip', 'gateway', 'browser', 'mobile', 'iot_device'], via: 'https', metadata:{'dns':'example.com'}},
+        {node_types:['app_server'], via: 'https', all:true}
       ],
-      connection_limitations:['https', 'http', 'tcp', 'websocket'],
-      min_connections: 2
+      connection_preference:['https', 'http', 'tcp', 'websocket'],
+      min_connections: 2,
+      requests: 'load_balanced',
+      edge: true
     }
   },
 
   "app_server": {
     name: "Application Server",
-    short_name: "App",
     description: "a stateless server that processes incoming requests via an application and returns a response",
+    category: "DO Server Components",
     extends: "droplet",
     metadata: {
-      name: 'generic-app-server',
-      tags: ['app'],
+      name: "",
       agent: true,
-      backups: true,
-      private_network: true,
-      ipv6: true,
-      active: true,
-      region: 'nyc3'
+      private_network: true
     },
     behavior: {
       wants: [
-        {node_types:['load_balancer', 'floating_ip','gateway', 'browser', 'mobile', 'iot_device'], via: {type:'https'}},
-        {node_types:['db_server'], via: {type:'tcp'}},
-        {node_types:['cache_server'], via: {type:'tcp'}}
-      ]
+        {node_types:['load_balancer', 'floating_ip','gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
+        {node_types:['db_server'], via: 'tcp'},
+        {node_types:['cache_server'], via: 'tcp'}
+      ],
+      connection_preference:['https', 'http', 'websocket', 'tcp', 'udp'],
+      requests: 'recursive_sync'
     }
   },
 
   "db_server": {
     name: "Database Server",
-    short_name: "DB",
     description: "a server dedicated to running a database",
+    category: "DO Server Components",
     extends: "droplet",
     metadata: {
-      name: 'generic-db-server',
-      tags: ['db'],
+      name: "",
       agent: true,
       backups: true,
       private_network: true,
-      ipv6: true,
-      active: true,
-      region: 'nyc3'
+      block_storage: 100
     },
     behavior: {
       wants: [
-        {node_types:['app_server'], via: {type:'tcp'}},
-        {node_types:['db_server'], via: {type:'replication'}, all:true}
+        {node_types:['app_server', 'droplet', 'worker_server'], via: 'tcp', all:true},
+        {node_types:['db_server'], via: 'replication', all:true}
       ],
-      connection_limitations:['tcp', 'mount', 'replication']
+      connection_preference:['tcp', 'mount', 'replication'],
+      requests: 'recursive_async'
     }
   },
 
   "log_server": {
     name: "Logging Server",
-    short_name: "log",
     description: "a server dedicated to aggregating and indexing logs and analytics.",
+    category: "DO Server Components",
     extends: "droplet",
     metadata: {
-      name: 'generic-log-server',
-      tags: ['log'],
+      name: "",
       agent: true,
       backups: true,
-      private_network: true,
-      ipv6: true,
-      active: true,
-      tier2_connections: true,
-      region: 'nyc3'
+      private_network: true
     },
     behavior: {
       wants: [
-        {node_types:['app_server'], via: {type:'tcp'}, all:true},
-        {node_types:['worker_server'], via: {type:'tcp'}, all:true},
-        {node_types:['db_server'], via: {type:'tcp'}, all:true}
+        {node_types:['app_server'], via: 'udp', all:true},
+        {node_types:['worker_server'], via: 'udp', all:true},
+        {node_types:['db_server'], via: 'udp', all:true},
+        {node_types:['cache_server'], via: 'udp', all:true}
       ],
-      connection_limitations:['tcp', 'mount', 'replication']
+      connection_preference:['udp'],
+      requests: 'respond'
     }
   },
 
   "cache_server": {
     name: "Cache Server",
-    short_name: "cache",
     description: "a server dedicated to caching data.",
+    category: "DO Server Components",
     extends: "droplet",
     metadata: {
-      name: 'generic-cache-server',
-      tags: ['cache'],
+      name: "",
       agent: true,
       backups: true,
-      private_network: true,
-      ipv6: true,
-      active: true,
-      region: 'nyc3'
+      private_network: true
     },
     behavior: {
       wants: [
-        {node_types:['app_server'], via: {type:'tcp'}, all:true}
+        {node_types:['app_server'], via: 'tcp', all:true}
       ],
-      connection_limitations:['tcp', 'mount', 'replication']
-    }
-  },
-
-  "block_storage": {
-    name: "Block Storage",
-    short_name: "BlockStore",
-    description: "an extra volume of storage that can be attached to any single server",
-    metadata: {
-      size: '100GB',
-      cost: 10,
-      region: 'nyc3'
-    },
-    behavior: {
-      wants: [
-        [
-          {node_types:['db_server'], via: {type:'mount'}},
-          {node_types:['cache_server'], via: {type:'mount'}}
-        ]
-      ],
-      connection_limitations:['mount'],
-      max_connections: 1
-    }
-  },
-
-  "spaces": {
-    name: "Spaces",
-    short_name: "Spaces",
-    description: "a DigitalOcean object storage space of addressable objects",
-    metadata: {
-      cost: 5,
-      edge: true,
-      private: true,
-      region: 'nyc3'
-    },
-    behavior: {
-      wants: [
-        [
-          {node_types:['app_server'], via: {type:'tcp'}},
-          {node_types:['worker_server'], via: {type:'tcp'}},
-          {node_types:['log_server'], via: {type:'tcp'}}
-        ]
-      ],
-      incompatible_with:['load_balancer', 'db_server', 'block_storage'],
-      connection_limitations:['https', 'http', 'tcp']
+      connection_preference:['tcp', 'mount', 'replication'],
+      requests: 'respond'
     }
   },
 
   "worker_server": {
     name: "Worker Server",
-    short_name: "Wrkr",
     description: "a stateless server dedicated to performing a task and returning the results",
+    category: "DO Server Components",
     extends: "droplet",
     metadata: {
-      name: 'droplet-worker',
-      tags: ['worker'],
+      name: "",
       agent: true,
       backups: true,
-      private_network: true,
-      ipv6: true,
-      active: true,
-      region: 'nyc3'
+      private_network: true
     },
     behavior: {
       wants: [
-        [
-          {node_types:['db_server'], via: {type:'mount'}},
-          {node_types:['cache_server'], via: {type:'mount'}}
-        ]
+        {node_types:['db_server'], via: 'mount'},
+        {node_types:['cache_server'], via: 'mount'}
       ],
-      connection_limitations:['tcp']
-    }
-  },
-
-  "iot_device": {
-    name: "IOT Device",
-    short_name: "IOT",
-    description: "A limited functionality internet-capable device.",
-    behavior: {
-      wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:{type:'https', metadata:{'dns':'example.com'}}}
-      ],
-      connection_limitations:['http', 'https', 'udp', 'websockets'],
-      regionless: true
+      connection_preference:['tcp'],
+      requests: 'recursive_async'
     }
   },
 
   "droplet": {
-    name: "Generic Droplet",
-    short_name: "Droplet",
-    description: "A generic Droplet (a DigitalOcean virtual server)",
+    name: "Droplet",
+    description: "a droplet",
+    category: "DO Server Components",
     metadata: {
-      id: 1234,
-      name: 'droplet-name',
-      public_ipv4: '192.168.0.1',
-      memory: '512mb',
-      vcpus: 1,
-      disk: 30,
-      image: 'Ubuntu 16.04 x64',
-      status: 'active',
-      tags: 'comma,separated',
-      logging: true,
-      monitoring: true,
-      backups: true,
-      region: 'nyc3'
+      name: "",
+      agent: false,
+      private_network: false,
+      enable_ipv6: false,
+      backups: false,
+      image: 'Ubuntu 16.04.4 x64',
+      size:  's-4vcpu-8gb',
+      region: 'nyc3',
+      tags: '',
+      cloud_firewall: 'disabled',
+      block_storage: null,
+      scale:1
     },
     behavior: {
       wants: [
-        {node_types:['load_balancer', 'floating_ip', 'gateway', 'browser'], via: {type:'https'}},
-      ]
+        {node_types:['load_balancer', 'floating_ip','gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
+        {node_types:['db_server'], via: 'tcp'},
+        {node_types:['cache_server'], via: 'tcp'}
+      ],
+      connection_preference:['https', 'http', 'websocket', 'tcp', 'udp'],
+      requests: 'recursive_sync'
+    }
+  },
+
+  "spaces": {
+    name: "Spaces",
+    description: "a DigitalOcean object storage space of addressable objects",
+    category: "DO Server Components",
+    metadata: {
+      name: "",
+      edge: true,
+      private: true
+    },
+    behavior: {
+      wants: [
+          {node_types:['app_server', 'worker_server', 'log_server'], via: 'https', all:true},
+          {node_types:['browser'], via: 'https'}
+      ],
+      incompatible_with:['load_balancer', 'db_server'],
+      connection_preference:['https'],
+      requests: 'respond'
     }
   },
 
   "ci-cd": {
     name: "CI/CD Server",
-    short_name: "CI/CD",
     description: "Continuous Integration / Continuous Deployment server to automatically build and test software.",
+    category: "DO Server Components",
     metadata: {
     },
     behavior: {
@@ -296,20 +320,23 @@ const NODES = {
     }
   },
 
-  "github": {
-    name: "GitHub",
+  "github_repo": {
+    name: "GitHub Repo",
     description: "Source Code Management platform.",
+    category: "3rd Party Tools",
     metadata: {
     },
     behavior: {
       wants: [],
-      regionless:true
+      regionless:true,
+      connection_preference:['https', 'http']
     }
   },
 
   "terraform": {
     name: "Terraform",
     description: "A configuration tool that can create an execution plan and build infrastructure",
+    category: "3rd Party Tools",
     metadata: {
     },
     behavior: {
@@ -318,10 +345,10 @@ const NODES = {
     }
   },
 
-  "gateway": {
-    name: "3rd Party Gateway",
-    short_name: "Gateway",
+  "cloudflare": {
+    name: "cloudflare",
     description: "A gateway like CloudFlare, sits between user and your infrastructure.",
+    category: "3rd Party Tools",
     metadata: {
       provider: 'cloudflare',
       owner: '',
@@ -329,13 +356,14 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'browser', 'mobile', 'iot_device'], via: {type:'https'}},
-        {node_types:['load_balancer', 'floating_ip', 'gateway'], via: {type:'https'}},
+        {node_types:['gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
+        {node_types:['load_balancer', 'floating_ip', 'gateway'], via: 'https'},
       ],
       connection_limitations:['http', 'https', 'udp', 'websockets'],
       min_connections: 2,
       max_connections: 2,
-      regionless: true
+      regionless: true,
+      requests: 'pass_through'
     }
   }
 };

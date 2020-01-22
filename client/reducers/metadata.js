@@ -1,9 +1,11 @@
 
 function metadata(state = [], action) {
   switch(action.type) {
-    case 'EDIT_DIAGRAM' :
+    case 'INITIALIZE' :
+      return action.data.metadata && typeof(action.data.metadata) === 'object' ? action.data.metadata : {};
+    case 'EDIT_DIAGRAM_METADATA' :
       //return updated state
-      console.log('EDIT_DIAGRAM');
+      return { ...state, ...action.metadata };
     default:
       return state;
   }

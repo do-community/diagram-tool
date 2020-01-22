@@ -1,7 +1,12 @@
 
 function selection(state = [], action) {
   switch(action.type) {
-
+    case 'INITIALIZE' :
+      return {
+        connectors: [],
+        nodes: [],
+        clipboard: {}
+      };
     case 'SELECT':
       return {
       	connectors: Array.from(new Set([...state.connectors, ...(action.connectors || [])])),
@@ -37,7 +42,7 @@ function selection(state = [], action) {
       return {
         connectors: [...state.connectors],
         nodes: [...state.nodes],
-        clipboard: {...state.clipboard, ...action.nodes}
+        clipboard: {...action.nodes}
       };
 
     default:

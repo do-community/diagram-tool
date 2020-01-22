@@ -1,5 +1,7 @@
 function connectors(state = [], action) {
   switch(action.type) {
+    case 'INITIALIZE' :
+      return action.data.connectors && action.data.connectors.length ? action.data.connectors : [];
     case 'ADD_CONNECTOR' :
       return [
         ...state,
@@ -17,8 +19,15 @@ function connectors(state = [], action) {
         return c;
       });
 
+    case 'EDIT_CONNECTOR_TYPE' :
+      return state.map((c,i) => {
+        if(i === action.key) {
+          return {...c, type:action.connectorType};
+        }
+        return c;
+      });
+
     case 'DELETE_CONNECTOR' :
-      console.log('deleting', action.key);
       return state.filter(function(c, i) { console.log(i, action.key); return i !== action.key; });
     case 'DELETE_ATTACHED_CONNECTORS':
       return state.filter(function(c) { return c.between.indexOf(action.key) === -1; });

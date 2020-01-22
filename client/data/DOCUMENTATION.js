@@ -44,7 +44,7 @@ const DOCUMENTATION = {
 	        default: true
 	    },
 	    region: {
-	    	type: 'string',
+	    	type: 'select',
 	    	validation: ['nyc1', 'sfo1', 'nyc2', 'ams2', 'sgp1', 'lon1', 'nyc3', 'ams3', 'fra1', 'tor1', 'sfo2', 'blr1'],
 	    	info: 'server\'s datacenter',
 	    	default: 'nyc2'
@@ -56,33 +56,17 @@ const DOCUMENTATION = {
 	        default: 5,
 	        format: '$#'
 	    },
-	    memory: {
-	        type: 'number',
-	        validation: [0.5, 96],
-	        info: 'GB of RAM (memory) allocated.',
-	        default: 0.5,
-	        format: '# GB'
+	    size: {
+	        type: 'select',
+	        validation: ["s-1vcpu-1gb",  "s-1vcpu-2gb", "s-1vcpu-3gb", "s-2vcpu-2gb", "s-3vcpu-1gb", "s-2vcpu-4gb", "c-1vcpu-2gb",  "c-2", "s-4vcpu-8gb",  "c-4", "s-6vcpu-16gb", "c-8", "s-8vcpu-32gb", "s-12vcpu-48gb", "c-16", "s-16vcpu-64gb", "s-20vcpu-96gb", "c-32", "s-24vcpu-128gb", "c-46vcpu-92gb", "c-48", "s-32vcpu-192gb"],
+	        info: 'Droplet size',
+	        default: "s-2vcpu-4gb",
 	    },
-	    disk: {
-	        type: 'number',
-	        validation: [0.5, 640],
-	        info: 'GB of SSD disk allocated.',
-	        default: 20,
-	        format: '# GB'
-	    },
-	    cpus: {
-	        type: 'number',
-	        validation: [1,32],
-	        info: 'vCPUs available to droplet.',
-	        default: 1,
-	        format: '# CPUs'
-	    },
-	    bandwidth: {
-	        type: 'number',
-	        validation: [1,10],
-	        info: 'Monthly external transfer bandwidth allowed.',
-	        default: 1,
-	        format:'# TB'
+	    image: {
+	        type: 'select',
+	        validation: ["Ubuntu 16.04.4 x64"],
+	        info: 'Droplet image',
+	        default: "Ubuntu 16.04.4 x64",
 	    },
 	    user_data: {
 	    	type: 'string',
@@ -93,11 +77,6 @@ const DOCUMENTATION = {
 	        info: 'Should node accept public (outside regional network) connections?',
 	        default: false
 	    },
-	    id: {
-	        type: 'string',
-	        system_only: true,
-	        info: 'DigitalOcean-assigned ID of node.'
-	    },
 	    private_network: {
 	        type: 'boolean',
 	        info: 'Allow droplet to communicate on internal datacenter network.',
@@ -107,6 +86,11 @@ const DOCUMENTATION = {
 	        type: 'boolean',
 	        info: 'Assign droplet an IPV6 address in addition to IPV4.',
 	        default: true
+	    },
+	    id: {
+	        type: 'string',
+	        system_only: true,
+	        info: 'DigitalOcean-assigned ID of node.'
 	    },
 	    public_ipv4: {
 	        type: 'string',
@@ -142,12 +126,6 @@ const DOCUMENTATION = {
 	        type: 'string',
 	        info: 'Comma-separated list of tags to apply to droplet.'
 	    },
-	    tier2_connections: {
-	        type: '',
-	        validation: [],
-	        info: '',
-	        example: 'true'
-	    },
 	    favicon: {
 	    	type: 'url',
 	    	validation: [0,255],
@@ -156,14 +134,63 @@ const DOCUMENTATION = {
 	    color: {
 	    	type: 'color',
 	    	info: 'Optional accent color to use on node.'
+	    },
+	    cloud_firewall: {
+	        type: 'select',
+	        validation: ['disabled', 'tag_based', 'customized'],
+	        info: 'Cloud firewall',
+	        default: 'disabled'
+	    },
+	    block_storage: {
+	        type: 'number',
+	        validation: [0,16000],
+	        info: 'Expandable SSD block storage.',
+	        default: 100
+	    },
+	    management_method: {
+	    	type: 'select',
+	        validation: ['web', 'doctl', 'terminal', 'terraform'],
+	        info: 'How the infrastructure is deployed and managed',
+	        default: 'terminal'
 	    }
 	},
 	connector:{
-		dns: {
+		name: {
+			type:"string",
+			validation:[1,40],
+			info:'The node name or hostname.'
+		},
+	    description: {
+	    	type: "string",
+	    	length: [0,255],
+	    	info: 'Optional description of node, can use markdown, 255 char max.',
+	    	markdown: true
+	    },
+	    dns: {
 			type: 'string',
 			validation: [0,255],
 			info: 'domain or subdomain'
-		}
+		},
+		encryption: {
+			type: 'string',
+			validation: [0,255],
+			info: 'type of encryption used (TLS,??)'
+		},
+		port: {
+			type: 'number',
+			validation: [0,12000],
+			info: 'port used for connection'
+		},
+	    color: {
+	    	type: 'color',
+	    	info: 'Optional accent color to use on node.'
+	    },
+	    style: {
+	    	type: 'select',
+	    	validation: ['curved', 'angular', 'square'],
+	        info: 'Visual style of connector path',
+	        default: 'curved'
+	    }
 	}
 };
 

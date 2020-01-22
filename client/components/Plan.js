@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
-import NodeEditorField from './NodeEditorField.js';
 import DATA from '../data';
 
-class NodeEditor extends React.Component {
+class Plan extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,10 +19,13 @@ class NodeEditor extends React.Component {
   
     if(!item) return (<form className="infragram--rightPane collapsed"></form>);
 
+    //TODO: Figure out how to re-ini bui form js
+    window.setTimeout(function(){$.getScript('https://assets.digitalocean.com/bui/1.0.0/bui.js')}, 10);
+
     const all_metadata = Object.assign({}, (item_type === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (item_type === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
     
     return (
-      <div className="editor side-panel">
+      <div className="infragram--rightPane bui-Box">
         <h3>{template.name} settings:</h3>
         <p>{template.description}</p>
         <form className="bui-Form--spacing" onLoad={$(this).init}>
@@ -58,4 +59,4 @@ class NodeEditor extends React.Component {
   }
 };
 
-export default NodeEditor;
+export default Plan;

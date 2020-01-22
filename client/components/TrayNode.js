@@ -5,10 +5,11 @@ class TrayNode extends React.Component {
 	render(){
 		const {id, connectDragSource} = this.props;
 		return connectDragSource(
-				<li key={id} data-type={id} data-category="node" className="small">
+				<li key={id} data-type={id} data-click_key={id} data-category="node" data-ondoubleclick="add" className="small">
 					<svg>
-						<use xlinkHref={('#' + id)} />
+						<use className="paper" xlinkHref={('#' + id)} />
 					</svg>
+					<label>{id}</label>
 				</li>
 		);
 	}

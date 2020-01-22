@@ -1,18 +1,13 @@
-//addNode - takes a node type, x/y position, and metadata that will override the defaults for this node type
-export function addNode(key, node_type, x, y, metadata) {
+export function initialize(data) {
   return {
-    type: 'ADD_NODE',
-    key,
-    node_type,
-    x,
-    y,
-    metadata
+    type: 'INITIALIZE',
+    data: data
   }
 }
 
-export function addNodeWithConnections(key, node_type, x, y, metadata, connections) {
+//addNode - takes a node type, x/y position, and metadata that will override the defaults for this node type
+export function addNode(key, node_type, x, y, metadata, connections = []) {
   return function (dispatch) {
-
     dispatch({
       type: 'ADD_NODE',
       key,
@@ -30,10 +25,19 @@ export function addNodeWithConnections(key, node_type, x, y, metadata, connectio
       metadata: c.metadata
     }));
 
+    dispatch({
+        type: 'DESELECT_ALL'
+    });
+
+    dispatch({
+      type: 'SELECT',
+      nodes: [key]
+    });
+
   }
 }
 
-//move node ID'd by i
+//move node ID'd by key
 export function moveNode(key, x, y, relative) {
   return {
     type: 'MOVE_NODE',
@@ -128,6 +132,14 @@ export function editConnector(key, metadata) {
   }
 }
 
+export function editConnectorType(key, connectorType) {
+  return {
+    type: 'EDIT_CONNECTOR_TYPE',
+    key,
+    connectorType
+  }
+}
+
 export function deleteConnector(key) {
   return {
     type: 'DELETE_CONNECTOR',
@@ -157,5 +169,13 @@ export function deselectConnectors(keys) {
       type: 'DESELECT',
       connectors: typeof(keys) === 'object' ? keys : [keys]
     };
+  }
+}
+
+//edit the customizable metadata of a diagram
+export function editDiagramMetadata(metadata) {
+  return {
+    type: 'EDIT_DIAGRAM_METADATA',
+    metadata
   }
 }

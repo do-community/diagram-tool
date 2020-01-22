@@ -1,48 +1,114 @@
+/* Colors */
+white_semitransparent = rgba(255,255,255,0.5)
+white_mostlytransparent = rgba(255,255,255,0.2)
+gray50 =  #FAFAFA
+gray100 = #F5F5F5
+gray200 = #EEEEEE
+gray200_semitransparent = rgba(238,238,238.0.5)
+gray300 = #E0E0E0
+gray400 = #BDBDBD
+gray500 = #9E9E9E
+gray600 = #757575
+gray700 = #616161
+gray800 = #424242
+gray900 = #212121
+black_semitransparent = rgba(0,0,0,0.4)
+black_mostlytransparent = rgba(0,0,0,0.1)
+
 light_blue = #abd0ff
-blue = #0080ff
-offwhite = #fafafa
-offwhite_semitransparent = rgba(245,248,248,0.8)
-lightgrey  = #EDEEED
-lightgray = lightgrey
-darkgrey  = #696969
-offblack = #353535
+default_blue = #0080ff
 danger = #f25041
 success = #00cd8d
 attention = #0069ff
 
+/* Z-indices */
+topLayer = 1000
+
+/* Font sizes */
+fontsmall = 0.8em
+fontregular = 1.2em
+fontmedium = 1.8em
+fontlarge = 2.4em
+
+/* Paddings */
+paddingstandard = 1rem 2rem
+paddingsmall = 0.5rem
+
+@font-face 
+  font-family 'Humor Sans'
+  src url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf')
+  
+
 svg
   .stroked
-    stroke blue
+    stroke default_blue
   .lightstroked
     stroke light_blue
   .thinstroked
     stroke-width 1px
   .unstroked
     stroke none;
+  .offblack
+    fill gray800
+    stroke gray800
   .white
     fill #FFF
+  .offwhite
+    fill gray50
+    color gray50
   .paper
-    fill offwhite_semitransparent
+    fill white_semitransparent
+    color white_semitransparent
+  .waxpaper
+    fill white_mostlytransparent
+    color white_mostlytransparent
+  .paperstroked
+    stroke white_semitransparent
+    fill none
   .lightblue
     fill light_blue
   .darkblue
-    fill blue
-  .nofill
+    fill default_blue
+  .unfilled
     fill none
   .active
     fill #15cd72
-  .offwhite
+  .offwhitestroked
     fill none
-    stroke #fafafa
-    stroke-width 3px
+    stroke gray50
   .dashed
-    stroke-dasharray 2
+    stroke-dasharray 4
   .inherit-fill
-    fill currentColor
+    fill inherit
 
   .drag:hover
     stroke-width 5
     stroke #000
+
+/* TAG COLORS */
+.qual_1
+  fill #9b82f3
+
+.qual_2
+  fill #71cddd
+  
+.qual_3
+  fill #34bc6e
+  
+.qual_4
+  fill #95d13c
+
+.qual_5
+  fill #ffb000
+  
+.qual_6
+  fill #fe8500
+  
+.qual_7
+  fill #ff509e
+  
+.qual_8
+  fill #5392ff
 
 /* REUSABLE */
 .truncate
@@ -50,23 +116,14 @@ svg
   overflow-x hidden
   text-overflow ellipsis
 
-.side-panel
-  position fixed
-  top 50px
-  bottom 0
-  height calc(100vh - 70px)
-  overflow: hidden
-  overflow-y scroll
-  -webkit-transition: width .05s linear
-  transition: width .05s linear
-  -webkit-transform: translateZ(0) scale(1,1)
-  z-index: 1000
-
 .standard-padding
-  padding 10px 20px
+  padding 1rem 2rem
+
+.small-padding
+  padding 0.5rem
 
 .standard-margin
-  margin 10px
+  margin 1rem
 
 .center-on-grid
   position absolute
@@ -74,55 +131,142 @@ svg
   margin-left calc(50% -  175px)
   text-align center
 
-.foreground
+.scrollable
+  height 100%
+  overflow hidden
+  overflow-y scroll
+
+.side-panel
   position fixed
-  z-index 20
-  background-color #fbfbfb
-  border 1px solid #e5e5e5
-  box-shadow 0 0 4px rgba(0,0,0,0.05)
+  top 50px
+  bottom 0
+  height calc(100vh - 70px)
+  -webkit-transition: width .05s linear
+  transition: width .05s linear
+  -webkit-transform: translateZ(0) scale(1,1)
+  z-index topLayer
+  background gray100
+  border 1px solid gray300
+
+  h3
+    @extend .small-padding
+    display block
+    text-align center
+    margin 0
+    font-size fontmedium
+    font-weight bold
+    background gray300
+
+
+  h4
+    @extend .small-padding
+    display block
+    text-align center
+    border-top 2px solid gray50
+    box-shadow 0 -2px 0 gray200
+    margin 0
+
+html
+  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+  font-size 10px
 
 body
-  background white
-  color darkgrey
+  background gray200
+  color gray800
 
 .main
   min-height calc(100vh)
   max-height calc(100vh)
   overflow hidden
 
-  .detailPane
-    @extend .standard-padding, .side-panel
-    width 300px
-    right 0
+  .editor
+    position fixed
+    width 30rem
+    right 1rem
+    z-index topLayer
 
-  .detailPane.collapsed
-    right -280px
+    &.collapsed
+      right -30rem
 
-  nav
-    @extend .side-panel, .standard-padding
+  .tray
     left 0
-    width 110px
+    width 10rem
+    display flex
+    flex-direction column
+
+    ul
+      list-style none
+      margin 0
+      padding 0
+      text-align center
+      flex 1
 
     li[data-category="node"]
-      float left
+      @extend .small-padding
+      text-align center
       svg
         width 60px
         height 60px
         margin 5px
+      label
+        top -20px
+        position relative
+        background white_semitransparent
+        color gray600
+
+    .collapseButton
+      display block
+      position absolute
+      top 4px
+      right 4px
+      height 20px
+      width 20px
+      background gray300
+      padding-left 2px
+      border none
+      border-radius 10px
+      box-shadow none
+      z-index 1000001
+
 
   .modeSelector
     left 110px
+  
+  .diagramMetadata
+    position absolute
+    z-index topLayer
+    width 50%
+    max-width 800px
+    left 50%
+    transform translateX(-50%)
+    text-align center
+    
+    h1
+      position relative
+      display inline-block
+      margin 1rem
+      font-size fontmedium
+      &:hover h1:after
+        position absolute
+        right -16px
+        content "✎"
+
+    textarea
+      margin 0
+      border none
+      border-top 1px solid gray200
+      padding 8px 16px
+      width 75%
+      background none
 
   .diagram
     position fixed
     width calc(100% - 120px)
     height calc(100vh - 120px)
     left 110px
-    font-size 12px
     z-index 10
     background-repeat repeat
     background-position center center
-    background-image url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzNERjJCQjVFODREMTFFNkJGMzY4QUIyMERDMEU5MzQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzNERjJCQjZFODREMTFFNkJGMzY4QUIyMERDMEU5MzQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDM0RGMkJCM0U4NEQxMUU2QkYzNjhBQjIwREMwRTkzNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDM0RGMkJCNEU4NEQxMUU2QkYzNjhBQjIwREMwRTkzNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuvhRIYAAABVSURBVHja7NrBDQAQEABBROFq9fFSw4kuuMx2MP+tEVF+b649WkkSCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjI4/U7bWWAHAEGADu5Cc9abDjlAAAAAElFTkSuQmCC")
     text-align left
 
     &:focus
@@ -133,19 +277,22 @@ body
       z-index 1
       border 1px solid light_blue
       border-radius 10px
-      background rgba(0,0,0,0.01)
+      background rgba(255,255,255,0.1)
       box-shadow 0 0 5px rgba(0,0,0,0.05)
 
       label
         @extend .truncate
         position absolute
-        bottom -8px
-        left 10px
+        top -20px
+        left 6px
         height 23px
         max-width 50%
-        background offwhite
         padding 2.5px
         border-radius 3px
+        
+    canvas[data-category="region"]
+      @extend .center-on-grid
+      z-index 1
 
 
     figure[data-category="node"], figure[data-category="connector"]
@@ -165,16 +312,11 @@ body
         background offwhite
         position absolute
 
-      .hoverShow
-        opacity 0
-        transition opacity .05s ease-in-out;
-        -moz-transition opacity .05s ease-in-out;
-        -webkit-transition opacity .05s ease-in-out;
-
       .metadata
         position absolute
         bottom  5px
         right  5px
+      
 
       figcaption
         @extend .truncate
@@ -182,9 +324,24 @@ body
         max-width 100%
         text-align left
         position absolute
-        bottom  5px
         left 20px
         z-index -1
+        text-shadow 1px 1px 1px offwhite, -1px -1px 1px offwhite
+        background gray200_semitransparent
+        
+        svg
+          display inline-block
+          width 10px
+          height 10px
+          margin 0 0 3px 0
+          padding 0
+          
+      .createRequest
+        position absolute;
+        margin 50% 0 0 50%
+        top -9px
+        left -13px
+        cursor pointer
 
       .drag
         position absolute
@@ -213,9 +370,8 @@ body
         position absolute
         margin auto
         text-align center
-        top -10px
-        max-width 100%
-        width 100%
+        top -14px
+        width auto
         dt, dd
           display inline-block
           float left
@@ -225,31 +381,40 @@ body
           border-radius 2px 0 0 2px
           border 1px solid
           border-right none
-          background lightgray
+          background gray300
         dd
           @extend .truncate
           border-radius 0 2px 2px 0
           border 1px solid
           border-left none
           background none
-          color offblack
-          max-width calc(100% - 38px)
+          color gray800
+          max-width calc(100% - 30px)
 
-figure[data-category="node"]:hover, figure[data-category="connector"]:hover
+.hoverParent:hover
   .hoverShow
     opacity 0.5!important
+    
+.hoverShow
+  opacity 0
+  transition opacity .05s ease-in-out;
+  -moz-transition opacity .05s ease-in-out;
+  -webkit-transition opacity .05s ease-in-out;
+        
 
 
 figure[data-category="node"]
   svg
     color offwhite_semitransparent
-    stroke-width 2px
+    
 
 figure[data-category="connector"]
   svg
     stroke-width 1px
     opacity 0.75
 
+.selectShow
+  display none
 
 figure[data-category="connector"][data-selected="true"], figure[data-category="node"][data-selected="true"]
   outline none
@@ -257,6 +422,8 @@ figure[data-category="connector"][data-selected="true"], figure[data-category="n
     stroke-width 2px
   use
     stroke-width 3px
+  .selectShow
+    display block
 
 *[draggable="true"]
   cursor pointer
@@ -267,3 +434,27 @@ figure[data-category="connector"][data-selected="true"], figure[data-category="n
   border 1px solid blue
   background rgba(150,150,255,0.1)
   display none
+
+.shareButton
+  position fixed
+  bottom 10px
+  left calc(50% - 230px)
+  width 460px
+  
+.minimizeButton
+  width 32px
+  &:after
+    content "◀"
+.minimized .minimizeButton:after
+  content "▶"
+
+/* Hand-Sketched Special! */
+.sketch_on
+  display none!important
+.sketch
+  font-family:'Humor Sans'
+  .sketch_on
+    display block!important
+  .sketch_off
+    display none!important
+    

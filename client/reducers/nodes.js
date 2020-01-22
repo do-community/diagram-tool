@@ -1,7 +1,7 @@
-
 function nodes(state = [], action) {
   switch(action.type) {
-    
+    case 'INITIALIZE' :
+      return action.data.nodes && typeof(action.data.nodes) === 'object' ? action.data.nodes : {};
     case 'MOVE_NODE':
       return Object.keys(state).reduce((new_obj, key) => {
         if (key === action.key) {
@@ -17,7 +17,7 @@ function nodes(state = [], action) {
         }
         return new_obj;
       }, {});
-    
+
     case 'ADD_NODE':
       return {
         ...state,
@@ -35,7 +35,6 @@ function nodes(state = [], action) {
       }, {});
 
     case 'EDIT_NODE':
-      console.log('edit', action);
       return Object.keys(state).reduce((new_obj, key) => {
         if (key === action.key) new_obj[key] = {...state[key], metadata:{...state[key].metadata, ...action.metadata}}
         else new_obj[key] = {...state[key]}
