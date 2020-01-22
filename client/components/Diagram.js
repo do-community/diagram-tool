@@ -6,7 +6,6 @@ import Node from "./Node";
 import Connector from "./Connector";
 import Region from "./Region";
 import NodeEditor from "./NodeEditor";
-import ParticleCanvas from "./ParticleCanvas";
 import DiagramMetadata from "./DiagramMetadata";
 
 
@@ -275,8 +274,6 @@ class Diagram extends React.Component {
         </div>
 
         <NodeEditor {...selected} />
-
-        <ParticleCanvas nodes={nodes} connectors={connectors}/>
 
         <div className="bui-GridContainer shareButton">
           <div className="bui-Col-3">
