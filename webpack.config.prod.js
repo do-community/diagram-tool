@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -12,31 +13,37 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': "'production'"
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    })
+    new TerserPlugin({
+      parallel: true,
+      terserOptions: {
+        ecma: 6,
+      },
+    }),
   ],
   module: {
-    loaders: [
+    rules: [
     // js
     {
       test: /\.js$/,
-      loaders: ['babel'],
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      },
       include: path.join(__dirname, 'client')
     },
     // CSS
     { 
       test: /\.styl$/, 
       include: path.join(__dirname, 'client'),
-      loader: 'style-loader!css-loader!stylus-loader'
+      use: ['style-loader', 'css-loader', 'stylus-loader']
     }
     ]
   }

@@ -14,21 +14,26 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
-    loaders: [
+    rules: [
     // js
     {
       test: /\.js$/,
-      loaders: ['babel'],
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      },
       include: path.join(__dirname, 'client')
     },
     // CSS
-    {
-      test: /\.styl$/,
+    { 
+      test: /\.styl$/, 
       include: path.join(__dirname, 'client'),
-      loader: 'style-loader!css-loader!stylus-loader'
+      use: ['style-loader', 'css-loader', 'stylus-loader']
     }
     ]
   }
