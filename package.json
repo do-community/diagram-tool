@@ -22,6 +22,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
     "@babel/plugin-transform-object-assign": "^7.8.3",
     "@babel/plugin-transform-react-display-name": "^7.8.3",
+    "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
@@ -59,10 +60,10 @@
     "style-loader": "^0.13.2",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
+    "terser-webpack-plugin": "2.3.2",
     "webpack": "^4.41.5",
     "webpack-dev-middleware": "3.7.2",
-    "webpack-hot-middleware": "2.25.0",
-    "terser-webpack-plugin": "2.3.2"
+    "webpack-hot-middleware": "2.25.0"
   },
   "devDependencies": {
     "expect": "^1.18.0",

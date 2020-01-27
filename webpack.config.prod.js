@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   devtool: 'source-map',
   entry: [
     './client/infragram'
