@@ -2,6 +2,7 @@ import React from "react";
 import dndHelper from "../dndHelper.js";
 import helpers from "../helpers.js";
 import NODES from "../data/NODES.js";
+import ICONS from "../data/ICONS.js";
 import ConnectorDragHandle from "./ConnectorDragHandle";
 
 class Node extends React.Component {
@@ -73,37 +74,40 @@ class Node extends React.Component {
               ?
               undefined
               :
-              <use
-                xlinkHref="#bubble"
+              <svg
                 className={(metadata.cloud_firewall && metadata.cloud_firewall !== 'disabled') ? 'stroked thinstroked' : 'lightstroked thinstroked dashed'}
                 width="64px"
                 height="64px"
                 x="18px"
                 y="18px"
-              />
+              >
+                {ICONS.bubble}
+              </svg>
             }
             {node_template.extends && node_template.extends === 'droplet'
               ?
-              <use
-                xlinkHref="#droplet"
+              <svg
                 width={(scale * 0.5) + "px"}
                 height={(scale * 0.5) + "px"}
                 x={Math.round(((100 - (scale * 0.5)) / 2) - (metadata.block_storage ? 10 : 0 )) + "px"}
                 y={Math.round((100 - (scale * 0.5)) / 2) + "px"}
-              />
+              >
+                {ICONS.droplet}
+              </svg>
               :
               undefined
             }
-            <use
-              xlinkHref={"#" + type}
+            <svg
               width={scale + "px"}
               height={scale + "px"}
               x={Math.round(((100 - scale) / 2) - (metadata.block_storage ? 10 : 0 )) + "px"}
               y={Math.round((100 - scale) / 2) + "px"}
-            />
+            >
+              {ICONS[type]}
+            </svg>
             {
               metadata.block_storage ? 
-              <use xlinkHref="#block_storage" width="20px" height="20px" x="54px" y="40px" />
+              <svg width="20px" height="20px" x="54px" y="40px">{ICONS.block_storage}</svg>
               :
               null
             }
@@ -141,12 +145,13 @@ class Node extends React.Component {
               ? (typeof(metadata.tags) === 'string' ? metadata.tags.split(",") : metadata.tags).map((tag, i) => (
                   (tag in tags ?
                     <svg key={id + "_tag_" + i} title={tag}>
-                      <use
-                        xlinkHref="#tag"
+                      <svg
                         width="10px"
                         height="10px"
                         className={"qual_" + tags[tag].color_id}
-                      />
+                      >
+                        {ICONS.tag}
+                      </svg>
                     </svg> : '')
                 ))
               : null}

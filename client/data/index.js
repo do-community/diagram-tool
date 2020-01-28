@@ -2,6 +2,7 @@ import DIAGRAMS from './DIAGRAMS';
 import CONNECTORS from './CONNECTORS';
 import NODES from './NODES';
 import DOCUMENTATION from './DOCUMENTATION';
+import ICONS from './ICONS';
 
 const DATA = {
 	DIAGRAMS:DIAGRAMS,
@@ -15,7 +16,8 @@ const DATA = {
       acc[NODES[k].category][k] = NODES[k];
       return acc;
     }, {}),
-	DOCUMENTATION:DOCUMENTATION
+  DOCUMENTATION:DOCUMENTATION,
+  ICONS:ICONS,
 }
 
 export default DATA;
