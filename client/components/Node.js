@@ -113,13 +113,14 @@ class Node extends React.Component {
             }
 
             {metadata.management_method ? (
-              <use
-                xlinkHref={"#" + metadata.management_method}
+              <svg
                 width={scale + "px"}
                 height={scale + "px"}
                 x={Math.round(((100 - scale) / 2) - (metadata.block_storage ? Math.cbrt(Math.max(1000,metadata.block_storage))/2.0 : 0)) + "px"}
                 y={Math.round((100 - scale) / 2) + "px"}
-              />
+              >
+                {ICONS[metadata.management_method]}
+              </svg>
             ) : null}
             
             {metadata.active_disable_temporarily ? (

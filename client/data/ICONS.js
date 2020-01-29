@@ -2,7 +2,7 @@ import React from 'react';
 
 export default {
   browser: <symbol id="browser" dataname="browser" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <path className="stroked" fill="currentColor" d="M 2 12 C 2 5 5 2 12 2 L 88 2 C 95 2 98 5 98 12 L 98 88 C 98 95 95 98 88 98 L 12 98 5 98 2 95 2 88 L 2 12" />
+    <path className="stroked" fill="current-color" d="M 2 12 C 2 5 5 2 12 2 L 88 2 C 95 2 98 5 98 12 L 98 88 C 98 95 95 98 88 98 L 12 98 5 98 2 95 2 88 L 2 12" />
     <path className="lightblue stroked" d="M 2 12 C 2 5 5 2 12 2 L 88 2 C 95 2 98 5 98 12 L 98 18 L 2 18 L 2 12" />
     <circle className="darkblue" cx="14" cy="10" r="5" />
     <circle className="darkblue" cx="29" cy="10" r="5" />
@@ -92,7 +92,7 @@ export default {
   </symbol>,
   mobile: <symbol id="mobile" dataname="mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <path className="paper stroked" d="M 35 90 C 32.5 90 30 87.5 30 85 L 30 15 C 30 12.5 32.5 10 35 10 L 65 10 C 67.5 10 70 12.5 70 15 L 70 85 C 70 87.5 67.5 90 65 90 L 35 90" />
-    <path fill="currentColor" className="stroked" d="M 34 15 L 66 15 L 66 74 L 34 74 L 34 15" />
+    <path fill="current-color" className="stroked" d="M 34 15 L 66 15 L 66 74 L 34 74 L 34 15" />
     <circle className="lightblue stroked" cx="50" cy="82" r="4" />
   </symbol>,
   developer_device: <symbol id="developer_device" dataname="developer_device" xmlns="http://www.w3.org/2000/svg" viewBox="14 14 100 100">
@@ -115,7 +115,7 @@ export default {
     <rect x="48.9" y="43.498" fill="none" width="47.6" height="15.6" />
     <text transform="matrix(1 0 0 1 48.8999 54.5371)" fill="#FFFFFF" fontFamily="Consolas, monospace" fontSize="16">doctl</text>
   </symbol>,
-  web: <symbol id="web" dataname="web" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 452 339" transform="matrix(1,0,0,1,0,-600)">
+  web: <symbol id="web" dataname="web" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 452 339" transform="matrix(1,0,0,1,0,-600)">
     <text x="41" y="690">Droplets</text>
     <line x1="41.16" y1="725.06" x2="412.59" y2="725.06" fill="none" stroke="#0069ff" strokeMiterlimit="10" strokeWidth="0.81" opacity="0.2"></line>
     <line x1="41.16" y1="725.06" x2="80.59" y2="725.06" fill="none" stroke="#0069ff" strokeMiterlimit="10" strokeWidth="0.81"></line>
@@ -201,7 +201,11 @@ export default {
   "ci-cd": <symbol id="ci-cd" dataname="ci-cd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
     <path d="M655.461 473.469c11.875 81.719-13.062 167.781-76.812 230.594-94.188 92.938-239.5 104.375-346.375 34.562l74.875-73L31.96 627.25 70.367 896l84.031-80.5c150.907 111.25 364.938 100.75 502.063-34.562 79.5-78.438 115.75-182.562 111.25-285.312L655.461 473.469zM189.46 320.062c94.156-92.938 239.438-104.438 346.313-34.562l-75 72.969 275.188 38.406L697.586 128l-83.938 80.688C462.711 97.34400000000005 248.742 107.96900000000005 111.585 243.25 32.085 321.656-4.133 425.781 0.335 528.5l112.25 22.125C100.71 468.875 125.71 382.906 189.46 320.062z" />
   </symbol>,
-  internet: <symbol id="internet" dataname="internet" xmlns="http://www.w3.org/2000/svg" viewbox="4 4 60 60">
-    <path className="offwhite stroked" fill="currentColor" d="m24.412409,19.9375c-1.133591,-0.889752 -2.55901,-1.420231 -4.105051,-1.420231c-3.642017,0 -6.605695,2.937738 -6.69908,6.597913c-3.758748,1.425419 -6.434489,5.093376 -6.434489,9.391683c0,5.079109 3.734105,9.274951 8.577158,9.937726l0,0.090791l34.307333,0l0,-0.016861c4.78339,-0.280155 8.577158,-4.291821 8.577158,-9.199725c0,-4.732806 -3.52788,-8.631632 -8.070025,-9.156923c0.018158,-0.287937 0.028534,-0.579766 0.028534,-0.872891c0,-7.334618 -6.120612,-13.280133 -13.669237,-13.280133c-5.587539,0 -10.389087,3.258101 -12.5123,7.924759" />
+  internet: <symbol id="internet" dataname="internet" xmlns="http://www.w3.org/2000/svg" viewBox="4 4 60 60">
+    <path
+      className="offwhite stroked"
+      fill="current-color"
+      d="m24.412409,19.9375c-1.133591,-0.889752 -2.55901,-1.420231 -4.105051,-1.420231c-3.642017,0 -6.605695,2.937738 -6.69908,6.597913c-3.758748,1.425419 -6.434489,5.093376 -6.434489,9.391683c0,5.079109 3.734105,9.274951 8.577158,9.937726l0,0.090791l34.307333,0l0,-0.016861c4.78339,-0.280155 8.577158,-4.291821 8.577158,-9.199725c0,-4.732806 -3.52788,-8.631632 -8.070025,-9.156923c0.018158,-0.287937 0.028534,-0.579766 0.028534,-0.872891c0,-7.334618 -6.120612,-13.280133 -13.669237,-13.280133c-5.587539,0 -10.389087,3.258101 -12.5123,7.924759"
+    />
   </symbol>,
 }
