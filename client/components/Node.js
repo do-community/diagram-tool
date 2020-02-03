@@ -74,37 +74,15 @@ class Node extends React.Component {
               ?
               undefined
               :
-              <svg
-                className={(metadata.cloud_firewall && metadata.cloud_firewall !== 'disabled') ? 'stroked thinstroked' : 'lightstroked thinstroked dashed'}
-                width="64px"
-                height="64px"
-                x="18px"
-                y="18px"
-              >
-                {ICONS.bubble}
-              </svg>
+              ICONS.bubble
             }
             {node_template.extends && node_template.extends === 'droplet'
               ?
-              <svg
-                width={(scale * 0.5) + "px"}
-                height={(scale * 0.5) + "px"}
-                x={Math.round(((100 - (scale * 0.5)) / 2) - (metadata.block_storage ? 10 : 0 )) + "px"}
-                y={Math.round((100 - (scale * 0.5)) / 2) + "px"}
-              >
-                {ICONS.droplet}
-              </svg>
+              ICONS.droplet
               :
               undefined
             }
-            <svg
-              width={scale + "px"}
-              height={scale + "px"}
-              x={Math.round(((100 - scale) / 2) - (metadata.block_storage ? 10 : 0 )) + "px"}
-              y={Math.round((100 - scale) / 2) + "px"}
-            >
-              {ICONS[type]}
-            </svg>
+            {ICONS[type]}
             {
               metadata.block_storage ? 
               <svg width="20px" height="20px" x="54px" y="40px">{ICONS.block_storage}</svg>
