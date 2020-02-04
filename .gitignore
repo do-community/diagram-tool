@@ -34,3 +34,10 @@ node_modules
 
 # Ignore the dist
 dist
+
+# Ignore the build files
+build/base.html
+index.html
+
+# Ignore DS_Store (smh macOS)
+.DS_Store
