@@ -69,6 +69,7 @@ class Node extends React.Component {
             height="100%"
             viewBox="0 0 100 100"
             style={metadata.color ? { color: metadata.color } : {}}
+            
           >
             {node_template.behavior.regionless
               ?
@@ -85,7 +86,7 @@ class Node extends React.Component {
             {ICONS[type]}
             {
               metadata.block_storage ? 
-              <svg width="20px" height="20px" x="54px" y="40px">{ICONS.block_storage}</svg>
+              <svg width="20px" height="20px" x="54px" y="40px" style={{width: "20px", height: "20px"}} >{ICONS.block_storage}</svg>
               :
               null
             }
@@ -94,8 +95,10 @@ class Node extends React.Component {
               <svg
                 width={scale + "px"}
                 height={scale + "px"}
+                style={{width: scale + "px", height: scale + "px"}}
                 x={Math.round(((100 - scale) / 2) - (metadata.block_storage ? Math.cbrt(Math.max(1000,metadata.block_storage))/2.0 : 0)) + "px"}
                 y={Math.round((100 - scale) / 2) + "px"}
+                
               >
                 {ICONS[metadata.management_method]}
               </svg>
@@ -112,6 +115,7 @@ class Node extends React.Component {
                 y="38"
                 height="32px"
                 width="32px"
+                style={{width: "32px", height: "32px"}}
               />
             ) : null}
 
@@ -123,11 +127,12 @@ class Node extends React.Component {
             {metadata.tags
               ? (typeof(metadata.tags) === 'string' ? metadata.tags.split(",") : metadata.tags).map((tag, i) => (
                   (tag in tags ?
-                    <svg key={id + "_tag_" + i} title={tag}>
+                    <svg key={id + "_tag_" + i} title={tag} >
                       <svg
                         width="10px"
                         height="10px"
                         className={"qual_" + tags[tag].color_id}
+                        style={{width: "10px", height: "10px"}}
                       >
                         {ICONS.tag}
                       </svg>
