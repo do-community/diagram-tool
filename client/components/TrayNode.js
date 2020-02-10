@@ -7,10 +7,10 @@ class TrayNode extends React.Component {
 		const {id, connectDragSource} = this.props;
 		return connectDragSource(
 			<li key={id} data-type={id} data-click_key={id} data-category="node" data-ondoubleclick="add" className="small">
-				<svg>
-					<use className="paper" xlinkHref={('#' + id)}>
+				<svg viewBox="0 0 60 60">
+					<g transform="scale(0.6)">
 						{ICONS[id]}
-					</use>
+					</g>
 				</svg>
 				<label>{id}</label>
 			</li>
