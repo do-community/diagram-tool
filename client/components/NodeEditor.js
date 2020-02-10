@@ -8,6 +8,10 @@ class NodeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.state = {"top": 120 - window.pageYOffset};
+    window.addEventListener("scroll", () => {
+      this.setState({top: 120 - window.pageYOffset});
+    });
   }
 
   handleChange(e) {
@@ -24,7 +28,7 @@ class NodeEditor extends React.Component {
     const all_metadata = Object.assign({}, (item_type === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (item_type === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
     
     return (
-      <div className="editor side-panel">
+      <div className="editor side-panel" style={{top: this.state.top}}>
         <h3>{template.name} settings:</h3>
         <p>{template.description}</p>
         <form className="bui-Form--spacing" onLoad={$(this).init}>

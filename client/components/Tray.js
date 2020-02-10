@@ -5,14 +5,20 @@ import DATA from '../data';
 console.log(DATA.NODES_BY_CATEGORY);
 
 class Tray extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {"top": 120 - window.pageYOffset};
+		window.addEventListener("scroll", () => {
+			this.setState({top: 120 - window.pageYOffset})
+		});
+	}
 	toggleMinimized() {
 		const sidenav = document.querySelector('.bui-SideNav');
 		sidenav.classList.toggle('minimized');
-
 	}
 	render(){
 		return this.props.connectDropTarget(
-			<div className="tray side-panel">
+			<div className="tray side-panel" style={{top: this.state.top}}>
 				<h3>Build</h3>
 				<div className="scrollable">
 					<ul>
