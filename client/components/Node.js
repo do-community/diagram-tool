@@ -6,6 +6,12 @@ import ICONS from "../data/ICONS.js";
 import ConnectorDragHandle from "./ConnectorDragHandle";
 
 class Node extends React.Component {
+  handleOffset() {
+    return {
+      left: (this.props.position ? this.props.position[0] * 100 : 0) + "px",
+      top: ((this.props.position ? this.props.position[1] * 100 : 0) - window.pageYOffset) + "px"
+    }
+  }
   render() {
     var {
         node_template,
@@ -21,10 +27,6 @@ class Node extends React.Component {
       } = this.props,
       metadata = metadata || {},
       scale = Math.round("scale" in metadata ? 60 * metadata.scale : 60),
-      offset = {
-        left: (position ? position[0] * 100 : 0) + "px",
-        top: (position ? position[1] * 100 : 0) + "px"
-      },
       label_offset = { bottom: (node_template.label_offset ? node_template.label_offset : 0) + "px" };
 
       if(helpers.sketchMode()) {
@@ -51,7 +53,7 @@ class Node extends React.Component {
           key={id}
           data-click_key={id}
           data-category="node"
-          style={offset}
+          style={this.handleOffset()}
           data-selected={this.props.selected === true}
           className="hoverParent"
         >

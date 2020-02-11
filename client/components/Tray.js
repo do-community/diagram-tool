@@ -7,9 +7,10 @@ console.log(DATA.NODES_BY_CATEGORY);
 class Tray extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {"top": 120 - window.pageYOffset};
+		const topOffset = document.getElementById("root").getBoundingClientRect().top + 20;
+		this.state = {"top": topOffset - window.pageYOffset};
 		window.addEventListener("scroll", () => {
-			this.setState({top: 120 - window.pageYOffset})
+			this.setState({top: topOffset - window.pageYOffset});
 		});
 	}
 	toggleMinimized() {

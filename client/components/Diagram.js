@@ -26,6 +26,12 @@ class Diagram extends React.Component {
     this.diagramDrop = this.diagramDrop.bind(this);
     this.share = this.share.bind(this);
 
+    const bottomOffset = document.getElementById("root").getBoundingClientRect().bottom;
+		this.state = {"bottom": bottomOffset + window.pageYOffset};
+		window.addEventListener("scroll", () => {
+			this.setState({"bottom": bottomOffset + window.pageYOffset});
+		});
+
     //TODO: Not sure where to put this initialize state call, so leaving it here
     helpers.initializeState(function(response) {
       props.initialize(response);
@@ -275,7 +281,7 @@ class Diagram extends React.Component {
 
         <NodeEditor {...selected} />
 
-        <div className="bui-GridContainer shareButton">
+        <div className="bui-GridContainer shareButton" style={{bottom: this.state.bottom}}>
           <div className="bui-Col-3">
             <a href="#" className="bui-Button" onClick={this.share}>
               Share

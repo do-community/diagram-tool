@@ -4,6 +4,14 @@ import dndHelper from "../dndHelper.js";
 import helpers from "../helpers.js";
 
 class Connector extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {topOffset: window.pageYOffset};
+		window.addEventListener("scroll", () => {
+			this.setState({topOffset: window.pageYOffset});
+		})
+	}
+
 	render() {
 		const {
 			connector_template,
@@ -139,7 +147,7 @@ class Connector extends React.Component {
 			}
 		}
 
-		const center = { left: w / 2, top: h / 2 },
+		const center = { left: w / 2, top: (h / 2) - this.state.topOffset },
 			d_string = helpers.lineToSVGString(
 				path,
 				dir,
