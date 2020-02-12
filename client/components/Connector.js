@@ -212,7 +212,7 @@ class Connector extends React.Component {
 				data-selected={this.props.selected === true}
 				className="hoverParent"
 			>
-				<label className="hoverShow">
+				<label className="hoverShow" style={{left: center.left, top: center.top}}>
 					{connector_template.name}
 				</label>
 
@@ -229,58 +229,60 @@ class Connector extends React.Component {
 							: metadata.color
 					}
 				>
-					<path
-						data-js={"wire_" + id}
-						className="offwhitestroked"
-						d={d_string}
-						strokeWidth="5px"
-					/>
-					<path
-						className={
-							connector_template.mode === "duplex"
-								? "unfilled"
-								: "unfilled dashed"
-						}
-						d={d_string}
-						stroke="currentcolor"
-						strokeWidth={
-							connector_template.mode === "duplex"
-								? "3px"
-								: "1px"
-						}
-					/>
-
-					{(!metadata || !metadata.encryption) && connector_template.mode === "duplex" ? (
+					<g transform={`translate(0, -${this.state.topOffset})`}>
 						<path
+							data-js={"wire_" + id}
 							className="offwhitestroked"
 							d={d_string}
-							strokeWidth="2px"
+							strokeWidth="5px"
 						/>
-					) : (
-						undefined
-					)}
-
-					{metadata && metadata.dns ? (
 						<path
-							d={helpers.lineToSVGString(dns_path, dir, true)}
+							className={
+								connector_template.mode === "duplex"
+									? "unfilled"
+									: "unfilled dashed"
+							}
+							d={d_string}
 							stroke="currentcolor"
+							strokeWidth={
+								connector_template.mode === "duplex"
+									? "3px"
+									: "1px"
+							}
 						/>
-					) : (
-						undefined
-					)}
 
-					{metadata &&
-					metadata.encryption ? (
-						<g>
+						{(!metadata || !metadata.encryption) && connector_template.mode === "duplex" ? (
 							<path
-								data-js={"squiggle_" + id + 'a'}
+								className="offwhitestroked"
+								d={d_string}
 								strokeWidth="2px"
-								className="paperstroked"
 							/>
-						</g>
-					) : (
-						undefined
-					)}
+						) : (
+							undefined
+						)}
+
+						{metadata && metadata.dns ? (
+							<path
+								d={helpers.lineToSVGString(dns_path, dir, true)}
+								stroke="currentcolor"
+							/>
+						) : (
+							undefined
+						)}
+
+						{metadata &&
+						metadata.encryption ? (
+							<g>
+								<path
+									data-js={"squiggle_" + id + 'a'}
+									strokeWidth="2px"
+									className="paperstroked"
+								/>
+							</g>
+						) : (
+							undefined
+						)}
+					</g>
 
 					<circle
 						className="hoverShow add"
@@ -306,7 +308,7 @@ class Connector extends React.Component {
 						title={metadata.dns}
 						style={{
 							left: dns_path[1][0] - 2,
-							marginTop: dns_path[1][1]
+							marginTop: dns_path[1][1] - this.state.topOffset,
 						}}
 					>
 						<dt style={{ borderColor: metadata.color }}>dns:</dt>
