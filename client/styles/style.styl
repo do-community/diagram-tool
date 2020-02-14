@@ -37,133 +37,6 @@ paddingsmall = 0.5rem
 @font-face 
   font-family 'Humor Sans'
   src url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf')
-  
-
-svg
-  .stroked
-    stroke default_blue
-  .lightstroked
-    stroke light_blue
-  .thinstroked
-    stroke-width 1px
-  .unstroked
-    stroke none;
-  .offblack
-    fill gray800
-    stroke gray800
-  .white
-    fill #FFF
-  .offwhite
-    fill gray50
-    color gray50
-  .paper
-    fill white_semitransparent
-    color white_semitransparent
-  .waxpaper
-    fill white_mostlytransparent
-    color white_mostlytransparent
-  .paperstroked
-    stroke white_semitransparent
-    fill none
-  .lightblue
-    fill light_blue
-  .darkblue
-    fill default_blue
-  .unfilled
-    fill none
-  .active
-    fill #15cd72
-  .offwhitestroked
-    fill none
-    stroke gray50
-  .dashed
-    stroke-dasharray 4
-  .inherit-fill
-    fill inherit
-
-  .drag:hover
-    stroke-width 5
-    stroke #000
-
-/* TAG COLORS */
-.qual_1
-  fill #9b82f3
-
-.qual_2
-  fill #71cddd
-  
-.qual_3
-  fill #34bc6e
-  
-.qual_4
-  fill #95d13c
-
-.qual_5
-  fill #ffb000
-  
-.qual_6
-  fill #fe8500
-  
-.qual_7
-  fill #ff509e
-  
-.qual_8
-  fill #5392ff
-
-/* REUSABLE */
-.truncate
-  white-space nowrap
-  overflow-x hidden
-  text-overflow ellipsis
-
-.standard-padding
-  padding 1rem 2rem
-
-.small-padding
-  padding 0.5rem
-
-.standard-margin
-  margin 1rem
-
-.center-on-grid
-  position absolute
-  margin-top calc(45vh -  86px)
-  margin-left calc(50% -  175px)
-  text-align center
-
-.scrollable
-  height 100%
-  overflow hidden
-  overflow-y scroll
-
-.side-panel
-  position fixed
-  bottom 0
-  height calc(100vh - 200px)
-  -webkit-transition: width .05s linear
-  transition: width .05s linear
-  -webkit-transform: translateZ(0) scale(1,1)
-  z-index topLayer
-  background gray100
-  border 1px solid gray300
-
-  h3
-    @extend .small-padding
-    display block
-    text-align center
-    margin 0
-    font-size fontmedium
-    font-weight bold
-    background gray300
-
-
-  h4
-    @extend .small-padding
-    display block
-    text-align center
-    border-top 2px solid gray50
-    box-shadow 0 -2px 0 gray200
-    margin 0
 
 html
   font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
@@ -173,286 +46,412 @@ body
   background gray200
   color gray800
 
-.main
-  min-height calc(100vh)
-  max-height calc(100vh)
-  overflow hidden
+.infragram
+  svg
+    .stroked
+      stroke default_blue
+    .lightstroked
+      stroke light_blue
+    .thinstroked
+      stroke-width 1px
+    .unstroked
+      stroke none;
+    .offblack
+      fill gray800
+      stroke gray800
+    .white
+      fill #FFF
+    .offwhite
+      fill gray50
+      color gray50
+    .paper
+      fill white_semitransparent
+      color white_semitransparent
+    .waxpaper
+      fill white_mostlytransparent
+      color white_mostlytransparent
+    .paperstroked
+      stroke white_semitransparent
+      fill none
+    .lightblue
+      fill light_blue
+    .darkblue
+      fill default_blue
+    .unfilled
+      fill none
+    .active
+      fill #15cd72
+    .offwhitestroked
+      fill none
+      stroke gray50
+    .dashed
+      stroke-dasharray 4
+    .inherit-fill
+      fill inherit
 
-  .editor
-    position fixed
-    width 30rem
-    right 1rem
-    z-index topLayer
+    .drag:hover
+      stroke-width 5
+      stroke #000
 
-    &.collapsed
-      right -30rem
+  /* TAG COLORS */
+  .qual_1
+    fill #9b82f3
 
-  .tray
-    left 0
-    width 10rem
-    display flex
-    flex-direction column
-
-    ul
-      list-style none
-      margin 0
-      padding 0
-      text-align center
-      flex 1
-
-    li[data-category="node"]
-      @extend .small-padding
-      text-align center
-      svg
-        width 60px
-        height 60px
-        margin 5px
-      label
-        top -20px
-        position relative
-        background white_semitransparent
-        color gray600
-
-    .collapseButton
-      display block
-      position absolute
-      top 4px
-      right 4px
-      height 20px
-      width 20px
-      background gray300
-      padding-left 2px
-      border none
-      border-radius 10px
-      box-shadow none
-      z-index 1000001
-
-
-  .modeSelector
-    left 110px
-  
-  .diagramMetadata
-    position absolute
-    z-index topLayer
-    width 50%
-    max-width 800px
-    left 50%
-    transform translateX(-50%)
-    text-align center
+  .qual_2
+    fill #71cddd
     
-    h1
-      position relative
-      display inline-block
-      margin 1rem
-      font-size fontmedium
-      &:hover h1:after
-        position absolute
-        right -16px
-        content "✎"
+  .qual_3
+    fill #34bc6e
+    
+  .qual_4
+    fill #95d13c
 
-    textarea
-      margin 0
-      border none
-      border-top 1px solid gray200
-      padding 8px 16px
-      width 75%
-      background none
+  .qual_5
+    fill #ffb000
+    
+  .qual_6
+    fill #fe8500
+    
+  .qual_7
+    fill #ff509e
+    
+  .qual_8
+    fill #5392ff
 
-  .diagram
+  /* REUSABLE */
+  .truncate
+    white-space nowrap
+    overflow-x hidden
+    text-overflow ellipsis
+
+  .standard-padding
+    padding 1rem 2rem
+
+  .small-padding
+    padding 0.5rem
+
+  .standard-margin
+    margin 1rem
+
+  .center-on-grid
+    position absolute
+    margin-top calc(45vh -  86px)
+    margin-left calc(50% -  175px)
+    text-align center
+
+  .scrollable
+    height 100%
+    overflow hidden
+    overflow-y scroll
+
+  .side-panel
     position fixed
-    width calc(100% - 120px)
-    height calc(100vh - 120px)
-    left 110px
-    z-index 10
-    background-repeat repeat
-    background-position center center
-    text-align left
+    bottom 0
+    height calc(100vh - 200px)
+    -webkit-transition: width .05s linear
+    transition: width .05s linear
+    -webkit-transform: translateZ(0) scale(1,1)
+    z-index topLayer
+    background gray100
+    border 1px solid gray300
 
-    &:focus
-      outline: none;
-
-    div[data-category="region"]
-      @extend .center-on-grid
-      z-index 1
-      border 1px solid light_blue
-      border-radius 10px
-      background rgba(255,255,255,0.1)
-      box-shadow 0 0 5px rgba(0,0,0,0.05)
-
-      label
-        @extend .truncate
-        position absolute
-        top -20px
-        left 6px
-        height 23px
-        max-width 50%
-        padding 2.5px
-        border-radius 3px
-        
-    canvas[data-category="region"]
-      @extend .center-on-grid
-      z-index 1
-
-
-    figure[data-category="node"], figure[data-category="connector"]
-      @extend .center-on-grid
-      width 100px
-      height 100px
-      z-index 10
+    h3
+      @extend .small-padding
+      display block
       text-align center
+      margin 0
+      font-size fontmedium
+      font-weight bold
+      background gray300
 
-      label
-        @extend .truncate
-        top calc(50% - 16px)
-        left calc(50% - 20px)
-        width 40px
-        height 18px
-        max-width 100%
-        background offwhite
-        position absolute
 
-      .metadata
-        position absolute
-        bottom  5px
-        right  5px
-      
+    h4
+      @extend .small-padding
+      display block
+      text-align center
+      border-top 2px solid gray50
+      box-shadow 0 -2px 0 gray200
+      margin 0
 
-      figcaption
-        @extend .truncate
-        height 18px
-        max-width 100%
-        text-align left
-        position absolute
-        left 20px
-        z-index -1
-        text-shadow 1px 1px 1px offwhite, -1px -1px 1px offwhite
-        background gray200_semitransparent
-        
+  .main
+    min-height calc(100vh)
+    max-height calc(100vh)
+    overflow hidden
+
+    .editor
+      position fixed
+      width 30rem
+      right 1rem
+      z-index topLayer
+
+      &.collapsed
+        right -30rem
+
+    .tray
+      left 0
+      width 10rem
+      display flex
+      flex-direction column
+
+      ul
+        list-style none
+        margin 0
+        padding 0
+        text-align center
+        flex 1
+
+      li[data-category="node"]
+        @extend .small-padding
+        text-align center
         svg
-          display inline-block
+          width 60px
+          height 60px
+          margin 5px
+        label
+          top -20px
+          position relative
+          background white_semitransparent
+          color gray600
+
+      .collapseButton
+        display block
+        position absolute
+        top 4px
+        right 4px
+        height 20px
+        width 20px
+        background gray300
+        padding-left 2px
+        border none
+        border-radius 10px
+        box-shadow none
+        z-index 1000001
+
+
+    .modeSelector
+      left 110px
+    
+    .diagramMetadata
+      position absolute
+      z-index topLayer
+      width 50%
+      max-width 800px
+      left 50%
+      transform translateX(-50%)
+      text-align center
+      
+      h1
+        position relative
+        display inline-block
+        margin 1rem
+        font-size fontmedium
+        &:hover h1:after
+          position absolute
+          right -16px
+          content "✎"
+
+      textarea
+        margin 0
+        border none
+        border-top 1px solid gray200
+        padding 8px 16px
+        width 75%
+        background none
+
+    .diagram
+      position fixed
+      width calc(100% - 120px)
+      height calc(100vh - 120px)
+      left 110px
+      z-index 10
+      background-repeat repeat
+      background-position center center
+      text-align left
+
+      &:focus
+        outline: none;
+
+      div[data-category="region"]
+        @extend .center-on-grid
+        z-index 1
+        border 1px solid light_blue
+        border-radius 10px
+        background rgba(255,255,255,0.1)
+        box-shadow 0 0 5px rgba(0,0,0,0.05)
+
+        label
+          @extend .truncate
+          position absolute
+          top -20px
+          left 6px
+          height 23px
+          max-width 50%
+          padding 2.5px
+          border-radius 3px
+          
+      canvas[data-category="region"]
+        @extend .center-on-grid
+        z-index 1
+
+
+      figure[data-category="node"], figure[data-category="connector"]
+        @extend .center-on-grid
+        width 100px
+        height 100px
+        z-index 10
+        text-align center
+
+        label
+          @extend .truncate
+          top calc(50% - 16px)
+          left calc(50% - 20px)
+          width 40px
+          height 18px
+          max-width 100%
+          background offwhite
+          position absolute
+
+        .metadata
+          position absolute
+          bottom  5px
+          right  5px
+        
+
+        figcaption
+          @extend .truncate
+          height 18px
+          max-width 100%
+          text-align left
+          position absolute
+          left 20px
+          z-index -1
+          text-shadow 1px 1px 1px offwhite, -1px -1px 1px offwhite
+          background gray200_semitransparent
+          
+          svg
+            display inline-block
+            width 10px
+            height 10px
+            margin 0 0 3px 0
+            padding 0
+            
+        .createRequest
+          position absolute;
+          margin 50% 0 0 50%
+          top -9px
+          left -13px
+          cursor pointer
+
+        .drag
+          position absolute
+          border-radius  5px
+          background gray
           width 10px
           height 10px
-          margin 0 0 3px 0
-          padding 0
-          
-      .createRequest
-        position absolute;
-        margin 50% 0 0 50%
-        top -9px
-        left -13px
-        cursor pointer
+        .drag.w
+          top  45px
+          left 00px
+          cursor w-resize
+        .drag.e
+          top  45px
+          right 0
+          cursor e-resize
+        .drag.s
+          bottom 0
+          left  45px
+          cursor s-resize
+        .drag.n
+          top 0
+          left  45px
+          cursor n-resize
 
-      .drag
-        position absolute
-        border-radius  5px
-        background gray
-        width 10px
-        height 10px
-      .drag.w
-        top  45px
-        left 00px
-        cursor w-resize
-      .drag.e
-        top  45px
-        right 0
-        cursor e-resize
-      .drag.s
-        bottom 0
-        left  45px
-        cursor s-resize
-      .drag.n
-        top 0
-        left  45px
-        cursor n-resize
+        .dns-label
+          position absolute
+          margin auto
+          text-align center
+          top -14px
+          width auto
+          dt, dd
+            display inline-block
+            float left
+            margin 0
+            padding 1px 2px
+            line-height 14px
+            border-radius 2px 0 0 2px
+            border 1px solid
+            border-right none
+            background gray300
+          dd
+            @extend .truncate
+            border-radius 0 2px 2px 0
+            border 1px solid
+            border-left none
+            background none
+            color gray800
+            max-width calc(100% - 30px)
 
-      .dns-label
-        position absolute
-        margin auto
-        text-align center
-        top -14px
-        width auto
-        dt, dd
-          display inline-block
-          float left
-          margin 0
-          padding 1px 2px
-          line-height 14px
-          border-radius 2px 0 0 2px
-          border 1px solid
-          border-right none
-          background gray300
-        dd
-          @extend .truncate
-          border-radius 0 2px 2px 0
-          border 1px solid
-          border-left none
-          background none
-          color gray800
-          max-width calc(100% - 30px)
-
-.hoverParent:hover
+  .hoverParent:hover
+    .hoverShow
+      opacity 0.5!important
+      
   .hoverShow
-    opacity 0.5!important
-    
-.hoverShow
-  opacity 0
-  transition opacity .05s ease-in-out;
-  -moz-transition opacity .05s ease-in-out;
-  -webkit-transition opacity .05s ease-in-out;
-        
+    opacity 0
+    transition opacity .05s ease-in-out;
+    -moz-transition opacity .05s ease-in-out;
+    -webkit-transition opacity .05s ease-in-out;
+          
 
 
-figure[data-category="node"]
-  svg
-    color offwhite_semitransparent
-    
+  figure[data-category="node"]
+    svg
+      color offwhite_semitransparent
+      
 
-figure[data-category="connector"]
-  svg
-    stroke-width 1px
-    opacity 0.75
+  figure[data-category="connector"]
+    svg
+      stroke-width 1px
+      opacity 0.75
 
-.selectShow
-  display none
-
-figure[data-category="connector"][data-selected="true"], figure[data-category="node"][data-selected="true"]
-  outline none
-  svg
-    stroke-width 2px
-  use
-    stroke-width 3px
   .selectShow
-    display block
+    display none
 
-*[draggable="true"]
-  cursor pointer
+  figure[data-category="connector"][data-selected="true"], figure[data-category="node"][data-selected="true"]
+    outline none
+    svg
+      stroke-width 2px
+    use
+      stroke-width 3px
+    .selectShow
+      display block
 
-#dragBox
-  position fixed
-  z-index 99999
-  border 1px solid blue
-  background rgba(150,150,255,0.1)
-  display none
+  *[draggable="true"]
+    cursor pointer
 
-.shareButton
-  position fixed
-  left calc(50% - 230px)
-  width 460px
-  
-.minimizeButton
-  width 32px
-  &:after
-    content "◀"
-.minimized .minimizeButton:after
-  content "▶"
+  #dragBox
+    position fixed
+    z-index 99999
+    border 1px solid blue
+    background rgba(150,150,255,0.1)
+    display none
 
-/* Hand-Sketched Special! */
-.sketch_on
-  display none!important
-.sketch
-  font-family:'Humor Sans'
-  .sketch_on
-    display block!important
-  .sketch_off
-    display none!important
+  .shareButton
+    position fixed
+    left calc(50% - 230px)
+    width 460px
     
+  .minimizeButton
+    width 32px
+    &:after
+      content "◀"
+  .minimized .minimizeButton:after
+    content "▶"
+
+  /* Hand-Sketched Special! */
+  .sketch_on
+    display none!important
+  .sketch
+    font-family:'Humor Sans'
+    .sketch_on
+      display block!important
+    .sketch_off
+      display none!important

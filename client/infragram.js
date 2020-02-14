@@ -1,8 +1,10 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import $ from "jquery";
+window.$ = $;
+
 import React from 'react';
 import { render } from 'react-dom';
-
-// Import css
-import './styles/style.styl';
 
 // Import components
 import App from './components/App';

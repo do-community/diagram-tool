@@ -41,3 +41,6 @@ index.html
 
 # Ignore DS_Store (smh macOS)
 .DS_Store
+
+# parceljs related stuff.
+.cache

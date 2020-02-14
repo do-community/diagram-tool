@@ -16,11 +16,13 @@ limitations under the License.
 <extends src="./build/base.html">
     <block name="title">Infragram | </block>
     <block name="head">
+        <link rel="stylesheet" href="./style.css">
     </block>
     <block name="content">
-        <div id="dragBox"></div>
-        <div class="rootContainer" id="root"></div>
-        <script src="./bundle.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <span class="infragram">
+            <div id="dragBox"></div>
+            <div class="rootContainer" id="root"></div>
+        </span>
+        <script src="./infragram.js"></script>
     </block>
 </extends>
