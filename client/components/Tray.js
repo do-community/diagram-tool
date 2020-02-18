@@ -7,9 +7,9 @@ console.log(DATA.NODES_BY_CATEGORY);
 class Tray extends React.Component {
 	constructor(props) {
 		super(props);
-		const topOffset = document.getElementById("root").getBoundingClientRect().top + 20;
-		this.state = {"top": topOffset - window.pageYOffset};
-		window.addEventListener("scroll", () => {
+		const topOffset = document.getElementById('root').getBoundingClientRect().top + 20;
+		this.state = {'top': topOffset - window.pageYOffset};
+		window.addEventListener('scroll', () => {
 			this.setState({top: topOffset - window.pageYOffset});
 		});
 	}

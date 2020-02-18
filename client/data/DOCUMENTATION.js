@@ -6,17 +6,17 @@
 const DOCUMENTATION = {
 	node:{
 		name: {
-			type:"string",
+			type:'string',
 			validation:[1,40],
 			info:'The node name or hostname.'
 		},
 	    short_name: {
-	    	type: "string",
+	    	type: 'string',
 	    	validation: [0,15],
 	    	info: 'Optional shorter name (15 char max) of node to be displayed in diagrams.'
 	    },
 	    description: {
-	    	type: "string",
+	    	type: 'string',
 	    	length: [0,255],
 	    	info: 'Optional description of node, can use markdown, 255 char max.',
 	    	markdown: true
@@ -58,15 +58,15 @@ const DOCUMENTATION = {
 	    },
 	    size: {
 	        type: 'select',
-	        validation: ["s-1vcpu-1gb",  "s-1vcpu-2gb", "s-1vcpu-3gb", "s-2vcpu-2gb", "s-3vcpu-1gb", "s-2vcpu-4gb", "c-1vcpu-2gb",  "c-2", "s-4vcpu-8gb",  "c-4", "s-6vcpu-16gb", "c-8", "s-8vcpu-32gb", "s-12vcpu-48gb", "c-16", "s-16vcpu-64gb", "s-20vcpu-96gb", "c-32", "s-24vcpu-128gb", "c-46vcpu-92gb", "c-48", "s-32vcpu-192gb"],
+	        validation: ['s-1vcpu-1gb',  's-1vcpu-2gb', 's-1vcpu-3gb', 's-2vcpu-2gb', 's-3vcpu-1gb', 's-2vcpu-4gb', 'c-1vcpu-2gb',  'c-2', 's-4vcpu-8gb',  'c-4', 's-6vcpu-16gb', 'c-8', 's-8vcpu-32gb', 's-12vcpu-48gb', 'c-16', 's-16vcpu-64gb', 's-20vcpu-96gb', 'c-32', 's-24vcpu-128gb', 'c-46vcpu-92gb', 'c-48', 's-32vcpu-192gb'],
 	        info: 'Droplet size',
-	        default: "s-2vcpu-4gb",
+	        default: 's-2vcpu-4gb',
 	    },
 	    image: {
 	        type: 'select',
-	        validation: ["Ubuntu 16.04.4 x64"],
+	        validation: ['Ubuntu 16.04.4 x64'],
 	        info: 'Droplet image',
-	        default: "Ubuntu 16.04.4 x64",
+	        default: 'Ubuntu 16.04.4 x64',
 	    },
 	    user_data: {
 	    	type: 'string',
@@ -156,12 +156,12 @@ const DOCUMENTATION = {
 	},
 	connector:{
 		name: {
-			type:"string",
+			type:'string',
 			validation:[1,40],
 			info:'The node name or hostname.'
 		},
 	    description: {
-	    	type: "string",
+	    	type: 'string',
 	    	length: [0,255],
 	    	info: 'Optional description of node, can use markdown, 255 char max.',
 	    	markdown: true

@@ -1,12 +1,12 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import helpers from "../helpers.js";
+import helpers from '../helpers.js';
 
 class Region extends React.Component {
   constructor(props){
     super(props);
 		this.state = {yOffset: window.pageYOffset};
-		window.addEventListener("scroll", () => {
+		window.addEventListener('scroll', () => {
 			this.setState({yOffset: window.pageYOffset});
 		});
   }
@@ -18,8 +18,8 @@ class Region extends React.Component {
 
     if(helpers.sketchMode()) {
       window.setTimeout(function() {
-      const canv = document.getElementById("canvas_region_" + region_name),
-          canv_ctx = canv.getContext("2d"),
+      const canv = document.getElementById('canvas_region_' + region_name),
+          canv_ctx = canv.getContext('2d'),
           rc = rough.canvas(canv);
         canv_ctx.clearRect(0, 0, canv.width, canv.height);
         rc.rectangle(5, 5, canv.width-10, canv.height-10, {stroke:'#CCC', roughness:2, fill:'#fcfcfc', fillStyle:'solid', bowing:3});

@@ -1,13 +1,13 @@
-import React from "react";
-import dndHelper from "../dndHelper.js";
+import React from 'react';
+import dndHelper from '../dndHelper.js';
 
-import helpers from "../helpers.js";
+import helpers from '../helpers.js';
 
 class Connector extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {topOffset: window.pageYOffset};
-		window.addEventListener("scroll", () => {
+		window.addEventListener('scroll', () => {
 			this.setState({topOffset: window.pageYOffset});
 		})
 	}
@@ -46,7 +46,7 @@ class Connector extends React.Component {
 				section_style = metadata.style && metadata.style === 'angular' ? 3 : 2;
 			h = Math.abs(end[1] - start[1]) * 103;
 			w = (end[0] - start[0]) * 100;
-			dir = "v";
+			dir = 'v';
 			
 
 			// v - vertical
@@ -54,45 +54,45 @@ class Connector extends React.Component {
 				w = 20;
 				h -= 69;
 				pos = {
-					left: start[0] * 100 + 40 + "px",
+					left: start[0] * 100 + 40 + 'px',
 					top:
 						(((start[1] < end[1] ? start[1] : end[1]) + 1) * 100) - 18 +
-						"px",
-					width: "20px",
-					height: h + "px"
+						'px',
+					width: '20px',
+					height: h + 'px'
 				};
 				path = [[w / 2, 0], [w / 2, h + 3]];
-				viewBox = "0 0 " + w + " " + h;
+				viewBox = '0 0 ' + w + ' ' + h;
 				dns_path = [[w - 2, 0], [w - 2, 20]];
 			} else if (start[1] == end[1]) {
-				dir = "h"; // h - horizontal
+				dir = 'h'; // h - horizontal
 				h = 12;
 				w -= 64;
 				pos = {
-					left: (start[0] + 1) * 100 - 18 + "px",
+					left: (start[0] + 1) * 100 - 18 + 'px',
 					top:
-						((start[1] < end[1] ? start[1] : end[1]) * 100) + 38 + "px",
-					width: w + "px",
-					height: "30px"
+						((start[1] < end[1] ? start[1] : end[1]) * 100) + 38 + 'px',
+					width: w + 'px',
+					height: '30px'
 				};
 				path = [[0, 12], [w + 3, 12]];
-				viewBox = "0 0 " + w + " 30";
+				viewBox = '0 0 ' + w + ' 30';
 				dns_path = [[0, 2], [12, 2]];
 			} else if (w >= h) {
 				w -= 64;
 				h += 20;
 				// if connector travels further in x than in y
 				pos = {
-					left: (start[0] + 0.92) * 100 - 10 + "px",
+					left: (start[0] + 0.92) * 100 - 10 + 'px',
 					top:
 						(start[1] < end[1] ? start[1] : end[1]) * 100 +
 						40 +
-						"px",
-					width: w + "px",
-					height: h + "px"
+						'px',
+					width: w + 'px',
+					height: h + 'px'
 				};
-				dir = "h";
-				viewBox = "0 0 " + w + ".0 " + h + ".0";
+				dir = 'h';
+				viewBox = '0 0 ' + w + '.0 ' + h + '.0';
 				// hb - horizontal, bottom to top (left to right) NOTE: Y is inverted in svg
 				if (start[1] > end[1]) {
 					path = [
@@ -117,15 +117,15 @@ class Connector extends React.Component {
 				w += 10;
 				// if connector travels further in y than x
 				pos = {
-					left: start[0] * 100 + 50 + "px",
+					left: start[0] * 100 + 50 + 'px',
 					top:
 						((start[1] < end[1] ? start[1] : end[1]) + 0.82) * 100 +
-						"px",
-					width: w + "px",
-					height: h + "px"
+						'px',
+					width: w + 'px',
+					height: h + 'px'
 				};
-				dir = "v";
-				viewBox = "0 0 " + w + " " + h;
+				dir = 'v';
+				viewBox = '0 0 ' + w + ' ' + h;
 				// vb - vertical, bottom to top (left to right) NOTE: Y is inverted
 				if (start[1] > end[1]) {
 					path = [
@@ -162,7 +162,7 @@ class Connector extends React.Component {
 		window.setTimeout(function() {
 			if (helpers.sketchMode()) {
 				const canv = document.querySelector('*[data-js="canvas_connector_' + id + '"]'),
-					canv_ctx = canv.getContext("2d"),
+					canv_ctx = canv.getContext('2d'),
 					rc = rough.canvas(canv);
 				let d = d_string,
 					r = 2;
@@ -182,7 +182,7 @@ class Connector extends React.Component {
 				rc.path(d, {
 					stroke: metadata.color,
 					roughness: r,
-					strokeWidth: connector_template.mode === "duplex" ? 1 : 0.25
+					strokeWidth: connector_template.mode === 'duplex' ? 1 : 0.25
 				});
 			} else {
 				if (
@@ -196,7 +196,7 @@ class Connector extends React.Component {
 					);
 					document
 						.querySelector('*[data-js="squiggle_' + id + 'a"]')
-						.setAttribute("d", d);
+						.setAttribute('d', d);
 					
 				}
 			}
@@ -225,33 +225,33 @@ class Connector extends React.Component {
 					data-category="connector"
 					color={
 						metadata && metadata.active === false
-							? "#999"
+							? '#999'
 							: metadata.color
 					}
 				>
 					<g transform={`translate(0, -${this.state.topOffset})`}>
 						<path
-							data-js={"wire_" + id}
+							data-js={'wire_' + id}
 							className="offwhitestroked"
 							d={d_string}
 							strokeWidth="5px"
 						/>
 						<path
 							className={
-								connector_template.mode === "duplex"
-									? "unfilled"
-									: "unfilled dashed"
+								connector_template.mode === 'duplex'
+									? 'unfilled'
+									: 'unfilled dashed'
 							}
 							d={d_string}
 							stroke="currentcolor"
 							strokeWidth={
-								connector_template.mode === "duplex"
-									? "3px"
-									: "1px"
+								connector_template.mode === 'duplex'
+									? '3px'
+									: '1px'
 							}
 						/>
 
-						{(!metadata || !metadata.encryption) && connector_template.mode === "duplex" ? (
+						{(!metadata || !metadata.encryption) && connector_template.mode === 'duplex' ? (
 							<path
 								className="offwhitestroked"
 								d={d_string}
@@ -274,7 +274,7 @@ class Connector extends React.Component {
 						metadata.encryption ? (
 							<g>
 								<path
-									data-js={"squiggle_" + id + 'a'}
+									data-js={'squiggle_' + id + 'a'}
 									strokeWidth="2px"
 									className="paperstroked"
 								/>
@@ -294,7 +294,7 @@ class Connector extends React.Component {
 
 				{helpers.sketchMode() ? (
 					<canvas
-						data-js={"canvas_connector_" + id}
+						data-js={'canvas_connector_' + id}
 						width={pos.width}
 						height={pos.height}
 					/>
@@ -317,7 +317,7 @@ class Connector extends React.Component {
 						</dd>
 					</dl>
 				) : (
-					""
+					''
 				)}
 			</figure>
 		);

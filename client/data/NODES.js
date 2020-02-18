@@ -1,11 +1,11 @@
 const NODES = {
 
-  "browser": {
-    name: "Browser",
-    description: "the end-user, communicating via a web browser",
-    category: "End-User Components",
+  'browser': {
+    name: 'Browser',
+    description: 'the end-user, communicating via a web browser',
+    category: 'End-User Components',
     metadata: {
-      name: "",
+      name: '',
       favicon: '',
       color: ''
     },
@@ -22,12 +22,12 @@ const NODES = {
     }
   },
 
-  "mobile": {
-    name: "Mobile App (User)",
-    description: "the end user, communicating via a mobile app",
-    category: "End-User Components",
+  'mobile': {
+    name: 'Mobile App (User)',
+    description: 'the end user, communicating via a mobile app',
+    category: 'End-User Components',
     metadata: {
-      name: "",
+      name: '',
       favicon: '',
       color: ''
     },
@@ -44,10 +44,10 @@ const NODES = {
     }
   },
 
-  "internet": {
-    name: "Internet",
-    description: "the publicly accessible internet.",
-    category: "End-User Components",
+  'internet': {
+    name: 'Internet',
+    description: 'the publicly accessible internet.',
+    category: 'End-User Components',
     label_offset: -16,
     metadata: {
       name: '',
@@ -67,12 +67,12 @@ const NODES = {
     }
   },
 
-  "iot_device": {
-    name: "IOT Device",
-    description: "A limited functionality internet-capable device.",
-    category: "End-User Components",
+  'iot_device': {
+    name: 'IOT Device',
+    description: 'A limited functionality internet-capable device.',
+    category: 'End-User Components',
     metadata: {
-      name: "",
+      name: '',
       favicon: '',
       color: ''
     },
@@ -89,12 +89,12 @@ const NODES = {
     }
   },
 
-  "developer_device": {
-    name: "Dev Device",
-    description: "Developer's local device",
-    category: "End-User Components",
+  'developer_device': {
+    name: 'Dev Device',
+    description: 'Developer\'s local device',
+    category: 'End-User Components',
     metadata: {
-      name: "",
+      name: '',
       management_method: 'terminal',
       favicon: '',
       color: ''
@@ -111,10 +111,10 @@ const NODES = {
     }
   },
 
-  "floating_ip": {
-    name: "Floating IP",
-    description: "an IP address that can be assigned and reassigned to a single droplet",
-    category: "DO Server Components",
+  'floating_ip': {
+    name: 'Floating IP',
+    description: 'an IP address that can be assigned and reassigned to a single droplet',
+    category: 'DO Server Components',
     metadata: {
       ip: '',
       cost: 0,
@@ -132,13 +132,13 @@ const NODES = {
     }
   },
 
-  "load_balancer": {
-    name: "Load Balancer",
-    description: "reverse proxy that distributes network or application traffic across a number of servers",
-    category: "DO Server Components",
+  'load_balancer': {
+    name: 'Load Balancer',
+    description: 'reverse proxy that distributes network or application traffic across a number of servers',
+    category: 'DO Server Components',
     metadata: {
-      name: "",
-      algo: "round-robin"
+      name: '',
+      algo: 'round-robin'
     },
     behavior: {
       wants: [
@@ -152,13 +152,13 @@ const NODES = {
     }
   },
 
-  "app_server": {
-    name: "Application Server",
-    description: "a stateless server that processes incoming requests via an application and returns a response",
-    category: "DO Server Components",
-    extends: "droplet",
+  'app_server': {
+    name: 'Application Server',
+    description: 'a stateless server that processes incoming requests via an application and returns a response',
+    category: 'DO Server Components',
+    extends: 'droplet',
     metadata: {
-      name: "",
+      name: '',
       agent: true,
       private_network: true
     },
@@ -173,13 +173,13 @@ const NODES = {
     }
   },
 
-  "db_server": {
-    name: "Database Server",
-    description: "a server dedicated to running a database",
-    category: "DO Server Components",
-    extends: "droplet",
+  'db_server': {
+    name: 'Database Server',
+    description: 'a server dedicated to running a database',
+    category: 'DO Server Components',
+    extends: 'droplet',
     metadata: {
-      name: "",
+      name: '',
       agent: true,
       backups: true,
       private_network: true,
@@ -195,13 +195,13 @@ const NODES = {
     }
   },
 
-  "log_server": {
-    name: "Logging Server",
-    description: "a server dedicated to aggregating and indexing logs and analytics.",
-    category: "DO Server Components",
-    extends: "droplet",
+  'log_server': {
+    name: 'Logging Server',
+    description: 'a server dedicated to aggregating and indexing logs and analytics.',
+    category: 'DO Server Components',
+    extends: 'droplet',
     metadata: {
-      name: "",
+      name: '',
       agent: true,
       backups: true,
       private_network: true
@@ -218,13 +218,13 @@ const NODES = {
     }
   },
 
-  "cache_server": {
-    name: "Cache Server",
-    description: "a server dedicated to caching data.",
-    category: "DO Server Components",
-    extends: "droplet",
+  'cache_server': {
+    name: 'Cache Server',
+    description: 'a server dedicated to caching data.',
+    category: 'DO Server Components',
+    extends: 'droplet',
     metadata: {
-      name: "",
+      name: '',
       agent: true,
       backups: true,
       private_network: true
@@ -238,13 +238,13 @@ const NODES = {
     }
   },
 
-  "worker_server": {
-    name: "Worker Server",
-    description: "a stateless server dedicated to performing a task and returning the results",
-    category: "DO Server Components",
-    extends: "droplet",
+  'worker_server': {
+    name: 'Worker Server',
+    description: 'a stateless server dedicated to performing a task and returning the results',
+    category: 'DO Server Components',
+    extends: 'droplet',
     metadata: {
-      name: "",
+      name: '',
       agent: true,
       backups: true,
       private_network: true
@@ -259,12 +259,12 @@ const NODES = {
     }
   },
 
-  "droplet": {
-    name: "Droplet",
-    description: "a droplet",
-    category: "DO Server Components",
+  'droplet': {
+    name: 'Droplet',
+    description: 'a droplet',
+    category: 'DO Server Components',
     metadata: {
-      name: "",
+      name: '',
       agent: false,
       private_network: false,
       enable_ipv6: false,
@@ -288,12 +288,12 @@ const NODES = {
     }
   },
 
-  "spaces": {
-    name: "Spaces",
-    description: "a DigitalOcean object storage space of addressable objects",
-    category: "DO Server Components",
+  'spaces': {
+    name: 'Spaces',
+    description: 'a DigitalOcean object storage space of addressable objects',
+    category: 'DO Server Components',
     metadata: {
-      name: "",
+      name: '',
       edge: true,
       private: true
     },
@@ -308,10 +308,10 @@ const NODES = {
     }
   },
 
-  "ci-cd": {
-    name: "CI/CD Server",
-    description: "Continuous Integration / Continuous Deployment server to automatically build and test software.",
-    category: "DO Server Components",
+  'ci-cd': {
+    name: 'CI/CD Server',
+    description: 'Continuous Integration / Continuous Deployment server to automatically build and test software.',
+    category: 'DO Server Components',
     metadata: {
     },
     behavior: {
@@ -320,10 +320,10 @@ const NODES = {
     }
   },
 
-  "github_repo": {
-    name: "GitHub Repo",
-    description: "Source Code Management platform.",
-    category: "3rd Party Tools",
+  'github_repo': {
+    name: 'GitHub Repo',
+    description: 'Source Code Management platform.',
+    category: '3rd Party Tools',
     metadata: {
     },
     behavior: {
@@ -333,10 +333,10 @@ const NODES = {
     }
   },
 
-  "terraform": {
-    name: "Terraform",
-    description: "A configuration tool that can create an execution plan and build infrastructure",
-    category: "3rd Party Tools",
+  'terraform': {
+    name: 'Terraform',
+    description: 'A configuration tool that can create an execution plan and build infrastructure',
+    category: '3rd Party Tools',
     metadata: {
     },
     behavior: {
@@ -345,10 +345,10 @@ const NODES = {
     }
   },
 
-  "cloudflare": {
-    name: "cloudflare",
-    description: "A gateway like CloudFlare, sits between user and your infrastructure.",
-    category: "3rd Party Tools",
+  'cloudflare': {
+    name: 'cloudflare',
+    description: 'A gateway like CloudFlare, sits between user and your infrastructure.',
+    category: '3rd Party Tools',
     metadata: {
       provider: 'cloudflare',
       owner: '',

@@ -8,9 +8,9 @@ class NodeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    const topOffset = document.getElementById("root").getBoundingClientRect().top + 20;
-    this.state = {"top": topOffset - window.pageYOffset};
-    window.addEventListener("scroll", () => {
+    const topOffset = document.getElementById('root').getBoundingClientRect().top + 20;
+    this.state = {'top': topOffset - window.pageYOffset};
+    window.addEventListener('scroll', () => {
       this.setState({top: topOffset - window.pageYOffset});
     });
   }

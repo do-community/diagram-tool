@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class NodeEditorField extends React.Component {
 	constructor(props) {
@@ -16,7 +16,7 @@ class NodeEditorField extends React.Component {
 
 	input_from_specs(name, value, specs) {
 		switch (specs.type) {
-			case "string":
+			case 'string':
 				return (
 					<div className="bui-FloatLabel">
 						<input
@@ -25,16 +25,16 @@ class NodeEditorField extends React.Component {
 							value={value}
 							onChange={this.handleChange}
 							maxLength={
-								"validation" in specs && typeof specs.validation[1] === "number"
+								'validation' in specs && typeof specs.validation[1] === 'number'
 									? specs.validation[1]
-									: ""
+									: ''
 							}
 							placeholder={name}
 						/>
 						<label htmlFor={name}>{name}</label>
 					</div>
 				);
-			case "number":
+			case 'number':
 				return (
 					<div className="bui-FloatLabel">
 						<input
@@ -42,14 +42,14 @@ class NodeEditorField extends React.Component {
 							type="number"
 							value={value}
 							min={
-								"validation" in specs && typeof specs.validation[0] === "number"
+								'validation' in specs && typeof specs.validation[0] === 'number'
 									? specs.validation[0]
-									: ""
+									: ''
 							}
 							max={
-								"validation" in specs && typeof specs.validation[1] === "number"
+								'validation' in specs && typeof specs.validation[1] === 'number'
 									? specs.validation[1]
-									: ""
+									: ''
 							}
 							onChange={this.handleChange}
 							placeholder={name}
@@ -57,7 +57,7 @@ class NodeEditorField extends React.Component {
 					<label htmlFor={name}>{name}</label>
 					</div>
 				);
-			case "boolean":
+			case 'boolean':
 				return (
 					<div className="bui-Checkbox">
 						<input
@@ -70,7 +70,7 @@ class NodeEditorField extends React.Component {
 						<label htmlFor={name}>{name}</label>
 					</div>
 				);
-			case "select":
+			case 'select':
 				return (
 					<div className="bui-FloatLabel bui-Select">
 						<select
@@ -84,7 +84,7 @@ class NodeEditorField extends React.Component {
 						<label htmlFor={name} style={{opacity:1, top:0}} >{name}:</label>
 					</div>
 				);
-			case "color":
+			case 'color':
 				return (
 					<input
 						id={name}

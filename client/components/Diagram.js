@@ -1,17 +1,17 @@
-import React from "react";
-import dndHelper from "../dndHelper.js";
-import ModeSelector from "./ModeSelector";
-import Tray from "./Tray";
-import Node from "./Node";
-import Connector from "./Connector";
-import Region from "./Region";
-import NodeEditor from "./NodeEditor";
-import DiagramMetadata from "./DiagramMetadata";
+import React from 'react';
+import dndHelper from '../dndHelper.js';
+import ModeSelector from './ModeSelector';
+import Tray from './Tray';
+import Node from './Node';
+import Connector from './Connector';
+import Region from './Region';
+import NodeEditor from './NodeEditor';
+import DiagramMetadata from './DiagramMetadata';
 
 
 
-import DATA from "../data";
-import helpers from "../helpers.js";
+import DATA from '../data';
+import helpers from '../helpers.js';
 
 class Diagram extends React.Component {
   
@@ -26,10 +26,10 @@ class Diagram extends React.Component {
     this.diagramDrop = this.diagramDrop.bind(this);
     this.share = this.share.bind(this);
 
-    const bottomOffset = document.getElementById("root").getBoundingClientRect().bottom;
-		this.state = {"bottom": bottomOffset + window.pageYOffset};
-		window.addEventListener("scroll", () => {
-			this.setState({"bottom": bottomOffset + window.pageYOffset});
+    const bottomOffset = document.getElementById('root').getBoundingClientRect().bottom;
+		this.state = {'bottom': bottomOffset + window.pageYOffset};
+		window.addEventListener('scroll', () => {
+			this.setState({'bottom': bottomOffset + window.pageYOffset});
 		});
 
     //TODO: Not sure where to put this initialize state call, so leaving it here
@@ -41,7 +41,7 @@ class Diagram extends React.Component {
   keyDown(event) {
     const keyCode = event.keyCode ? event.keyCode : event.which;
     if (
-      ["input", "textarea"].indexOf(event.target.tagName.toLowerCase()) === -1
+      ['input', 'textarea'].indexOf(event.target.tagName.toLowerCase()) === -1
     ) {
       let move = [0, 0];
       if (keyCode === 37) {
@@ -53,17 +53,17 @@ class Diagram extends React.Component {
       } else if (keyCode === 40) {
         move[1] = 0.5;
       } else if (keyCode === 8) {
-        ["node", "connector"].map(category =>
-          this.props.selection[category + "s"].map(key =>
-            this.props["delete" + helpers.capitalize(category)](key)
+        ['node', 'connector'].map(category =>
+          this.props.selection[category + 's'].map(key =>
+            this.props['delete' + helpers.capitalize(category)](key)
           )
         );
       }
       if (move[0] !== 0 || move[1] !== 0) {
         if(event.shiftKey) move = move.map((m) => {return m/2.0;});
-        ["node", "connector"].map(category =>
-          this.props.selection[category + "s"].map(key => {
-            this.props["move" + helpers.capitalize(category)](
+        ['node', 'connector'].map(category =>
+          this.props.selection[category + 's'].map(key => {
+            this.props['move' + helpers.capitalize(category)](
               key,
               ...move,
               true
@@ -98,16 +98,16 @@ class Diagram extends React.Component {
     //console.log('click');
     const target = helpers.getKeyedElement(event.target);
     if (target) {
-      if (target.getAttribute("data-ondoubleclick") === "add") {
-        if (target.getAttribute("data-dblclick") == null) {
-          target.setAttribute("data-dblclick", +new Date());
+      if (target.getAttribute('data-ondoubleclick') === 'add') {
+        if (target.getAttribute('data-dblclick') == null) {
+          target.setAttribute('data-dblclick', +new Date());
         } else if (
-          +new Date() - parseInt(target.getAttribute("data-dblclick"), 10) >
+          +new Date() - parseInt(target.getAttribute('data-dblclick'), 10) >
           300
         ) {
-          target.removeAttribute("data-dblclick");
+          target.removeAttribute('data-dblclick');
         } else {
-          target.removeAttribute("data-dblclick");
+          target.removeAttribute('data-dblclick');
           helpers.addNodeAndConnections(
             target.dataset.type,
             [0, 0],
@@ -116,22 +116,22 @@ class Diagram extends React.Component {
           );
         }
       } else {
-        if (target.dataset.category === "node")
-          target.dataset.selected === "false"
+        if (target.dataset.category === 'node')
+          target.dataset.selected === 'false'
             ? this.props.selectNodes(target.dataset.click_key, event.shiftKey)
             : this.props.deselectNodes(target.dataset.click_key);
-        else if (target.dataset.category === "connector")
-          target.dataset.selected === "false"
+        else if (target.dataset.category === 'connector')
+          target.dataset.selected === 'false'
             ? this.props.selectConnectors(
                 parseInt(target.dataset.click_key, 10),
                 event.shiftKey
               )
             : this.props.deselectConnectors(parseInt(target.dataset.click_key, 10));
-        else if (target.dataset.category === "request")
+        else if (target.dataset.category === 'request')
           console.log('play');
       }
     } else if (
-      event.target.className === "diagram" &&
+      event.target.className === 'diagram' &&
       Object.keys(this.props.selection.nodes).length +
         Object.keys(this.props.selection.connectors).length >
         0
@@ -141,7 +141,7 @@ class Diagram extends React.Component {
   }
 
   mouseDown(event) {
-      if (event.target.className === "diagram") {
+      if (event.target.className === 'diagram') {
         helpers.dragHighlight(
           [event.clientX, event.clientY],
           this.props.selectNodes,
@@ -155,18 +155,18 @@ class Diagram extends React.Component {
     return category === null
       ? {}
       : {
-          identifier: this.props.selection[category + "s"][0],
-          item: this.props[category + "s"][
-            this.props.selection[category + "s"][0]
+          identifier: this.props.selection[category + 's'][0],
+          item: this.props[category + 's'][
+            this.props.selection[category + 's'][0]
           ],
           template:
-            DATA[category.toUpperCase() + "S"][
-              this.props[category + "s"][
-                this.props.selection[category + "s"][0]
+            DATA[category.toUpperCase() + 'S'][
+              this.props[category + 's'][
+                this.props.selection[category + 's'][0]
               ].type
             ],
-          editAction: this.props["edit" + helpers.capitalize(category)],
-          editType: this.props["edit" + helpers.capitalize(category) + "Type"]
+          editAction: this.props['edit' + helpers.capitalize(category)],
+          editType: this.props['edit' + helpers.capitalize(category) + 'Type']
         };
   }
 
@@ -183,10 +183,10 @@ class Diagram extends React.Component {
         connectors: this.props.connectors
       },
       function(uuid) {
-        const link = document.querySelector(".shareText");
+        const link = document.querySelector('.shareText');
         link.value = window.location.href + uuid;
         link.select();
-        document.execCommand("copy");
+        document.execCommand('copy');
       }
     );
     return false;
@@ -204,8 +204,8 @@ class Diagram extends React.Component {
       tags = helpers.getTagsFromNodes(nodes),
       selected = this.composeSelectionObject(
         selection.nodes.length === 1
-          ? "node"
-          : selection.connectors.length === 1 ? "connector" : null
+          ? 'node'
+          : selection.connectors.length === 1 ? 'connector' : null
       );
 
     return connectDropTarget(
@@ -226,7 +226,7 @@ class Diagram extends React.Component {
 
         <Tray
           mode={mode}
-          onDrop={item => this.diagramDrop("tray", null, item)}
+          onDrop={item => this.diagramDrop('tray', null, item)}
         />
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
@@ -240,7 +240,7 @@ class Diagram extends React.Component {
               region_name={region}
               bounds={helpers.getBoundingRectangle(region, nodes)}
               onDrop={(item, offset) =>
-                this.diagramDrop("region", region, item, offset)
+                this.diagramDrop('region', region, item, offset)
               }
             />
           ))}
@@ -257,7 +257,7 @@ class Diagram extends React.Component {
               ]}
               selected={selection.connectors.indexOf(i) >= 0}
               onDrop={(item, offset) =>
-                this.diagramDrop("connector", i, item, offset)
+                this.diagramDrop('connector', i, item, offset)
               }
             />
           ))}
@@ -273,7 +273,7 @@ class Diagram extends React.Component {
               selected={selection.nodes.indexOf(key) >= 0}
               tags={tags}
               onDrop={(item, offset) =>
-                this.diagramDrop("node", key, item, offset)
+                this.diagramDrop('node', key, item, offset)
               }
             />
           ))}
