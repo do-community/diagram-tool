@@ -1,14 +1,20 @@
 // Import all the needed requirements.
-var Bundler = require('parcel-bundler');
-var express = require('express');
-var fs = require('fs');
-var mime = require('mime-types');
+const Bundler = require('parcel-bundler');
+const express = require('express');
+const fs = require('fs');
+const mime = require('mime-types');
 
 // Defines the express app.
-var app = express();
+const app = express();
+
+// Defines the express websocket handler.
+require('express-ws')(app);
+
+// Defines all connected websockets.
+const connectedWebsockets = [];
 
 // Set the parcel options.
-var options = {
+const options = {
   production: false,
   outDir: `${__dirname}/dist`,
   contentHash: false,
@@ -44,6 +50,7 @@ function createBundlerRoute(fps) {
           }
           next();
         });
+        for (const ws of connectedWebsockets) ws.send("r");
       });
       bundler.bundle();
     });
@@ -67,7 +74,29 @@ function createBundlerRoute(fps) {
 
 // Listens to all of the routes.
 createBundlerRoute([`${__dirname}/client/infragram.js`, `${__dirname}/client/styles/style.styl`]);
-app.get("/", (...args) => args[1].sendFile(`${__dirname}/index.html`));
+app.get("/", (...args) => {
+  // Open the file.
+  let index = fs.readFileSync(`${__dirname}/index.html`).toString();
+
+  // Replace "</body>" with "<script> *reloader script here* </script></body>"
+  index = index.replace("</body>", `<script>${fs.readFileSync(`${__dirname}/build/dev_reloader.js`).toString()}</script></body>`);
+
+  // Send the index.
+  args[1].header("Content-Type", "text/html");
+  args[1].send(index);
+});
+
+// Handle reloading.
+app.ws("/_reload", ws => {
+  // Push to the websocket arrays.
+  connectedWebsockets.push(ws);
+
+  // Handle a ping message.
+  ws.on("message", msg => ws.send(msg));
+
+  // Handle the socket closing.
+  ws.on("close", () => connectedWebsockets.splice(connectedWebsockets.indexOf(ws), 1));
+});
 
 // Listen on port 7770.
 app.listen(7770);
