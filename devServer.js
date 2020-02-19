@@ -28,12 +28,12 @@ function createBundlerRoute(fps) {
   for (const x of fps) {
     const fp = x;
     promises.push(promiseRes => {
-      var files = {};
-      var bundler = new Bundler(fp, options);
+      let files = {};
+      let bundler = new Bundler(fp, options);
       bundler.on("buildError", err => console.error(err));
       bundler.on("bundled", bundle => {
         files = {};
-        var pop = bundle.name.split('/').pop();
+        let pop = bundle.name.split('/').pop();
         files[pop] = fs.readFileSync(bundle.name);
         try {
           files[`${pop}.map`] = fs.readFileSync(`${bundle.name}.map`);

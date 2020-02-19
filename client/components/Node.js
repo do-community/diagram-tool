@@ -13,7 +13,7 @@ class Node extends React.Component {
     }
   }
   render() {
-    var {
+      let {
         node_template,
         id,
         position,
@@ -25,9 +25,9 @@ class Node extends React.Component {
         connectDropTarget,
         selected
       } = this.props,
-      metadata = metadata || {},
       scale = Math.round('scale' in metadata ? 60 * metadata.scale : 60),
       label_offset = { bottom: (node_template.label_offset ? node_template.label_offset : 0) + 'px' };
+      metadata = metadata || {};
 
       if(helpers.sketchMode()) {
       window.setTimeout(function() {
