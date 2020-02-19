@@ -60,7 +60,8 @@ function createBundlerRoute(fps) {
   function runPromise() {
     const i = promises.pop();
     if (!i) {
-      console.log("Initial builds done!");
+      app.listen(7770);
+      console.log("Serving on port http://127.0.0.1:7770/.");
       return;
     };
     const promise = new Promise(i);
@@ -72,8 +73,7 @@ function createBundlerRoute(fps) {
   runPromise();
 }
 
-// Listens to all of the routes.
-createBundlerRoute([`${__dirname}/client/infragram.js`, `${__dirname}/client/styles/style.styl`]);
+// Listens to the index route.
 app.get("/", (...args) => {
   // Open the file.
   let index = fs.readFileSync(`${__dirname}/index.html`).toString();
@@ -98,6 +98,5 @@ app.ws("/_reload", ws => {
   ws.on("close", () => connectedWebsockets.splice(connectedWebsockets.indexOf(ws), 1));
 });
 
-// Listen on port 7770.
-app.listen(7770);
-console.log("Serving on port http://127.0.0.1:7770/.");
+// Handles bundled stuff.
+createBundlerRoute([`${__dirname}/client/infragram.js`, `${__dirname}/client/styles/style.styl`]);
