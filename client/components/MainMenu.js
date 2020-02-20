@@ -21,7 +21,7 @@ export default class MainMenu extends React.Component {
     }
 
     loadDiagram() {
-        const innerContent = <h1>Hello World!</h1>;
+        const innerContent = <h1><a onClick={() => this.setState({innerContent: this.mainMenu})}>back</a></h1>;
         this.setState({innerContent});
     }
 
