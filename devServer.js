@@ -99,4 +99,4 @@ app.ws("/_reload", ws => {
 });
 
 // Handles bundled stuff.
-createBundlerRoute([`${__dirname}/client/infragram.js`, `${__dirname}/client/styles/style.styl`]);
+createBundlerRoute([`${__dirname}/client/infragram.js`, `${__dirname}/client/styles/style.scss`]);

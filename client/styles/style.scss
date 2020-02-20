@@ -1,4 +1,4 @@
-/* Colors */;
+/* Colors */
 $white_semitransparent: rgba(255,255,255,0.5);
 $white_mostlytransparent: rgba(255,255,255,0.2);
 $gray50:  #FAFAFA;
@@ -21,16 +21,16 @@ $danger: #f25041;
 $success: #00cd8d;
 $attention: #0069ff;
 
-/* Z-indices */;
+/* Z-indices */
 $topLayer: 1000;
 
-/* Font sizes */;
+/* Font sizes */
 $fontsmall: 0.8em;
 $fontregular: 1.2em;
 $fontmedium: 1.8em;
 $fontlarge: 2.4em;
 
-/* Paddings */;
+/* Paddings */
 $paddingstandard: 1rem 2rem;
 $paddingsmall: 0.5rem;
 
@@ -44,7 +44,14 @@ body {
   color: $gray800;
 }
 
+/* External content */
+@font-face {
+  font-family: "Humor Sans";
+  src: url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf');
+}
+
 .infragram {
+  @import "~do-bulma/src/style";
   svg {
     .stroked {
       stroke: $default_blue;
@@ -110,7 +117,7 @@ body {
     }
   }
 
-  /* TAG COLORS */;
+  /* TAG COLORS */
   .qual_1 {
     fill: #9b82f3;
   }
@@ -143,7 +150,7 @@ body {
     fill: #5392ff;
   }
 
-  /* REUSABLE */;
+  /* REUSABLE */
   .truncate {
     white-space: nowrap;
     overflow-x: hidden;
@@ -537,9 +544,4 @@ body {
       display: none!important;
     }
   }
-}
-
-@font-face {
-  font-family: "Humor Sans";
-  src: url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf');
 }
