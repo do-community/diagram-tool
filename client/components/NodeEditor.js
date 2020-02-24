@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import NodeEditorField from './NodeEditorField.js';
 import DATA from '../data';
+import $ from "jquery";
 
 class NodeEditor extends React.Component {
 

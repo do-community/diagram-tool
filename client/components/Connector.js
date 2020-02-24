@@ -194,6 +194,7 @@ class Connector extends React.Component {
 						9,
 						1.5
 					);
+					if (!d) return;
 					document
 						.querySelector('*[data-js="squiggle_' + id + 'a"]')
 						.setAttribute('d', d);
@@ -203,22 +204,10 @@ class Connector extends React.Component {
 		}, 10);
 
 		return connectDropTarget(
-			<figure
-				key={id}
-				data-click_key={id}
-				style={pos}
-				data-category="connector"
-				data-active={!(metadata && metadata.active === false)}
-				data-selected={this.props.selected === true}
-				className="hoverParent"
-			>
-				<label className="hoverShow" style={{left: center.left, top: center.top}}>
-					{connector_template.name}
-				</label>
+			<g>
 
 				<svg
-					width="100%"
-					height="100%"
+					style={{top: pos.top, left: pos.left, width: pos.width, height: pos.height, position: "fixed"}}
 					viewBox={viewBox}
 					className="sketch_off"
 					data-dropaction="connector"
@@ -229,7 +218,7 @@ class Connector extends React.Component {
 							: metadata.color
 					}
 				>
-					<g transform={`translate(0, -${this.state.topOffset})`}>
+					<g>
 						<path
 							data-js={'wire_' + id}
 							className="offwhitestroked"
@@ -292,6 +281,19 @@ class Connector extends React.Component {
 					/>
 				</svg>
 
+				<figure
+				key={id}
+				data-click_key={id}
+				style={pos}
+				data-category="connector"
+				data-active={!(metadata && metadata.active === false)}
+				data-selected={this.props.selected === true}
+				className="hoverParent"
+			>
+				<label className="hoverShow" style={{left: center.left, top: center.top}}>
+					{connector_template.name}
+				</label>
+
 				{helpers.sketchMode() ? (
 					<canvas
 						data-js={'canvas_connector_' + id}
@@ -320,6 +322,7 @@ class Connector extends React.Component {
 					''
 				)}
 			</figure>
+			</g>
 		);
 	}
 }

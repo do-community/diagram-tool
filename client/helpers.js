@@ -61,12 +61,15 @@ const helpers = {
       let last = pos;
       let pos = followPath.getPointAtLength(i * pathLen / numSteps);
 
+      // If last isn't a thing, we should return! This will just spam the console with errors.
+      if (!last) return;
+
       // Find a point halfway between last and pos. Then find the point that is
       // perpendicular to that line segment, and is squiggleAmplitude away from
       // it on the side of the line designated by 'side' (-1 or +1).
       // This point will be the control point of the quadratic curve forming the
       // squiggle step.
-      
+
       // The vector from the last point to this one
       let vector = {x: (pos.x - last.x),
                     y: (pos.y - last.y)};
