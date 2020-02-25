@@ -204,10 +204,14 @@ class Connector extends React.Component {
 		}, 10);
 
 		return connectDropTarget(
-			<g>
-
+			<span>
 				<svg
-					style={{top: pos.top, left: pos.left, width: pos.width, height: pos.height, position: "fixed"}}
+					style={{
+						top: `${center.top - Number(pos.top.slice(0, -2))}px`,
+						left: `${center.left - Number(pos.left.slice(0, -2))}px`,
+						width: pos.width, height: pos.height,
+						position: "fixed"
+					}}
 					viewBox={viewBox}
 					className="sketch_off"
 					data-dropaction="connector"
@@ -282,47 +286,47 @@ class Connector extends React.Component {
 				</svg>
 
 				<figure
-				key={id}
-				data-click_key={id}
-				style={pos}
-				data-category="connector"
-				data-active={!(metadata && metadata.active === false)}
-				data-selected={this.props.selected === true}
-				className="hoverParent"
-			>
-				<label className="hoverShow" style={{left: center.left, top: center.top}}>
-					{connector_template.name}
-				</label>
+					key={id}
+					data-click_key={id}
+					style={pos}
+					data-category="connector"
+					data-active={!(metadata && metadata.active === false)}
+					data-selected={this.props.selected === true}
+					className="hoverParent"
+				>
+					<label className="hoverShow" style={{left: center.left, top: center.top}}>
+						{connector_template.name}
+					</label>
 
-				{helpers.sketchMode() ? (
-					<canvas
-						data-js={'canvas_connector_' + id}
-						width={pos.width}
-						height={pos.height}
-					/>
-				) : (
-					undefined
-				)}
+					{helpers.sketchMode() ? (
+						<canvas
+							data-js={'canvas_connector_' + id}
+							width={pos.width}
+							height={pos.height}
+						/>
+					) : (
+						undefined
+					)}
 
-				{metadata && metadata.dns ? (
-					<dl
-						className="dns-label"
-						title={metadata.dns}
-						style={{
-							left: dns_path[1][0] - 2,
-							marginTop: dns_path[1][1] - this.state.topOffset,
-						}}
-					>
-						<dt style={{ borderColor: metadata.color }}>dns:</dt>
-						<dd style={{ borderColor: metadata.color }}>
-							{metadata.dns}
-						</dd>
-					</dl>
-				) : (
-					''
-				)}
-			</figure>
-			</g>
+					{metadata && metadata.dns ? (
+						<dl
+							className="dns-label"
+							title={metadata.dns}
+							style={{
+								left: dns_path[1][0] - 2,
+								marginTop: dns_path[1][1] - this.state.topOffset,
+							}}
+						>
+							<dt style={{ borderColor: metadata.color }}>dns:</dt>
+							<dd style={{ borderColor: metadata.color }}>
+								{metadata.dns}
+							</dd>
+						</dl>
+					) : (
+						''
+					)}
+				</figure>
+			</span>
 		);
 	}
 }
