@@ -6,10 +6,13 @@ import helpers from '../helpers.js';
 class Connector extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {topOffset: window.pageYOffset};
+		this.state = {topOffset: window.pageYOffset, width: window.innerWidth};
 		window.addEventListener('scroll', () => {
 			this.setState({topOffset: window.pageYOffset});
-		})
+		});
+		window.addEventListener('resize', () => {
+			this.setState({width: window.innerWidth});
+		});
 	}
 
 	render() {
@@ -19,13 +22,16 @@ class Connector extends React.Component {
 			metadata,
 			between,
 			connectDropTarget,
-			selected
+			selected,
+			left,
+			top
 		} = this.props;
 
 		let pos, viewBox, path, w, h, dir, dns_path;
 
 		/* If connector is connected to nodes, calculate how to draw the line */
 
+		let invert, start, end, section_style;
 		if (between) {
 			// Break connections into six types
 			// (we dont care which is first/last, just always start with leftmost)
@@ -40,10 +46,10 @@ class Connector extends React.Component {
 			//     /    |   \
 			//    ☐    ☐    ☐
 
-			const invert = between[0][0] > between[1][0],
-				start = invert ? between[1] : between[0],
-				end = invert ? between[0] : between[1],
-				section_style = metadata.style && metadata.style === 'angular' ? 3 : 2;
+			invert = between[0][0] > between[1][0],
+			start = invert ? between[1] : between[0],
+			end = invert ? between[0] : between[1],
+			section_style = metadata.style && metadata.style === 'angular' ? 3 : 2;
 			h = Math.abs(end[1] - start[1]) * 103;
 			w = (end[0] - start[0]) * 100;
 			dir = 'v';
@@ -207,8 +213,8 @@ class Connector extends React.Component {
 			<span>
 				<svg
 					style={{
-						top: `${center.top - Number(pos.top.slice(0, -2))}px`,
-						left: `${center.left - Number(pos.left.slice(0, -2))}px`,
+						top: `${top}px`,
+						left: `${left}px`,
 						width: pos.width, height: pos.height,
 						position: "fixed"
 					}}

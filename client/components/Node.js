@@ -13,7 +13,7 @@ class Node extends React.Component {
     }
   }
   render() {
-      let {
+    let {
         node_template,
         id,
         position,

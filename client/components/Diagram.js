@@ -25,6 +25,7 @@ class Diagram extends React.Component {
     this.composeSelectionObject = this.composeSelectionObject.bind(this);
     this.diagramDrop = this.diagramDrop.bind(this);
     this.share = this.share.bind(this);
+    this.ref = React.createRef();
 
     const bottomOffset = document.getElementById('root').getBoundingClientRect().bottom;
 		this.state = {'bottom': bottomOffset + window.pageYOffset};
@@ -208,6 +209,58 @@ class Diagram extends React.Component {
           : selection.connectors.length === 1 ? 'connector' : null
       );
 
+      const mappedNodes = {}
+      Object.keys(nodes).forEach(key => (
+        mappedNodes[key] = <Node
+          key={key}
+          id={key}
+          node_template={DATA.NODES[nodes[key].type]}
+          metadata={nodes[key].metadata}
+          position={nodes[key].position}
+          type={nodes[key].type}
+          selected={selection.nodes.indexOf(key) >= 0}
+          tags={tags}
+          onDrop={(item, offset) =>
+            this.diagramDrop('node', key, item, offset)
+          }
+        />
+      ))
+
+      const diagramDiv = <div className="diagram">
+      {Object.keys(regions).map(region => (
+        <Region
+          key={region}
+          id={region}
+          region_name={region}
+          bounds={helpers.getBoundingRectangle(region, nodes)}
+          onDrop={(item, offset) =>
+            this.diagramDrop('region', region, item, offset)
+          }
+        />
+      ))}
+
+      {connectors.map((connector, i) => (
+        <Connector
+          key={i}
+          id={i}
+          connector_template={DATA.CONNECTORS[connector.type]}
+          metadata={connector.metadata}
+          between={[
+            nodes[connector.between[0]].position,
+            nodes[connector.between[1]].position
+          ]}
+          top={(nodes[connector.between[1]].position[1] ? nodes[connector.between[1]].position[1] * 100 : 0) * -1.5}
+          left={window.innerWidth + (nodes[connector.between[0]].position ? nodes[connector.between[0]].position[0] * 100 : 0) * 19.7}
+          selected={selection.connectors.indexOf(i) >= 0}
+          onDrop={(item, offset) =>
+            this.diagramDrop('connector', i, item, offset)
+          }
+        />
+      ))}
+
+      {Object.values(mappedNodes)}
+    </div>
+
     return connectDropTarget(
       <div
         className={'main' + (helpers.sketchMode() ? ' sketch' : '')}
@@ -231,53 +284,7 @@ class Diagram extends React.Component {
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
 
-        <div className="diagram">
-
-          {Object.keys(regions).map(region => (
-            <Region
-              key={region}
-              id={region}
-              region_name={region}
-              bounds={helpers.getBoundingRectangle(region, nodes)}
-              onDrop={(item, offset) =>
-                this.diagramDrop('region', region, item, offset)
-              }
-            />
-          ))}
-
-          {connectors.map((connector, i) => (
-            <Connector
-              key={i}
-              id={i}
-              connector_template={DATA.CONNECTORS[connector.type]}
-              metadata={connector.metadata}
-              between={[
-                nodes[connector.between[0]].position,
-                nodes[connector.between[1]].position
-              ]}
-              selected={selection.connectors.indexOf(i) >= 0}
-              onDrop={(item, offset) =>
-                this.diagramDrop('connector', i, item, offset)
-              }
-            />
-          ))}
-
-          {Object.keys(nodes).map(key => (
-            <Node
-              key={key}
-              id={key}
-              node_template={DATA.NODES[nodes[key].type]}
-              metadata={nodes[key].metadata}
-              position={nodes[key].position}
-              type={nodes[key].type}
-              selected={selection.nodes.indexOf(key) >= 0}
-              tags={tags}
-              onDrop={(item, offset) =>
-                this.diagramDrop('node', key, item, offset)
-              }
-            />
-          ))}
-        </div>
+        {diagramDiv}
 
         <NodeEditor {...selected} />
 
