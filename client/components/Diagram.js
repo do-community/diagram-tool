@@ -28,10 +28,13 @@ class Diagram extends React.Component {
     this.ref = React.createRef();
 
     const bottomOffset = document.getElementById('root').getBoundingClientRect().bottom;
-		this.state = {'bottom': bottomOffset + window.pageYOffset};
+		this.state = {'bottom': bottomOffset + window.pageYOffset, 'pageXOffset': window.pageXOffset, 'pageYOffset': window.pageYOffset};
 		window.addEventListener('scroll', () => {
-			this.setState({'bottom': bottomOffset + window.pageYOffset});
-		});
+			this.setState({'bottom': bottomOffset + window.pageYOffset, 'pageXOffset': window.pageXOffset, 'pageYOffset': window.pageYOffset});
+    });
+    window.addEventListener('resize', () => {
+      this.setState({'pageXOffset': window.pageXOffset, 'pageYOffset': window.pageYOffset});
+    });
 
     //TODO: Not sure where to put this initialize state call, so leaving it here
     helpers.initializeState(function(response) {
@@ -249,8 +252,16 @@ class Diagram extends React.Component {
             nodes[connector.between[0]].position,
             nodes[connector.between[1]].position
           ]}
-          top={(nodes[connector.between[1]].position[1] ? nodes[connector.between[1]].position[1] * 100 : 0) * -1.5}
-          left={window.innerWidth + (nodes[connector.between[0]].position ? nodes[connector.between[0]].position[0] * 100 : 0) * 19.7}
+          top={((
+            nodes[connector.between[0]].position[1] > nodes[connector.between[1]].position[1] ?
+            nodes[connector.between[0]].position[1] - nodes[connector.between[1]].position[1] :
+            nodes[connector.between[1]].position[1] - nodes[connector.between[0]].position[1]
+          ) * 250) - this.state.pageYOffset}
+          left={((
+            nodes[connector.between[0]].position[0] > nodes[connector.between[1]].position[0] ?
+            nodes[connector.between[0]].position[0] - nodes[connector.between[1]].position[0] + 7.5 :
+            nodes[connector.between[1]].position[0] - nodes[connector.between[0]].position[0] + 3.8
+          ) * 70) - this.state.pageXOffset}
           selected={selection.connectors.indexOf(i) >= 0}
           onDrop={(item, offset) =>
             this.diagramDrop('connector', i, item, offset)
