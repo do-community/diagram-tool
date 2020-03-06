@@ -10,18 +10,37 @@ export default class MainMenu extends React.Component {
             </p>
             <p style={{fontSize: "initial"}}>
                 <a className="button is-primary" onClick={() => this.newDiagram()} style={{marginRight: "5px"}}>New Diagram </a>
-                <a className="button is-primary" onClick={() => this.loadDiagram()}>Load Diagram </a>
+                <a className="button is-primary" onClick={() => this.saveDiagram()}>Save Diagram </a>
             </p>
         </div>;
         this.state = {innerContent: this.mainMenu};
     }
 
     newDiagram() {
+        window.localStorage.removeItem("infragram_state");
         this.props.switchToApp();
     }
 
-    loadDiagram() {
-        const innerContent = <h1><a onClick={() => this.setState({innerContent: this.mainMenu})}>back</a></h1>;
+    handleQuery() {
+        const l = window.localStorage.getItem("infragram_state");
+        return l ? btoa(l) : null;
+    }
+
+    saveDiagram() {
+        const url = new URL(window.location.href);
+        url.searchParams.set('q', this.handleQuery());
+        const innerContent = <div>
+            <div className="field">
+                <p>
+                    The URL is <code>{String(url)}</code>.
+                </p>
+            </div>
+            <div className="field">
+                <p>
+                    <a className="button is-primary" onClick={() => this.props.switchToApp()}>Return to Application</a>
+                </p>
+            </div>
+        </div>;
         this.setState({innerContent});
     }
 

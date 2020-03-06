@@ -20,19 +20,18 @@ class Tray extends React.Component {
 	render(){
 		return this.props.connectDropTarget(
 			<div className="tray side-panel" style={{top: this.state.top}}>
+				<p><a onClick={() => window.switchToApp()}>Main Menu</a></p>
 				<h3>Build</h3>
 				<div className="scrollable">
 					<ul>
 						{ Object.keys(DATA.NODES_BY_CATEGORY).map(
-							(category) => { return (
-                  <li key={category}>
-                    <h4>{category}</h4>
-                    <ul>{ Object.keys(DATA.NODES_BY_CATEGORY[category]).map(
-                        (node, i) => { return (<TrayNode key={i} id={node} />) }
-                    )}</ul>
-                  </li>
-              ) }
-            )}
+							category => <li key={category}>
+								<h4>{category}</h4>
+								<ul>{ Object.keys(DATA.NODES_BY_CATEGORY[category]).map(
+									(node, i) => { return (<TrayNode key={i} id={node} />) }
+								)}</ul>
+							</li>
+            			) }
 					</ul>
 				</div>
 				<a className="minimizeButton" onClick={this.toggleMinimized}></a>

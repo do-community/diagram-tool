@@ -7,8 +7,12 @@ export default class MainMenuSwitcher extends React.Component {
         super(props)
         this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />
         this.app = <App {...this.props} switchToMenu={() => this.switchToMenu()} />
-        this.state = {item: this.menu}
+        this.state = {item: this.app}
         this.firstLoad = true
+
+        // TODO: Should probably think of a better solution here.
+        const m = this;
+        window.switchToApp = this.switchToApp.apply(m);
     }
 
     switchToMenu() {
@@ -20,15 +24,6 @@ export default class MainMenuSwitcher extends React.Component {
     }
 
     render() {
-        // Check if this is the first load.
-        if (this.firstLoad) {
-            // Set firstLoad to false.
-            this.firstLoad = false
-
-            // Check if the infragram state exists, and set the state to it if so.
-            if (localStorage.getItem('infragram_state')) this.setState({item: this.app})
-        }
-
         // Return the item to render.
         return this.state.item
     }
