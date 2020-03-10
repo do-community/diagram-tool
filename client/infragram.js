@@ -4,20 +4,19 @@ import "regenerator-runtime/runtime";
 import React from 'react';
 import { render } from 'react-dom';
 
-import Diagram from './components/Diagram';
 import MainMenuSwitcher from './components/MainMenuSwitcher';
 
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store';
 
+import { DndProvider } from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
+
 const router = (
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={MainMenuSwitcher}>
-        <IndexRoute component={Diagram}></IndexRoute>
-      </Route>
-    </Router>
+    <DndProvider backend={Backend}>
+      <MainMenuSwitcher />
+    </DndProvider>
   </Provider>
 )
 

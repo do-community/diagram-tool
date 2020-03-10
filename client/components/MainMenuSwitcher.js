@@ -1,18 +1,14 @@
 import React from 'react';
 import MainMenu from './MainMenu';
-import App from './App';
+import Diagram from './Diagram';
 
 export default class MainMenuSwitcher extends React.Component {
     constructor(props) {
         super(props)
         this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />
-        this.app = <App {...this.props} switchToMenu={() => this.switchToMenu()} />
+        this.app =  <Diagram {...this.props} switchToMenu={() => this.switchToMenu()} />
         this.state = {item: this.app}
         this.firstLoad = true
-
-        // TODO: Should probably think of a better solution here.
-        const m = this;
-        window.switchToApp = this.switchToApp.apply(m);
     }
 
     switchToMenu() {
