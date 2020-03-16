@@ -1,6 +1,6 @@
 import React from 'react';
 import DATA from '../data';
-import $ from "jquery";
+import $ from 'jquery';
 
 class Plan extends React.Component {
 

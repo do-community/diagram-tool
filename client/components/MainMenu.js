@@ -5,11 +5,11 @@ export default class MainMenu extends React.Component {
     constructor(props) {
         super(props);
         this.mainMenu = <div className="container">
-            <p style={{marginBottom: "20px", fontSize: "initial"}}>
+            <p style={{marginBottom: '20px', fontSize: 'initial'}}>
                 Select how you wish to proceed.
             </p>
-            <p style={{fontSize: "initial"}}>
-                <a className="button is-primary" onClick={() => this.newDiagram()} style={{marginRight: "5px"}}>New Diagram </a>
+            <p style={{fontSize: 'initial'}}>
+                <a className="button is-primary" onClick={() => this.newDiagram()} style={{marginRight: '5px'}}>New Diagram </a>
                 <a className="button is-primary" onClick={() => this.saveDiagram()}>Save Diagram </a>
             </p>
         </div>;
@@ -17,12 +17,12 @@ export default class MainMenu extends React.Component {
     }
 
     newDiagram() {
-        window.localStorage.removeItem("infragram_state");
+        window.localStorage.removeItem('infragram_state');
         this.props.switchToApp();
     }
 
     handleQuery() {
-        const l = window.localStorage.getItem("infragram_state");
+        const l = window.localStorage.getItem('infragram_state');
         return l ? btoa(l) : null;
     }
 

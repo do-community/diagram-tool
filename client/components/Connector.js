@@ -216,7 +216,7 @@ class Connector extends React.Component {
 						top: `${top}px`,
 						left: `${left}px`,
 						width: pos.width, height: pos.height,
-						position: "fixed"
+						position: 'fixed'
 					}}
 					viewBox={viewBox}
 					className="sketch_off"

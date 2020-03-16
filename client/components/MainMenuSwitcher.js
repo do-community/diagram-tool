@@ -1,14 +1,32 @@
 import React from 'react';
 import MainMenu from './MainMenu';
 import Diagram from './Diagram';
+import { connect } from 'react-redux';
+import  { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/actionCreators';
+
+function mapStateToProps(state) {
+    return {
+        metadata: state.metadata,
+        connectors: state.connectors,
+        nodes: state.nodes,
+        selection: state.selection,
+        mode: state.mode
+    }
+}
+  
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch);
+}
 
 export default class MainMenuSwitcher extends React.Component {
     constructor(props) {
         super(props)
         this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />
-        this.app =  <Diagram {...this.props} switchToMenu={() => this.switchToMenu()} />
+        const f = () => this.switchToMenu()
+        const Connection = connect(mapStateToProps, mapDispatchToProps)(Diagram)
+        this.app = <Connection switchToApp={f} />
         this.state = {item: this.app}
-        this.firstLoad = true
     }
 
     switchToMenu() {
