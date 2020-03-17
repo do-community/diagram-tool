@@ -20,7 +20,7 @@ class Tray extends React.Component {
 	render(){
 		return this.props.connectDropTarget(
 			<div className="tray side-panel" style={{top: this.state.top}}>
-				<p><a onClick={() => window.switchToApp()}>Main Menu</a></p>
+				<p><a onClick={() => this.props.switchToApp()}>Main Menu</a></p>
 				<h3>Build</h3>
 				<div className="scrollable">
 					<ul>

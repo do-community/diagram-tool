@@ -256,12 +256,12 @@ class Diagram extends React.Component {
             nodes[connector.between[0]].position[1] > nodes[connector.between[1]].position[1] ?
             nodes[connector.between[0]].position[1] - nodes[connector.between[1]].position[1] :
             nodes[connector.between[1]].position[1] - nodes[connector.between[0]].position[1]
-          ) * 250) - this.state.pageYOffset}
+          ) * 80) - this.state.pageYOffset}
           left={((
             nodes[connector.between[0]].position[0] > nodes[connector.between[1]].position[0] ?
-            nodes[connector.between[0]].position[0] - nodes[connector.between[1]].position[0] + 7.5 :
-            nodes[connector.between[1]].position[0] - nodes[connector.between[0]].position[0] + 3.8
-          ) * 70) - this.state.pageXOffset}
+            nodes[connector.between[0]].position[0] - nodes[connector.between[1]].position[0] :
+            nodes[connector.between[1]].position[0] - nodes[connector.between[0]].position[0]
+          ) * 135) - this.state.pageXOffset}
           selected={selection.connectors.indexOf(i) >= 0}
           onDrop={(item, offset) =>
             this.diagramDrop('connector', i, item, offset)
@@ -291,6 +291,7 @@ class Diagram extends React.Component {
         <Tray
           mode={mode}
           onDrop={item => this.diagramDrop('tray', null, item)}
+          switchToApp={this.props.switchToApp}
         />
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
