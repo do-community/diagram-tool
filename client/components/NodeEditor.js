@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
 import NodeEditorField from './NodeEditorField.js';
 import DATA from '../data';
-import $ from 'jquery';
 
 class NodeEditor extends React.Component {
 
@@ -33,7 +31,7 @@ class NodeEditor extends React.Component {
       <div className="editor side-panel" style={{top: this.state.top}}>
         <h3>{template.name} settings:</h3>
         <p>{template.description}</p>
-        <form className="bui-Form--spacing" onLoad={$(this).init}>
+        <form className="bui-Form--spacing">
 
         {item_type === 'connector' ?
           <div className="bui-Select">
