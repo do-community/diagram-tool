@@ -161,7 +161,7 @@ export function selectConnectors(keys, additive=false) {
 }
 
 export function deselectConnectors(keys) {
-  return function (dispatch) {
+  return function () {
     if(!keys) return {
         type: 'DESELECT_ALL'
     };

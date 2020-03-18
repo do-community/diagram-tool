@@ -53,6 +53,8 @@
     "do-vue": "git+https://github.com/do-community/do-vue.git",
     "expect": "^1.18.0",
     "expect-jsx": "^2.5.1",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
     "mime-types": "2.1.26",
     "mocha": "^5.2.0",
     "parcel-bundler": "1.12.4",
@@ -60,9 +62,6 @@
     "posthtml-custom-elements": "^1.1.2",
     "posthtml-extend": "0.3.0",
     "prettier": "1.10.2",
-    "react-addons-test-utils": "^15.6.2",
-    "webpack-cli": "3.3.10",
-    "express": "^4.17.1",
-    "express-ws": "^4.0.0"
+    "react-addons-test-utils": "^15.6.2"
   }
 }

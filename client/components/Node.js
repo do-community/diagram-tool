@@ -16,14 +16,11 @@ class Node extends React.Component {
     let {
         node_template,
         id,
-        position,
         metadata,
         tags,
         type,
-        isDragging,
         connectDragSource,
-        connectDropTarget,
-        selected
+        connectDropTarget
       } = this.props,
       scale = Math.round('scale' in metadata ? 60 * metadata.scale : 60),
       label_offset = { bottom: (node_template.label_offset ? node_template.label_offset : 0) + 'px' };

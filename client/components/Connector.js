@@ -22,7 +22,6 @@ class Connector extends React.Component {
 			metadata,
 			between,
 			connectDropTarget,
-			selected,
 			left,
 			top
 		} = this.props;

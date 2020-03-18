@@ -1,6 +1,5 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import ModeSelector from './ModeSelector';
 import Tray from './Tray';
 import Node from './Node';
 import Connector from './Connector';
