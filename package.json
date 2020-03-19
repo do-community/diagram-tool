@@ -4,7 +4,7 @@
   "description": "A cloud infrastructure diagramming app.",
   "scripts": {
     "build:template": "do-vue template && node ./build/create_index.js",
-    "build:parcel": "parcel build ./client/infragram.js --public-url . && parcel build ./client/styles/style.styl --public-url .",
+    "build:parcel": "parcel build ./client/infragram.js --public-url . && parcel build ./client/styles/style.scss --public-url .",
     "build": "npm run clean && npm run build:template && npm run build:parcel && cp ./index.html ./dist/index.html",
     "test": "eslint ./client/**/*.js",
     "lint-and-fix": "eslint ./client/**/*.js --fix",
