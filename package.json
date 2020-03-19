@@ -8,7 +8,7 @@
     "build": "npm run clean && npm run build:template && npm run build:parcel && cp ./index.html ./dist/index.html",
     "test": "eslint ./client/**/*.js",
     "lint-and-fix": "eslint ./client/**/*.js --fix",
-    "clean": "rimraf dist && rm index.html",
+    "clean": "rimraf dist && rm -f index.html",
     "start": "BLANK_TEMPLATE=false do-vue template && NODE_ENV=development node ./build/create_index.js && parcel ./index.html --port 7770",
     "tunnel": "browser-sync start --proxy localhost:7770  --tunnel andy",
     "deploy:spaces:comment": "do-vue comment infragram"
