@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import NodeEditorField from './NodeEditorField.js';
 import DATA from '../data';
 
@@ -8,6 +7,11 @@ class NodeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    const topOffset = document.getElementById('root').getBoundingClientRect().top + 20;
+    this.state = {'top': topOffset - window.pageYOffset};
+    window.addEventListener('scroll', () => {
+      this.setState({top: topOffset - window.pageYOffset});
+    });
   }
 
   handleChange(e) {
@@ -24,10 +28,10 @@ class NodeEditor extends React.Component {
     const all_metadata = Object.assign({}, (item_type === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (item_type === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
     
     return (
-      <div className="editor side-panel">
+      <div className="editor side-panel" style={{top: this.state.top}}>
         <h3>{template.name} settings:</h3>
         <p>{template.description}</p>
-        <form className="bui-Form--spacing" onLoad={$(this).init}>
+        <form className="bui-Form--spacing">
 
         {item_type === 'connector' ?
           <div className="bui-Select">

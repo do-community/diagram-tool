@@ -1,26 +1,20 @@
 {
-  "presets": ["react", "es2015"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
   "env": {
     "development": {
       "plugins": [
-        ["transform-object-rest-spread"],
-        ["transform-react-display-name"],
-        ["react-transform", {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            "imports": ["react"],
-            "locals": ["module"]
-          }, {
-            "transform": "react-transform-catch-errors",
-            "imports": ["react", "redbox-react"]
-          }]
-        }]
+        ["@babel/plugin-proposal-object-rest-spread"],
+        ["@babel/plugin-transform-react-display-name"],
+        ["@babel/plugin-transform-react-jsx"]
       ]
     },
     "production": {
       "plugins": [
-        ["transform-object-rest-spread"],
-        ["transform-react-display-name"]
+        ["@babel/plugin-proposal-object-rest-spread"],
+        ["@babel/plugin-transform-react-display-name"]
       ]
     }
   }

@@ -31,3 +31,16 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Ignore the dist
+dist
+
+# Ignore the build files
+build/base.html
+index.html
+
+# Ignore DS_Store (smh macOS)
+.DS_Store
+
+# parceljs related stuff.
+.cache

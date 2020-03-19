@@ -19,16 +19,13 @@ class Plan extends React.Component {
   
     if(!item) return (<form className="infragram--rightPane collapsed"></form>);
 
-    //TODO: Figure out how to re-ini bui form js
-    window.setTimeout(function(){$.getScript('https://assets.digitalocean.com/bui/1.0.0/bui.js')}, 10);
-
     const all_metadata = Object.assign({}, (item_type === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (item_type === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
     
     return (
       <div className="infragram--rightPane bui-Box">
         <h3>{template.name} settings:</h3>
         <p>{template.description}</p>
-        <form className="bui-Form--spacing" onLoad={$(this).init}>
+        <form className="bui-Form--spacing">
 
         {item_type === 'connector' ?
           <div className="bui-Select">

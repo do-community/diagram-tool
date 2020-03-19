@@ -5,7 +5,7 @@ class ConnectorDragHandle extends React.Component {
   render(){
 		const {dir, connectDragSource} = this.props;
 		return connectDragSource(
-			<div className={dir + " hoverShow drag"}></div>
+			<div className={dir + ' hoverShow drag'}></div>
 		);
 	}
 };

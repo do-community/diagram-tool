@@ -48,38 +48,41 @@ const helpers = {
 
   squigglePath: function(followPath, squiggleStep = 25, squiggleAmplitude = 20, offset = -1) {
     
-    var pathLen = followPath.getTotalLength();
+    let pathLen = followPath.getTotalLength();
 
     // Adjust step so that there are a whole number of steps along the path
-    var numSteps = Math.round(pathLen / squiggleStep);
+    let numSteps = Math.round(pathLen / squiggleStep);
 
-    var pos = followPath.getPointAtLength(0);
-    var newPath = "M" + [pos.x, pos.y].join(',');
-    var side = offset;
-    for (var i=1; i<=numSteps; i++)
+    let pos = followPath.getPointAtLength(0);
+    let newPath = "M" + [pos.x, pos.y].join(',');
+    let side = offset;
+    for (let i=1; i<=numSteps; i++)
     {
-      var last = pos;
-      var pos = followPath.getPointAtLength(i * pathLen / numSteps);
+      let last = pos;
+      let pos = followPath.getPointAtLength(i * pathLen / numSteps);
+
+      // If last isn't a thing, we should return! This will just spam the console with errors.
+      if (!last) return;
 
       // Find a point halfway between last and pos. Then find the point that is
       // perpendicular to that line segment, and is squiggleAmplitude away from
       // it on the side of the line designated by 'side' (-1 or +1).
       // This point will be the control point of the quadratic curve forming the
       // squiggle step.
-      
+
       // The vector from the last point to this one
-      var vector = {x: (pos.x - last.x),
+      let vector = {x: (pos.x - last.x),
                     y: (pos.y - last.y)};
       // The length of this vector
-      var vectorLen = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+      let vectorLen = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
       // The point halfwasy between last point and tis one
-      var half = {x: (last.x + vector.x/2),
+      let half = {x: (last.x + vector.x/2),
                   y: (last.y + vector.y/2)};
       // The vector that is perpendicular to 'vector'
-      var perpVector = {x: -(squiggleAmplitude * vector.y / vectorLen),
+      let perpVector = {x: -(squiggleAmplitude * vector.y / vectorLen),
                         y: (squiggleAmplitude * vector.x / vectorLen)};
       // No calculate the control point position
-      var controlPoint = {x: (half.x + perpVector.x * side),
+      let controlPoint = {x: (half.x + perpVector.x * side),
                           y: (half.y + perpVector.y * side)};
       newPath += ("Q" + [controlPoint.x, controlPoint.y, pos.x, pos.y].join(','));
       // Switch the side (for next step)
@@ -97,7 +100,7 @@ const helpers = {
     if (window.location.hash.length === 37) {
       try {
         const uuid = window.location.hash.substring(1);
-        var request = new XMLHttpRequest();
+        let request = new XMLHttpRequest();
         request.open(
           "GET",
           "https://statebin.nyc3.digitaloceanspaces.com/" + uuid,
@@ -155,7 +158,7 @@ const helpers = {
   remoteSaveState: function(state, callback) {
     //try {
     const serializedState = encodeURIComponent(JSON.stringify(state));
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     request.open(
       "GET",
       "https://in.statebin.com/?data=" + serializedState,
@@ -164,7 +167,7 @@ const helpers = {
 
     request.onload = function() {
       if (request.status >= 200 && request.status < 400) {
-        var response = JSON.parse(request.responseText);
+        let response = JSON.parse(request.responseText);
         if (response.key) {
           callback(response.key);
         }
