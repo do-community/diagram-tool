@@ -20,7 +20,7 @@ const posthtml = require("posthtml");
 const compile = posthtml()
     .use(require("posthtml-extend")())
     .use(require("posthtml-custom-elements")())
-    .process(fs.readFileSync("./base_extensions.html"), { sync: true })
+    .process(fs.readFileSync(`./base_extensions${process.env.NODE_ENV === 'development' ? '.dev' : ''}.html`), { sync: true })
     .html;
 
 // Write the HTML.
