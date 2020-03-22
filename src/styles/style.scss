@@ -44,13 +44,12 @@ body {
   color: $gray800;
 }
 
-/* External content */
-@font-face {
-  font-family: "Humor Sans";
-  src: url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf');
-}
-
 .infragram {
+  @font-face {
+    font-family: "Humor Sans";
+    src: url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf');
+  }
+
   @import "~do-bulma/src/style";
   svg {
     .stroked {
