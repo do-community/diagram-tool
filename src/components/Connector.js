@@ -2,11 +2,12 @@ import React from 'react';
 import dndHelper from '../dndHelper.js';
 
 import helpers from '../helpers.js';
+import { findDOMNode } from 'react-dom';
 
 class Connector extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {topOffset: window.pageYOffset, width: window.innerWidth};
+		this.state = {topOffset: window.pageYOffset, width: window.innerWidth, domElement: null};
 		window.addEventListener('scroll', () => {
 			this.setState({topOffset: window.pageYOffset});
 		});
@@ -15,15 +16,17 @@ class Connector extends React.Component {
 		});
 	}
 
+	componentDidMount() {
+		this.setState({domElement: findDOMNode(this)});
+	}
+
 	render() {
 		const {
 			connector_template,
 			id,
 			metadata,
 			between,
-			connectDropTarget,
-			left,
-			top
+			connectDropTarget
 		} = this.props;
 
 		let pos, viewBox, path, w, h, dir, dns_path;
@@ -208,12 +211,22 @@ class Connector extends React.Component {
 			}
 		}, 10);
 
+		const pagePos = {left: 0, top: 0}
+		let domEl = (this.state.domElement || {}).parentElement
+		for (;;) {
+			if (!domEl) break
+			const rect = domEl.getBoundingClientRect()
+			pagePos.left += rect.left
+			pagePos.top += rect.top
+			domEl = domEl.parentElement
+		}
+
 		return connectDropTarget(
 			<span>
 				<svg
 					style={{
-						top: `${top}px`,
-						left: `${left}px`,
+						top: `${this.props.top + pagePos.top + 25}px`,
+						left: `${this.props.left + pagePos.left}px`,
 						width: pos.width, height: pos.height,
 						position: 'fixed'
 					}}
