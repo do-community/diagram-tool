@@ -212,7 +212,7 @@ class Connector extends React.Component {
 		}, 10);
 
 		const pagePos = {left: 0, top: 0}
-		let domEl = (this.state.domElement || {}).parentElement
+		let domEl = this.state.domElement
 		for (;;) {
 			if (!domEl) break
 			const rect = domEl.getBoundingClientRect()
@@ -225,10 +225,9 @@ class Connector extends React.Component {
 			<span>
 				<svg
 					style={{
-						top: `${this.props.top + pagePos.top + 25}px`,
-						left: `${this.props.left + pagePos.left}px`,
 						width: pos.width, height: pos.height,
-						position: 'fixed'
+						position: 'absolute', left: pagePos.left + (this.props.left * 18) + this.props.offsets[0],
+						top: pagePos.top * 6,
 					}}
 					viewBox={viewBox}
 					className="sketch_off"

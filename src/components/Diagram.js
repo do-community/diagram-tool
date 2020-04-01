@@ -251,16 +251,17 @@ class Diagram extends React.Component {
             nodes[connector.between[0]].position,
             nodes[connector.between[1]].position
           ]}
-          top={((
+          top={
             nodes[connector.between[0]].position[1] > nodes[connector.between[1]].position[1] ?
             nodes[connector.between[0]].position[1] - nodes[connector.between[1]].position[1] :
             nodes[connector.between[1]].position[1] - nodes[connector.between[0]].position[1]
-          ) * 45) + this.state.pageYOffset}
-          left={((
+          }
+          left={
             nodes[connector.between[0]].position[0] > nodes[connector.between[1]].position[0] ?
             nodes[connector.between[0]].position[0] - nodes[connector.between[1]].position[0] :
             nodes[connector.between[1]].position[0] - nodes[connector.between[0]].position[0]
-          ) * 15) + this.state.pageXOffset}
+          }
+          offsets={[this.state.pageXOffset, this.state.pageYOffset]}
           selected={selection.connectors.indexOf(i) >= 0}
           onDrop={(item, offset) =>
             this.diagramDrop('connector', i, item, offset)
