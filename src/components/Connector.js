@@ -2,31 +2,16 @@ import React from 'react';
 import dndHelper from '../dndHelper.js';
 
 import helpers from '../helpers.js';
-import { findDOMNode } from 'react-dom';
 
 class Connector extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {topOffset: window.pageYOffset, width: window.innerWidth, domElement: null};
-		window.addEventListener('scroll', () => {
-			this.setState({topOffset: window.pageYOffset});
-		});
-		window.addEventListener('resize', () => {
-			this.setState({width: window.innerWidth});
-		});
-	}
-
-	componentDidMount() {
-		this.setState({domElement: findDOMNode(this)});
-	}
-
 	render() {
 		const {
 			connector_template,
 			id,
 			metadata,
 			between,
-			connectDropTarget
+			connectDropTarget,
+			selected
 		} = this.props;
 
 		let pos, viewBox, path, w, h, dir, dns_path;
@@ -100,7 +85,7 @@ class Connector extends React.Component {
 					height: h + 'px'
 				};
 				dir = 'h';
-				viewBox = '0 0 ' + w + '.0 ' + h + '.0';
+				viewBox = '0 0 ' + w + ' ' + h;
 				// hb - horizontal, bottom to top (left to right) NOTE: Y is inverted in svg
 				if (start[1] > end[1]) {
 					path = [
@@ -155,7 +140,7 @@ class Connector extends React.Component {
 			}
 		}
 
-		const center = { left: w / 2, top: (h / 2) - this.state.topOffset },
+		const center = { left: w / 2, top: h / 2 },
 			d_string = helpers.lineToSVGString(
 				path,
 				dir,
@@ -184,87 +169,82 @@ class Connector extends React.Component {
 			}
 		}, 10);
 
-		const pagePos = {left: 0, top: 0}
-		let domEl = this.state.domElement
-		for (;;) {
-			if (!domEl) break
-			const rect = domEl.getBoundingClientRect()
-			pagePos.left += rect.left
-			pagePos.top += rect.top
-			domEl = domEl.parentElement
-		}
-
 		return connectDropTarget(
-			<span>
+			<div
+				key={id}
+				data-click_key={id}
+				style={pos}
+				data-category="connector"
+				data-active={!(metadata && metadata.active === false)}
+				data-selected={this.props.selected === true}
+				className="hoverParent"
+			>
+				<label className="hoverShow">
+					{connector_template.name}
+				</label>
+
 				<svg
-					style={{
-						width: pos.width, height: pos.height,
-						position: 'absolute', left: pagePos.left + (this.props.left * 18) + this.props.offsets[0],
-						top: pagePos.top * 6,
-					}}
+					width="100%"
+					height="100%"
 					viewBox={viewBox}
-					data-dropaction="connector"
-					data-category="connector"
 					color={
 						metadata && metadata.active === false
 							? '#999'
 							: metadata.color
 					}
 				>
-					<g>
+					<path
+						data-js={'wire_' + id}
+						className="offwhitestroked"
+						d={d_string}
+						strokeWidth="5px"
+					/>
+					<path
+						className={
+							connector_template.mode === 'duplex'
+								? 'unfilled'
+								: 'unfilled dashed'
+						}
+						d={d_string}
+						stroke="currentcolor"
+						strokeWidth={
+							connector_template.mode === 'duplex'
+								? '3px'
+								: '1px'
+						}
+					/>
+
+					{(!metadata || !metadata.encryption) && connector_template.mode === 'duplex' ? (
 						<path
-							data-js={'wire_' + id}
 							className="offwhitestroked"
 							d={d_string}
-							strokeWidth="5px"
+							strokeWidth="2px"
 						/>
+					) : (
+						undefined
+					)}
+
+					{metadata && metadata.dns ? (
 						<path
-							className={
-								connector_template.mode === 'duplex'
-									? 'unfilled'
-									: 'unfilled dashed'
-							}
-							d={d_string}
+							d={helpers.lineToSVGString(dns_path, dir, true)}
 							stroke="currentcolor"
-							strokeWidth={
-								connector_template.mode === 'duplex'
-									? '3px'
-									: '1px'
-							}
 						/>
+					) : (
+						undefined
+					)}
 
-						{(!metadata || !metadata.encryption) && connector_template.mode === 'duplex' ? (
+					{metadata &&
+					metadata.encryption ? (
+						<g>
 							<path
-								className="offwhitestroked"
-								d={d_string}
+								data-js={'squiggle_' + id + 'a'}
 								strokeWidth="2px"
+								className="paperstroked"
 							/>
-						) : (
-							undefined
-						)}
-
-						{metadata && metadata.dns ? (
-							<path
-								d={helpers.lineToSVGString(dns_path, dir, true)}
-								stroke="currentcolor"
-							/>
-						) : (
-							undefined
-						)}
-
-						{metadata &&
-						metadata.encryption ? (
-							<g>
-								<path
-									data-js={'squiggle_' + id + 'a'}
-									strokeWidth="2px"
-									className="paperstroked"
-								/>
-							</g>
-						) : (
-							undefined
-						)}
-					</g>
+						</g>
+					) : (
+						undefined
+					)}
 
 					<circle
 						className="hoverShow add"
@@ -274,38 +254,24 @@ class Connector extends React.Component {
 					/>
 				</svg>
 
-				<figure
-					key={id}
-					data-click_key={id}
-					style={pos}
-					data-category="connector"
-					data-active={!(metadata && metadata.active === false)}
-					data-selected={this.props.selected === true}
-					className="hoverParent"
-				>
-					<label className="hoverShow" style={{left: center.left, top: center.top}}>
-						{connector_template.name}
-					</label>
-
-					{metadata && metadata.dns ? (
-						<dl
-							className="dns-label"
-							title={metadata.dns}
-							style={{
-								left: dns_path[1][0] - 2,
-								marginTop: dns_path[1][1] - this.state.topOffset,
-							}}
-						>
-							<dt style={{ borderColor: metadata.color }}>dns:</dt>
-							<dd style={{ borderColor: metadata.color }}>
-								{metadata.dns}
-							</dd>
-						</dl>
-					) : (
-						''
-					)}
-				</figure>
-			</span>
+				{metadata && metadata.dns ? (
+					<dl
+						className="dns-label"
+						title={metadata.dns}
+						style={{
+							left: dns_path[1][0] - 2,
+							marginTop: dns_path[1][1]
+						}}
+					>
+						<dt style={{ borderColor: metadata.color }}>dns:</dt>
+						<dd style={{ borderColor: metadata.color }}>
+							{metadata.dns}
+						</dd>
+					</dl>
+				) : (
+					''
+				)}
+			</div>
 		);
 	}
 }

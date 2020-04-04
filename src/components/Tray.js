@@ -9,9 +9,6 @@ class Tray extends React.Component {
 		super(props);
 		const topOffset = document.getElementById('root').getBoundingClientRect().top + 20;
 		this.state = {'top': topOffset - window.pageYOffset};
-		window.addEventListener('scroll', () => {
-			this.setState({top: topOffset - window.pageYOffset});
-		});
 	}
 	toggleMinimized() {
 		const sidenav = document.querySelector('.bui-SideNav');
@@ -19,7 +16,7 @@ class Tray extends React.Component {
 	}
 	render(){
 		return this.props.connectDropTarget(
-			<div className="tray side-panel" style={{top: this.state.top}}>
+			<div className="tray side-panel">
 				<p><a onClick={() => this.props.switchToApp()}>Main Menu</a></p>
 				<h3>Build</h3>
 				<div className="scrollable">

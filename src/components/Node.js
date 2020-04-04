@@ -92,7 +92,6 @@ class Node extends React.Component {
             ) : null}
 
           </svg>
-          }
 
           <figcaption style={label_offset}>
             {metadata.name || node_template.short_name}

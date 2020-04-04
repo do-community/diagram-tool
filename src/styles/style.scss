@@ -348,7 +348,7 @@ body {
         z-index: 1;
       }
 
-      figure[data-category="node"], figure[data-category="connector"] {
+      [data-category="node"], [data-category="connector"] {
         @extend .center-on-grid;
         width: 100px;
         height: 100px;
