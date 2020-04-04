@@ -68,27 +68,30 @@ class Diagram extends React.Component {
   }
 
   copy() {
-    this.props.copyNodes(
-      this.props.selection.nodes.reduce((a, n) => {
-        a[n] = this.props.nodes[n];
-        return a;
-      }, {})
-    );
+    if(!helpers.copyPastingText()) {
+      this.props.copyNodes(
+        this.props.selection.nodes.reduce((a, n) => {
+          a[n] = this.props.nodes[n];
+          return a;
+        }, {})
+      );
+    }
   }
 
   paste() {
-    Object.keys(this.props.selection.clipboard).map(n => {
-      helpers.addNodeAndConnections(
-        this.props.selection.clipboard[n].type,
-        this.props.selection.clipboard[n].position,
-        this.props.selection.clipboard[n].metadata,
-        this.props
-      );
-    });
+    if(!helpers.copyPastingText()) {
+      Object.keys(this.props.selection.clipboard).map(n => {
+        helpers.addNodeAndConnections(
+          this.props.selection.clipboard[n].type,
+          this.props.selection.clipboard[n].position,
+          this.props.selection.clipboard[n].metadata,
+          this.props
+        );
+      });
+    }
   }
 
   click(event) {
-    //console.log('click');
     const target = helpers.getKeyedElement(event.target);
     if (target) {
       if (target.getAttribute('data-ondoubleclick') === 'add') {
