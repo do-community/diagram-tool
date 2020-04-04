@@ -10,8 +10,7 @@ class Connector extends React.Component {
 			id,
 			metadata,
 			between,
-			connectDropTarget,
-			selected
+			connectDropTarget
 		} = this.props;
 
 		let pos, viewBox, path, w, h, dir, dns_path;

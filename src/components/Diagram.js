@@ -272,7 +272,7 @@ class Diagram extends React.Component {
 
         <Tray
           mode={mode}
-          onDrop={item => this.diagramDrop("tray", null, item)}
+          onDrop={item => this.diagramDrop('tray', null, item)}
         />
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}

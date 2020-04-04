@@ -1,6 +1,5 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import helpers from '../helpers.js';
 
 class Region extends React.Component {
   render(){
