@@ -168,46 +168,19 @@ class Connector extends React.Component {
 
 		//TODO: Unhack this
 		window.setTimeout(function() {
-			if (helpers.sketchMode()) {
-				const canv = document.querySelector('*[data-js="canvas_connector_' + id + '"]'),
-					canv_ctx = canv.getContext('2d'),
-					rc = rough.canvas(canv);
-				let d = d_string,
-					r = 2;
-				if (
-					metadata &&
-					metadata.encryption
-				) {
-					d = helpers.squigglePath(
-						document.querySelector('*[data-js="wire_' + id + '"]'),
-						6,
-						2
-					);
-					r = 0.5;
-				}
-				canv_ctx.clearRect(0, 0, canv.width, canv.height);
-				//rc.path(d_string, { strokeWidth:3, stroke:'#CCC', roughness:2.8});
-				rc.path(d, {
-					stroke: metadata.color,
-					roughness: r,
-					strokeWidth: connector_template.mode === 'duplex' ? 1 : 0.25
-				});
-			} else {
-				if (
-					metadata &&
-					metadata.encryption
-				) {
-					const d = helpers.squigglePath(
-						document.querySelector('*[data-js="wire_' + id + '"]'),
-						9,
-						1.5
-					);
-					if (!d) return;
-					document
-						.querySelector('*[data-js="squiggle_' + id + 'a"]')
-						.setAttribute('d', d);
-					
-				}
+			if (
+				metadata &&
+				metadata.encryption
+			) {
+				const d = helpers.squigglePath(
+					document.querySelector('*[data-js="wire_' + id + '"]'),
+					9,
+					1.5
+				);
+				if (!d) return;
+				document
+					.querySelector('*[data-js="squiggle_' + id + 'a"]')
+					.setAttribute('d', d);
 			}
 		}, 10);
 
@@ -230,7 +203,6 @@ class Connector extends React.Component {
 						top: pagePos.top * 6,
 					}}
 					viewBox={viewBox}
-					className="sketch_off"
 					data-dropaction="connector"
 					data-category="connector"
 					color={
@@ -314,16 +286,6 @@ class Connector extends React.Component {
 					<label className="hoverShow" style={{left: center.left, top: center.top}}>
 						{connector_template.name}
 					</label>
-
-					{helpers.sketchMode() ? (
-						<canvas
-							data-js={'canvas_connector_' + id}
-							width={pos.width}
-							height={pos.height}
-						/>
-					) : (
-						undefined
-					)}
 
 					{metadata && metadata.dns ? (
 						<dl

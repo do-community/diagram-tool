@@ -274,7 +274,7 @@ class Diagram extends React.Component {
 
     return connectDropTarget(
       <div
-        className={'main' + (helpers.sketchMode() ? ' sketch' : '')}
+        className='main'
         tabIndex="0"
         onKeyDown={this.keyDown}
         onCopy={this.copy}

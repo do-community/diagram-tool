@@ -529,18 +529,4 @@ body {
   .minimized .minimizeButton:after {
     content: "▶";
   }
-
-  /* Hand-Sketched Special! */
-  .sketch_on {
-    display: none!important;
-  }
-  .sketch {
-    font-family: 'Humor Sans';
-    .sketch_on {
-      display: block!important;
-    }
-    .sketch_off {
-      display: none!important;
-    }
-  }
 }

@@ -22,10 +22,6 @@ const helpers = {
   guid: function() {
     return this._s4() + this._s4() + this._s4();
   },
-  //returns true if handmade set in url
-  sketchMode: function() {
-    return window.location.search.indexOf('sketchMode') > -1;
-  },
 
   polarToCartesian: function(centerX, centerY, radius, angleInDegrees) {
     const angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
