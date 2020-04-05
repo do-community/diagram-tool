@@ -2,6 +2,17 @@ import DATA from "./data";
 import get from "lodash/get";
 
 const helpers = {
+  // is a user is copy/pasting into input areas, or with text highlighted?
+  copyPastingText: function() {
+    if (document.activeElement.tagName in ['INPUT', 'TEXTAREA']) {
+      return true;
+    }
+    if (window.getSelection().toString().length) {
+      return true;
+    }
+    return false;
+  },
+
   //capitalize the first letter of a string
   capitalize: function(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
@@ -21,10 +32,6 @@ const helpers = {
   //Generates a random XXXX-XXXX-XXXX guid
   guid: function() {
     return this._s4() + this._s4() + this._s4();
-  },
-  //returns true if handmade set in url
-  sketchMode: function() {
-    return window.location.search.indexOf('sketchMode') > -1;
   },
 
   polarToCartesian: function(centerX, centerY, radius, angleInDegrees) {
@@ -327,7 +334,6 @@ const helpers = {
             "," +
             points[i + 2][1];
         }
-        console.log('curved', st_1);
         return st_1;
       }
     }

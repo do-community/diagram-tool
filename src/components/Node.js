@@ -1,6 +1,5 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import helpers from '../helpers.js';
 import NODES from '../data/NODES.js';
 import ICONS from '../data/ICONS.js';
 import ConnectorDragHandle from './ConnectorDragHandle';
@@ -26,24 +25,6 @@ class Node extends React.Component {
       label_offset = { bottom: (node_template.label_offset ? node_template.label_offset : 0) + 'px' };
       metadata = metadata || {};
 
-      if(helpers.sketchMode()) {
-      window.setTimeout(function() {
-        const canv = document.querySelector('*[data-js="canvas_node_' + id + '"]'),
-          canv_ctx = canv.getContext('2d'),
-          rc = rough.canvas(canv),
-          svg_paths = document.querySelectorAll('.digitalocean_icons #' + type + ' path'),
-          fills = {lightblue:'#abd0ff',darkblue:'#0080ff', paper:'#fafafa', 'paper stroked':'#fafafa' }
-        canv_ctx.clearRect(0, 0, canv.width, canv.height);
-        //rc.path(d_string, { strokeWidth:3, stroke:'#CCC', roughness:2.8});
-        if(!node_template.behavior.regionless) rc.circle(50, 50, 100, {stroke: '#0080ff', roughness: 0.3});
-        for(let i=0; i<svg_paths.length; i++) {
-          let specs = { stroke: '#0080ff', fill: svg_paths[i].className.baseVal in fills ? fills[svg_paths[i].className.baseVal] : null , fillWeight: 2, roughness: 0.3}
-          rc.path(svg_paths[i].getAttribute('d'), specs);
-
-        }
-      }, 10);
-    }
-
     return connectDropTarget(
       connectDragSource(
         <figure
@@ -54,15 +35,6 @@ class Node extends React.Component {
           data-selected={this.props.selected === true}
           className="hoverParent"
         >
-        {helpers.sketchMode() ?
-          <canvas
-            className="canvas_node"
-            data-js={'canvas_node_' + id}
-            width="100px"
-            height="100px"
-            style={{transform: 'scale(' + (scale/100.0) + ')'}}
-          />
-          :
           <svg
             width="100%"
             height="100%"
@@ -119,7 +91,6 @@ class Node extends React.Component {
             ) : null}
 
           </svg>
-          }
 
           <figcaption style={label_offset}>
             {metadata.name || node_template.short_name}

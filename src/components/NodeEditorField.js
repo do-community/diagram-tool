@@ -77,7 +77,7 @@ class NodeEditorField extends React.Component {
 							id={name}
 							onChange={this.handleChange}
 							value={value}
-							style={{'padding-top':'14px'}}
+							style={{'paddingTop':'14px'}}
 						>
 							{specs.validation.map((o,i) => <option value={o} key={'opt_'+o+'_'+i}>{o}</option>)}
 						</select>

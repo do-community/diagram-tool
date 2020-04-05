@@ -24,16 +24,6 @@ class Diagram extends React.Component {
     this.composeSelectionObject = this.composeSelectionObject.bind(this);
     this.diagramDrop = this.diagramDrop.bind(this);
     this.share = this.share.bind(this);
-    this.ref = React.createRef();
-
-    const bottomOffset = document.getElementById('root').getBoundingClientRect().bottom;
-		this.state = {'bottom': bottomOffset + window.pageYOffset, 'pageXOffset': window.pageXOffset, 'pageYOffset': window.pageYOffset};
-		window.addEventListener('scroll', () => {
-			this.setState({'bottom': bottomOffset + window.pageYOffset, 'pageXOffset': window.pageXOffset, 'pageYOffset': window.pageYOffset});
-    });
-    window.addEventListener('resize', () => {
-      this.setState({'pageXOffset': window.pageXOffset, 'pageYOffset': window.pageYOffset});
-    });
 
     //TODO: Not sure where to put this initialize state call, so leaving it here
     helpers.initializeState(function(response) {
@@ -78,27 +68,30 @@ class Diagram extends React.Component {
   }
 
   copy() {
-    this.props.copyNodes(
-      this.props.selection.nodes.reduce((a, n) => {
-        a[n] = this.props.nodes[n];
-        return a;
-      }, {})
-    );
+    if(!helpers.copyPastingText()) {
+      this.props.copyNodes(
+        this.props.selection.nodes.reduce((a, n) => {
+          a[n] = this.props.nodes[n];
+          return a;
+        }, {})
+      );
+    }
   }
 
   paste() {
-    Object.keys(this.props.selection.clipboard).map(n => {
-      helpers.addNodeAndConnections(
-        this.props.selection.clipboard[n].type,
-        this.props.selection.clipboard[n].position,
-        this.props.selection.clipboard[n].metadata,
-        this.props
-      );
-    });
+    if(!helpers.copyPastingText()) {
+      Object.keys(this.props.selection.clipboard).map(n => {
+        helpers.addNodeAndConnections(
+          this.props.selection.clipboard[n].type,
+          this.props.selection.clipboard[n].position,
+          this.props.selection.clipboard[n].metadata,
+          this.props
+        );
+      });
+    }
   }
 
   click(event) {
-    //console.log('click');
     const target = helpers.getKeyedElement(event.target);
     if (target) {
       if (target.getAttribute('data-ondoubleclick') === 'add') {
@@ -251,17 +244,6 @@ class Diagram extends React.Component {
             nodes[connector.between[0]].position,
             nodes[connector.between[1]].position
           ]}
-          top={
-            nodes[connector.between[0]].position[1] > nodes[connector.between[1]].position[1] ?
-            nodes[connector.between[0]].position[1] - nodes[connector.between[1]].position[1] :
-            nodes[connector.between[1]].position[1] - nodes[connector.between[0]].position[1]
-          }
-          left={
-            nodes[connector.between[0]].position[0] > nodes[connector.between[1]].position[0] ?
-            nodes[connector.between[0]].position[0] - nodes[connector.between[1]].position[0] :
-            nodes[connector.between[1]].position[0] - nodes[connector.between[0]].position[0]
-          }
-          offsets={[this.state.pageXOffset, this.state.pageYOffset]}
           selected={selection.connectors.indexOf(i) >= 0}
           onDrop={(item, offset) =>
             this.diagramDrop('connector', i, item, offset)
@@ -274,7 +256,7 @@ class Diagram extends React.Component {
 
     return connectDropTarget(
       <div
-        className={'main' + (helpers.sketchMode() ? ' sketch' : '')}
+        className="main"
         tabIndex="0"
         onKeyDown={this.keyDown}
         onCopy={this.copy}
@@ -291,7 +273,6 @@ class Diagram extends React.Component {
         <Tray
           mode={mode}
           onDrop={item => this.diagramDrop('tray', null, item)}
-          switchToApp={this.props.switchToApp}
         />
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
@@ -300,7 +281,7 @@ class Diagram extends React.Component {
 
         <NodeEditor {...selected} />
 
-        <div className="bui-GridContainer shareButton" style={{bottom: this.state.bottom}}>
+        <div className="bui-GridContainer shareButton">
           <div className="bui-Col-3">
             <a href="#" className="bui-Button" onClick={this.share}>
               Share

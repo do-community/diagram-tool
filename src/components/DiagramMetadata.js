@@ -17,7 +17,7 @@ class DiagramMetadata extends React.Component {
 
 		return (
 			<div className="diagramMetadata hoverParent">
-				<h1 contentEditable="true" onChange={this.handleChange}>{name}</h1>
+				<input type="text" onChange={this.handleChange} name="name" value={name || ''} />
 				<br/>
 				<textarea onChange={this.handleChange} name="description" value={description}>{description}</textarea>
 			</div>
