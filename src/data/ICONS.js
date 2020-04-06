@@ -20,7 +20,6 @@ export default {
   </g>,
   cloud_firewall: <path id="cloud_firewall" dataname="cloud_firewall" className="stroked unfilled" d="M50,1c27.062,0,49,21.938,49,49S77.062,99,50,99 C22.938,99,1,77.063,1,50S22.938,1,50,1z" />,
   tag: <path className="inherit-fill" id="tag" dataname="tag" d="M5,0L8,3L8,10L2,10L2,3L5,0" />,
-  bubble: <path id="bubble" dataname="bubble" className="waxpaper" d="M50,1c27.062,0,49,21.938,49,49S77.062,99,50,99 C22.938,99,1,77.063,1,50S22.938,1,50,1z" />,
   droplet: <g transform="scale(0.5) translate(25, 45)" className="darkblue" id="droplet">
     <path className="lightblue stroked" id="droplet" d="M75.498,5.571c0,0,37.501,37.884,37.501,58.598c0,20.709-16.79,37.498-37.501,37.498C54.789,101.667,38,84.879,38,64.169C37.997,43.456,75.498,5.571,75.498,5.571z" />
   </g>,

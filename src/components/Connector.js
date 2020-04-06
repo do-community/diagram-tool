@@ -39,7 +39,7 @@ class Connector extends React.Component {
 			h = Math.abs(end[1] - start[1]) * 103;
 			w = (end[0] - start[0]) * 100;
 			dir = 'v';
-			
+
 
 			// v - vertical
 			if (start[0] == end[0]) {
@@ -192,12 +192,12 @@ class Connector extends React.Component {
 							: metadata.color
 					}
 				>
-					<path
+					{/*<path
 						data-js={'wire_' + id}
 						className="offwhitestroked"
 						d={d_string}
 						strokeWidth="5px"
-					/>
+					/>*/}
 					<path
 						className={
 							connector_template.mode === 'duplex'
@@ -213,7 +213,7 @@ class Connector extends React.Component {
 						}
 					/>
 
-					{(!metadata || !metadata.encryption) && connector_template.mode === 'duplex' ? (
+					{/*{(!metadata || !metadata.encryption) && connector_template.mode === 'duplex' ? (
 						<path
 							className="offwhitestroked"
 							d={d_string}
@@ -221,7 +221,7 @@ class Connector extends React.Component {
 						/>
 					) : (
 						undefined
-					)}
+					)}*/}
 
 					{metadata && metadata.dns ? (
 						<path

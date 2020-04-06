@@ -40,14 +40,7 @@ class Node extends React.Component {
             height="100%"
             viewBox="0 0 100 100"
             style={metadata.color ? { color: metadata.color } : {}}
-            
           >
-            {node_template.behavior.regionless
-              ?
-              undefined
-              :
-              ICONS.bubble
-            }
             {node_template.extends && node_template.extends === 'droplet'
               ?
               ICONS.droplet
@@ -56,7 +49,7 @@ class Node extends React.Component {
             }
             {ICONS[type]}
             {
-              metadata.block_storage ? 
+              metadata.block_storage ?
               <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{ICONS.block_storage}</svg>
               :
               null
@@ -69,12 +62,11 @@ class Node extends React.Component {
                 style={{width: scale + 'px', height: scale + 'px'}}
                 x={Math.round(((100 - scale) / 2) - (metadata.block_storage ? Math.cbrt(Math.max(1000,metadata.block_storage))/2.0 : 0)) + 'px'}
                 y={Math.round((100 - scale) / 2) + 'px'}
-                
               >
                 {ICONS[metadata.management_method]}
               </svg>
             ) : null}
-            
+
             {metadata.active_disable_temporarily ? (
               <circle className="active" r="4" cx="12" cy="89" />
             ) : null}
@@ -89,7 +81,6 @@ class Node extends React.Component {
                 style={{width: '32px', height: '32px'}}
               />
             ) : null}
-
           </svg>
 
           <figcaption style={label_offset}>
