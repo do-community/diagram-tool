@@ -6,8 +6,7 @@ import Connector from './Connector';
 import Region from './Region';
 import NodeEditor from './NodeEditor';
 import DiagramMetadata from './DiagramMetadata';
-
-
+import { showWhereClick, viewVisible, clear } from '../showWhereClick';
 
 import DATA from '../data';
 import helpers from '../helpers.js';
@@ -24,8 +23,6 @@ class Diagram extends React.Component {
     this.composeSelectionObject = this.composeSelectionObject.bind(this);
     this.diagramDrop = this.diagramDrop.bind(this);
     this.share = this.share.bind(this);
-
-    //TODO: Not sure where to put this initialize state call, so leaving it here
     helpers.initializeState(function(response) {
       props.initialize(response);
     });
@@ -133,6 +130,15 @@ class Diagram extends React.Component {
         0
     ) {
       this.props.deselectNodes();
+    } else {
+      if (viewVisible()) {
+        clear();
+      } else {
+        showWhereClick(<Tray
+          nodes={this.props.nodes}
+          addNode={this.props.addNode}
+        />, event);
+      }
     }
   }
 
@@ -194,7 +200,6 @@ class Diagram extends React.Component {
         connectors,
         selection,
         connectDropTarget,
-        mode
       } = this.props,
       regions = helpers.getRegionsFromNodes(nodes),
       tags = helpers.getTagsFromNodes(nodes),
@@ -268,11 +273,6 @@ class Diagram extends React.Component {
         <DiagramMetadata
           {...this.props.metadata}
           editAction={this.props.editDiagramMetadata}
-        />
-
-        <Tray
-          mode={mode}
-          onDrop={item => this.diagramDrop('tray', null, item)}
         />
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
