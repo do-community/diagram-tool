@@ -21,16 +21,68 @@ export class ClickPositioner extends React.Component {
     }
 }
 
+let positioner;
+
+class CloseEnoughPositioner extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {contentWidth: 0, contentHeight: 0, pageWidth: 0, pageHeight: 0};
+        this.componentDidMount = this.getWidthsHeights;
+        window.onresize = this.getWidthsHeights.bind(this);
+        this.ref = React.createRef();
+        positioner = this;
+    }
+
+    getWidthsHeights() {
+        const domEl = this.ref.current;
+        this.setState({contentWidth: domEl.clientWidth, contentHeight: domEl.clientHeight, pageWidth: window.innerWidth, pageHeight: window.innerHeight});
+    }
+
+    render() {
+        console.log(this.state.contentHeight);
+
+        // Get the wanted left and top positions with the element.
+        let {
+            left, top, el,
+        } = this.props;
+
+        // Ensure it fits on the Y axis.
+        const topInt = Number(top.slice(0, -2));
+        if (this.state.pageHeight >= topInt) {
+            const itemAdded = topInt + this.state.contentHeight;
+            if (itemAdded > this.state.pageHeight) {
+                // Ok, it will be larger than the page.
+                // We will subtract the content width from the page height (and minus 25 for some wiggle room) to get the top position.
+                top = `${this.state.pageHeight - this.state.contentHeight - 25}px`;
+            }
+        }
+
+        // Ensure it fits on the X axis.
+        const leftInt = Number(left.slice(0, -2));
+        if (this.state.pageWidth >= leftInt) {
+            const itemAdded = leftInt + this.state.contentWidth;
+            if (itemAdded > this.state.pageWidth) {
+                // Ok, it will be larger than the page.
+                // We will subtract the content width from the page width (and minus 100 for some wiggle room) to get the left position.
+                left = `${this.state.pageWidth - this.state.contentWidth - 100}px`;
+            }
+        }
+
+        // Render the element with all of this wrapped.
+        return <div style={{left, top, position: "absolute"}} className="infragram do-bulma" ref={this.ref}>{el}</div>;
+    }
+}
+
+export const updatePosition = () => {
+    if (positioner) {
+        positioner.getWidthsHeights.bind(positioner)();
+    }
+}
+
 export const showWhereClick = (el, event) => {
     const left = `${event.clientX + window.pageXOffset}px`;
-    const top =  `${event.clientY + window.pageYOffset}px`;
-    const positionedEl = <div className="infragram" style={{
-        position: 'absolute',
-        left, top,
-    }}>
-        {el}
-    </div>;
-    clickHandler.setState({el: positionedEl, left, top});
+    const top = `${event.clientY + window.pageYOffset}px`;
+    clickHandler.setState({el: <CloseEnoughPositioner left={left} top={top} el={el} />, left, top});
 }
 
 export const getPosition = () => {
@@ -45,5 +97,5 @@ export const clear = () => {
 }
 
 export const viewVisible = () => {
-    return (clickHandler || {state: {}}).state.el !== null;
+    return (clickHandler || {state: {el: null}}).state.el !== null;
 }

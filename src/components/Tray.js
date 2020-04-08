@@ -1,10 +1,15 @@
 import React from 'react';
-import TrayNode from './TrayNode';
 import DATA from '../data';
-import { getPosition, clear } from '../showWhereClick';
+import { getPosition, clear, updatePosition } from '../showWhereClick';
 import helpers from '../helpers';
+import FileLikeBrowser from './FileLikeBrowser';
 
 export default class Tray extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {category: null};
+	}
+
 	onNodeClick(nodeId) {
 		// Clear the UI and get the position where the mouse was clicked.
 		const position = getPosition();
@@ -22,21 +27,38 @@ export default class Tray extends React.Component {
 		);
 	}
 
+	componentDidUpdate() {
+		updatePosition();
+	}
+
 	render() {
-		return <div className="tray selection-panel">
-			<h3>Build</h3>
-			<div className="scrollable">
-				<ul>
-					{ Object.keys(DATA.NODES_BY_CATEGORY).map(
-						category => <li key={category}>
-							<h4>{category}</h4>
-							<ul>{ Object.keys(DATA.NODES_BY_CATEGORY[category]).map(
-								(node, i) => { return (<TrayNode key={i} id={node} onClick={() => this.onNodeClick(node)} />) }
-							)}</ul>
-						</li>
-					) }
-				</ul>
-			</div>
-		</div>;
+		// TODO: Modify how nodes are fetched.
+		if (this.state.category) {
+			const buttons = Object.keys(DATA.NODES_BY_CATEGORY[this.state.category]).map(id => {
+				return {
+					id, icon: DATA.ICONS[id], name: DATA.NODES[id].name,
+				};
+			});
+
+			return <FileLikeBrowser
+				backAction={() => this.setState({category: null})}
+				title={this.state.category}
+				buttons={buttons}
+				onClick={nodeId => this.onNodeClick(nodeId)}
+			/>;
+		} else {
+			const buttons = Object.keys(DATA.NODES_BY_CATEGORY).map(id => {
+				return {
+					// TODO: Edit icon!
+					id, icon: DATA.ICONS.worker_server, name: id,
+				};
+			});
+
+			return <FileLikeBrowser
+				title="Category Selection"
+				buttons={buttons}
+				onClick={category => this.setState({category})}
+			/>;
+		}
 	}
 };
