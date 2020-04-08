@@ -39,8 +39,6 @@ class CloseEnoughPositioner extends React.Component {
     }
 
     render() {
-        console.log(this.state.contentHeight);
-
         // Get the wanted left and top positions with the element.
         let {
             left, top, el,
