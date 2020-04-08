@@ -101,7 +101,7 @@ const helpers = {
 
   //attempts to get an initial state by
   // 1. looking for a hash "#uuid" in the url and attempting to grab it from cdn
-  // 2. looking in local storage for 'infragram_state'
+  // 2. looking in local storage for 'infragramState'
   // 3. just loading some random saved diagram
   initializeState: function(callback) {
     if (window.location.hash.length === 37) {
@@ -137,7 +137,7 @@ const helpers = {
       }
     } else {
       try {
-        const serializedState = localStorage.getItem("infragram_state");
+        const serializedState = localStorage.getItem("infragramState");
         if (serializedState === null) {
           return undefined;
         }
@@ -155,7 +155,7 @@ const helpers = {
   saveState: function(state) {
     try {
       const serializedState = JSON.stringify(state);
-      localStorage.setItem("infragram_state", serializedState);
+      localStorage.setItem("infragramState", serializedState);
     } catch (err) {
       console.error("Could not save state");
     }
@@ -193,13 +193,13 @@ const helpers = {
   },
 
   getRegionsFromNodes: function(nodes) {
-    return Object.keys(nodes).reduce((regions_obj, node_key) => {
-      if (get(nodes[node_key], "metadata.region")) {
-        if (!regions_obj[nodes[node_key].metadata.region])
-          regions_obj[nodes[node_key].metadata.region] = [];
-        regions_obj[nodes[node_key].metadata.region].push(node_key);
+    return Object.keys(nodes).reduce((regionsObj, nodeKey) => {
+      if (get(nodes[nodeKey], "metadata.region")) {
+        if (!regionsObj[nodes[nodeKey].metadata.region])
+          regionsObj[nodes[nodeKey].metadata.region] = [];
+        regionsObj[nodes[nodeKey].metadata.region].push(nodeKey);
       }
-      return regions_obj;
+      return regionsObj;
     }, {});
   },
 
@@ -210,18 +210,18 @@ const helpers = {
   },
 
   getTagsFromNodes: function(nodes) {
-    return Object.keys(nodes).reduce((tags_obj, node_key) => {
-      if (get(nodes[node_key], "metadata.tags")) {
-        (typeof(nodes[node_key].metadata.tags) === 'string' ? nodes[node_key].metadata.tags.split(",") :  nodes[node_key].metadata.tags).map(tag => {
-          if (tag.length > 0 && tag !== " " && !(tag in tags_obj)) {
-            tags_obj[tag] = {
-              color_id: Object.keys(tags_obj).length+1,
-              dash_array: (80 + (this.stringDeterministicRandom(tag) % 70)) + ", 4, " + (this.stringDeterministicRandom(tag) % 100) + ", 4"
+    return Object.keys(nodes).reduce((tagsObj, nodeKey) => {
+      if (get(nodes[nodeKey], "metadata.tags")) {
+        (typeof(nodes[nodeKey].metadata.tags) === 'string' ? nodes[nodeKey].metadata.tags.split(",") :  nodes[nodeKey].metadata.tags).map(tag => {
+          if (tag.length > 0 && tag !== " " && !(tag in tagsObj)) {
+            tagsObj[tag] = {
+              colorId: Object.keys(tagsObj).length+1,
+              dashArray: (80 + (this.stringDeterministicRandom(tag) % 70)) + ", 4, " + (this.stringDeterministicRandom(tag) % 100) + ", 4"
             };
           }
         });
       }
-      return tags_obj;
+      return tagsObj;
     }, {});
   },
 
@@ -255,7 +255,7 @@ const helpers = {
   },
 
   getKeyedElement: function(target) {
-    while (!target.dataset.click_key && target.id !== "root") {
+    while (!target.dataset.clickKey && target.id !== "root") {
       target = target.parentNode;
     }
     return target.id === "root" ? null : target;
@@ -348,7 +348,7 @@ const helpers = {
   },
 
   getClosestNodes: function(types, position, nodes, greedy) {
-    let min_dist = 9999999,
+    let minDist = 9999999,
       closest = [],
       dist, i, type;
     for(i=0;i<types.length;i++) {
@@ -359,8 +359,8 @@ const helpers = {
             Math.pow(nodes[key].position[0] - position[0], 2) +
               Math.pow(nodes[key].position[1] - position[1], 2)
           );
-          if (dist < min_dist || greedy) {
-            min_dist = dist;
+          if (dist < minDist || greedy) {
+            minDist = dist;
             closest.push(key);
           }
         }
@@ -411,7 +411,7 @@ const helpers = {
       this.mouseToGrid({ x: coords[0], y: coords[1] }),
       this.mouseToGrid({ x: coords[2], y: coords[3] })
     ];
-    let selected_nodes = [];
+    let selectedNodes = [];
     Object.keys(nodes).forEach(key => {
       if (
         nodes[key].position[0] >= box[0][0] &&
@@ -419,14 +419,14 @@ const helpers = {
         nodes[key].position[1] >= box[0][1] &&
         nodes[key].position[1] <= box[1][1]
       ) {
-        selected_nodes.push(key);
+        selectedNodes.push(key);
       }
     });
-    return selected_nodes;
+    return selectedNodes;
   },
 
   dragHighlight: function(start, selectCB, nodes) {
-    let drag_obj = {
+    let dragObj = {
       box: document.querySelector("#dragBox"),
       getNodesWithinRect: this.getNodesWithinRect,
       mouseToGrid: this.mouseToGrid,
@@ -483,24 +483,24 @@ const helpers = {
       }
     };
 
-    drag_obj.dragUpdateRef = drag_obj.dragUpdate.bind(drag_obj);
-    drag_obj.captureClickRef = drag_obj.captureClick.bind(drag_obj);
-    drag_obj.dragStopRef = drag_obj.dragStop.bind(drag_obj);
-    drag_obj.dragDebounce = window.setTimeout(
+    dragObj.dragUpdateRef = dragObj.dragUpdate.bind(dragObj);
+    dragObj.captureClickRef = dragObj.captureClick.bind(dragObj);
+    dragObj.dragStopRef = dragObj.dragStop.bind(dragObj);
+    dragObj.dragDebounce = window.setTimeout(
       function() {
         this._sx = start[0];
         this._sy = start[1];
         this.box.style.display = "block";
         document.addEventListener("mousemove", this.dragUpdateRef);
-      }.bind(drag_obj),
+      }.bind(dragObj),
       250
     );
-    document.addEventListener("mouseup", drag_obj.dragStopRef);
+    document.addEventListener("mouseup", dragObj.dragStopRef);
   },
 
   addNodeAndConnections: function(
-    new_node_type,
-    new_node_position,
+    newNodeType,
+    newNodePosition,
     metadata,
     state
   ) {
@@ -513,47 +513,47 @@ const helpers = {
     // Add or Move Item
     const update = {
         guid: this.guid(),
-        position: this.getClosestOpenPosition(new_node_position, state.nodes),
+        position: this.getClosestOpenPosition(newNodePosition, state.nodes),
         connections: [],
-        metadata: metadata || DATA.NODES[new_node_type].metadata
+        metadata: metadata || DATA.NODES[newNodeType].metadata
       },
-      node_specs = DATA.NODES[new_node_type],
+      nodeSpecs = DATA.NODES[newNodeType],
       regions = this.getRegionsFromNodes(state.nodes);
     console.log('addNodeAndConnections', update);
     //Auto-set region
     if (
       Object.keys(regions).length === 0 &&
-      !get(node_specs, "behavior.regionless")
+      !get(nodeSpecs, "behavior.regionless")
     ) {
       update.metadata.region = "nyc3";
     }
     if (
       !get(update, "metadata.region") &&
-      !get(node_specs, "behavior.regionless") &&
+      !get(nodeSpecs, "behavior.regionless") &&
       Object.keys(regions).length == 1
     ) {
       update.metadata.region = Object.keys(regions)[0];
     }
 
     //TRY AND CONNECT TO OTHER NODES BASED ON WANTS
-    if (get(node_specs, "behavior.wants")) {
-      node_specs.behavior.wants.map(seek => {
+    if (get(nodeSpecs, "behavior.wants")) {
+      nodeSpecs.behavior.wants.map(seek => {
         console.log('wants', seek);
-        let connection_candidates = this.getClosestNodes(
-          seek.node_types,
-          new_node_position,
+        let connectionCandidates = this.getClosestNodes(
+          seek.nodeTypes,
+          newNodePosition,
           state.nodes,
           seek.all
         );
-        console.log('candidates', connection_candidates);
-        connection_candidates.map(c => {
-          const try_c = this.connectNewNodeAndNode(
-            new_node_type,
+        console.log('candidates', connectionCandidates);
+        connectionCandidates.map(c => {
+          const tryC = this.connectNewNodeAndNode(
+            newNodeType,
             c,
             state.nodes,
             state.connectors
           );
-          if(!try_c.error) update.connections.push(try_c);
+          if(!tryC.error) update.connections.push(tryC);
         });
       });
     }
@@ -561,7 +561,7 @@ const helpers = {
 
     state.addNode(
       update.guid,
-      new_node_type,
+      newNodeType,
       ...update.position,
       update.metadata,
       update.connections
@@ -570,14 +570,14 @@ const helpers = {
     return true;
   },
 
-  nodeMaxedOut: function(node_key, node_type, connections) {
+  nodeMaxedOut: function(nodeKey, nodeType, connections) {
     if (
-      typeof get(DATA.NODES[node_type], "behavior.max_connections") === "number"
+      typeof get(DATA.NODES[nodeType], "behavior.maxConnections") === "number"
     ) {
       return (
-        DATA.NODES[node_type].behavior.max_connections <=
+        DATA.NODES[nodeType].behavior.maxConnections <=
         connections.reduce((ct, c) => {
-          if (c.between[0] === node_key || c.between[1] === node_key) ct++;
+          if (c.between[0] === nodeKey || c.between[1] === nodeKey) ct++;
           return ct;
         }, 0)
       );
@@ -585,22 +585,22 @@ const helpers = {
     return false;
   },
 
-  nodeTypesCompatible: function(node_a, node_b) {
-    //Check each node for disallowed connections (node.behavior.incompatible_with)
+  nodeTypesCompatible: function(nodeA, nodeB) {
+    //Check each node for disallowed connections (node.behavior.incompatibleWith)
     if (
-      (get(DATA.NODES[node_a], "behavior.incompatible_with") &&
-        DATA.NODES[node_a].behavior.incompatible_with.indexOf(node_b) > -1) ||
-      (get(DATA.NODES[node_b], "behavior.incompatible_with") &&
-        DATA.NODES[node_b].behavior.incompatible_with.indexOf(node_a) > -1)
+      (get(DATA.NODES[nodeA], "behavior.incompatibleWith") &&
+        DATA.NODES[nodeA].behavior.incompatibleWith.indexOf(nodeB) > -1) ||
+      (get(DATA.NODES[nodeB], "behavior.incompatibleWith") &&
+        DATA.NODES[nodeB].behavior.incompatibleWith.indexOf(nodeA) > -1)
     )
       return false;
     return true;
   },
 
-  getConnectorFromWants: function(from_node, to_node) {
-    if (DATA.NODES[from_node].behavior.wants) {
-      const ideals = DATA.NODES[from_node].behavior.wants.reduce((acc, w) => {
-        if ("node_types" in w && w.node_types.indexOf(to_node) > -1) {
+  getConnectorFromWants: function(fromNode, toNode) {
+    if (DATA.NODES[fromNode].behavior.wants) {
+      const ideals = DATA.NODES[fromNode].behavior.wants.reduce((acc, w) => {
+        if ("nodeTypes" in w && w.nodeTypes.indexOf(toNode) > -1) {
           acc.push({
             type: w.via,
             metadata: Object.assign(
@@ -619,70 +619,70 @@ const helpers = {
     return undefined;
   },
 
-  connectNewNodeAndNode: function(new_node, to_node, nodes, connections) {
-    //Check that to_node isnt maxed out
-    if (this.nodeMaxedOut(to_node, nodes[to_node].type, connections)) {
+  connectNewNodeAndNode: function(newNode, toNode, nodes, connections) {
+    //Check that toNode isnt maxed out
+    if (this.nodeMaxedOut(toNode, nodes[toNode].type, connections)) {
       return {
         error:
           "Too many connections on " +
-          (nodes[to_node].metadata.name || nodes[to_node].type)
+          (nodes[toNode].metadata.name || nodes[toNode].type)
       };
     }
 
     //Check that one node doesnt disallow the other
-    if (!this.nodeTypesCompatible(new_node, nodes[to_node].type)) {
+    if (!this.nodeTypesCompatible(newNode, nodes[toNode].type)) {
       return {
-        error: new_node + " not compatible with " + nodes[to_node].type
+        error: newNode + " not compatible with " + nodes[toNode].type
       };
     }
 
     //Connection is possible, look in behavior metadata for recommended connection
     let conn =
-      this.getConnectorFromWants(new_node, nodes[to_node].type) ||
-      this.getConnectorFromWants(nodes[to_node].type, new_node);
+      this.getConnectorFromWants(newNode, nodes[toNode].type) ||
+      this.getConnectorFromWants(nodes[toNode].type, newNode);
     if (conn) {
-      conn.to = to_node;
+      conn.to = toNode;
       return conn;
     }
-    return { to: to_node, via: "tcp", metadata: DATA.CONNECTORS.tcp.metadata };
+    return { to: toNode, via: "tcp", metadata: DATA.CONNECTORS.tcp.metadata };
   },
 
-  connectNodes: function(from_node, to_node, nodes, connections) {
-    //Check that from_node isnt maxed out
-    if (this.nodeMaxedOut(from_node, nodes[from_node].type, connections)) {
+  connectNodes: function(fromNode, toNode, nodes, connections) {
+    //Check that fromNode isnt maxed out
+    if (this.nodeMaxedOut(fromNode, nodes[fromNode].type, connections)) {
       return {
         error:
           "Too many connections on " +
-          (nodes[from_node].metadata.name || nodes[from_node].type)
+          (nodes[fromNode].metadata.name || nodes[fromNode].type)
       };
     }
 
-    //Check that to_node isnt maxed out
-    if (this.nodeMaxedOut(to_node, nodes[to_node].type, connections)) {
+    //Check that toNode isnt maxed out
+    if (this.nodeMaxedOut(toNode, nodes[toNode].type, connections)) {
       return {
         error:
           "Too many connections on " +
-          (nodes[to_node].metadata.name || nodes[to_node].type)
+          (nodes[toNode].metadata.name || nodes[toNode].type)
       };
     }
 
     //Check that one node doesnt disallow the other
-    if (!this.nodeTypesCompatible(nodes[to_node].type, nodes[from_node].type)) {
+    if (!this.nodeTypesCompatible(nodes[toNode].type, nodes[fromNode].type)) {
       return {
         error:
-          nodes[to_node].type + " not compatible with " + nodes[from_node].type
+          nodes[toNode].type + " not compatible with " + nodes[fromNode].type
       };
     }
 
     //Connection is possible, look in behavior metadata for recommended connection
     let conn = this.getConnectorFromWants(
-      nodes[to_node].type,
-      nodes[from_node].type
+      nodes[toNode].type,
+      nodes[fromNode].type
     );
     if (conn) return conn;
     conn = this.getConnectorFromWants(
-      nodes[from_node].type,
-      nodes[to_node].type
+      nodes[fromNode].type,
+      nodes[toNode].type
     );
     if (conn) return conn;
     return {type:"tcp", metadata:DATA.CONNECTORS.tcp.metadata};

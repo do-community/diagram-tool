@@ -11,13 +11,13 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{dns:'example.com'}},
-        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
+        {nodeTypes:['gateway', 'floatingIp', 'loadBalancer', 'appServer', 'droplet'], via:'https', metadata:{dns:'example.com'}},
+        {nodeTypes:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
       ],
-      connection_preference: ['https', 'http', 'websocket'],
-      incompatible_with: ['iot_device', 'mobile'],
+      connectionPreference: ['https', 'http', 'websocket'],
+      incompatibleWith: ['iotDevice', 'mobile'],
       requests: 'creator',
-      min_connections: 1,
+      minConnections: 1,
       regionless: true
     }
   },
@@ -33,13 +33,13 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{'dns':'example.com'}},
-        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
+        {nodeTypes:['gateway', 'floatingIp', 'loadBalancer', 'appServer', 'droplet'], via:'https', metadata:{'dns':'example.com'}},
+        {nodeTypes:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
       ],
-      connection_preference: ['https', 'http', 'websockets', 'udp'],
-      incompatible_with: ['iot_device', 'browser'],
+      connectionPreference: ['https', 'http', 'websockets', 'udp'],
+      incompatibleWith: ['iotDevice', 'browser'],
       requests: 'creator',
-      min_connections: 1,
+      minConnections: 1,
       regionless: true
     }
   },
@@ -48,7 +48,7 @@ const NODES = {
     name: 'Internet',
     description: 'the publicly accessible internet.',
     category: 'End-User Components',
-    label_offset: -16,
+    labelOffset: -16,
     metadata: {
       name: '',
       favicon: '',
@@ -56,18 +56,18 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{dns:'example.com'}},
-        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
+        {nodeTypes:['gateway', 'floatingIp', 'loadBalancer', 'appServer', 'droplet'], via:'https', metadata:{dns:'example.com'}},
+        {nodeTypes:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
       ],
-      connection_preference: ['https', 'http', 'websocket'],
-      incompatible_with: ['iot_device', 'mobile', 'browser'],
+      connectionPreference: ['https', 'http', 'websocket'],
+      incompatibleWith: ['iotDevice', 'mobile', 'browser'],
       requests: 'creator',
-      min_connections: 1,
+      minConnections: 1,
       regionless: true
     }
   },
 
-  'iot_device': {
+  'iotDevice': {
     name: 'IOT Device',
     description: 'A limited functionality internet-capable device.',
     category: 'End-User Components',
@@ -78,40 +78,40 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'floating_ip', 'load_balancer', 'app_server', 'droplet'], via:'https', metadata:{dns:'example.com'}},
-        {node_types:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
+        {nodeTypes:['gateway', 'floatingIp', 'loadBalancer', 'appServer', 'droplet'], via:'https', metadata:{dns:'example.com'}},
+        {nodeTypes:['cdn'], via:'https', metadata:{'dns':'cdn.example.com'}}
       ],
-      connection_preference: ['https', 'http', 'websocket'],
-      incompatible_with: ['iot_device', 'mobile'],
+      connectionPreference: ['https', 'http', 'websocket'],
+      incompatibleWith: ['iotDevice', 'mobile'],
       requests: 'creator',
-      min_connections: 1,
+      minConnections: 1,
       regionless: true
     }
   },
 
-  'developer_device': {
+  'developerDevice': {
     name: 'Dev Device',
     description: 'Developer\'s local device',
     category: 'End-User Components',
     metadata: {
       name: '',
-      management_method: 'terminal',
+      managementMethod: 'terminal',
       favicon: '',
       color: ''
     },
     behavior: {
       wants: [
-        {node_types:['app_server', 'db_server', 'log_server', 'droplet'], via:'ssh'},
+        {nodeTypes:['appServer', 'dbServer', 'logServer', 'droplet'], via:'ssh'},
       ],
-      connection_preference: ['ssh'],
-      incompatible_with: ['iot_device', 'mobile', 'floating_ip', 'load_balancer'],
+      connectionPreference: ['ssh'],
+      incompatibleWith: ['iotDevice', 'mobile', 'floatingIp', 'loadBalancer'],
       requests: 'creator',
-      min_connections: 1,
+      minConnections: 1,
       regionless: true
     }
   },
 
-  'floating_ip': {
+  'floatingIp': {
     name: 'Floating IP',
     description: 'an IP address that can be assigned and reassigned to a single droplet',
     category: 'DO Server Components',
@@ -122,17 +122,17 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
-        {node_types:['app_server', 'droplet'], via: 'https'}
+        {nodeTypes:['gateway', 'browser', 'mobile', 'iotDevice'], via: 'https'},
+        {nodeTypes:['appServer', 'droplet'], via: 'https'}
       ],
-      connection_preference:['https', 'http', 'websocket', 'udp'],
-      requests: 'pass_through',
-      min_connections: 2,
+      connectionPreference:['https', 'http', 'websocket', 'udp'],
+      requests: 'passThrough',
+      minConnections: 2,
       edge: true
     }
   },
 
-  'load_balancer': {
+  'loadBalancer': {
     name: 'Load Balancer',
     description: 'reverse proxy that distributes network or application traffic across a number of servers',
     category: 'DO Server Components',
@@ -142,17 +142,17 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['floating_ip', 'gateway', 'browser', 'mobile', 'iot_device'], via: 'https', metadata:{'dns':'example.com'}},
-        {node_types:['app_server'], via: 'https', all:true}
+        {nodeTypes:['floatingIp', 'gateway', 'browser', 'mobile', 'iotDevice'], via: 'https', metadata:{'dns':'example.com'}},
+        {nodeTypes:['appServer'], via: 'https', all:true}
       ],
-      connection_preference:['https', 'http', 'tcp', 'websocket'],
-      min_connections: 2,
-      requests: 'load_balanced',
+      connectionPreference:['https', 'http', 'tcp', 'websocket'],
+      minConnections: 2,
+      requests: 'loadBalanced',
       edge: true
     }
   },
 
-  'app_server': {
+  'appServer': {
     name: 'Application Server',
     description: 'a stateless server that processes incoming requests via an application and returns a response',
     category: 'DO Server Components',
@@ -160,20 +160,20 @@ const NODES = {
     metadata: {
       name: '',
       agent: true,
-      private_network: true
+      privateNetwork: true
     },
     behavior: {
       wants: [
-        {node_types:['load_balancer', 'floating_ip','gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
-        {node_types:['db_server'], via: 'tcp'},
-        {node_types:['cache_server'], via: 'tcp'}
+        {nodeTypes:['loadBalancer', 'floatingIp','gateway', 'browser', 'mobile', 'iotDevice'], via: 'https'},
+        {nodeTypes:['dbServer'], via: 'tcp'},
+        {nodeTypes:['cacheServer'], via: 'tcp'}
       ],
-      connection_preference:['https', 'http', 'websocket', 'tcp', 'udp'],
-      requests: 'recursive_sync'
+      connectionPreference:['https', 'http', 'websocket', 'tcp', 'udp'],
+      requests: 'recursiveSync'
     }
   },
 
-  'db_server': {
+  'dbServer': {
     name: 'Database Server',
     description: 'a server dedicated to running a database',
     category: 'DO Server Components',
@@ -182,20 +182,20 @@ const NODES = {
       name: '',
       agent: true,
       backups: true,
-      private_network: true,
-      block_storage: 100
+      privateNetwork: true,
+      blockStorage: 100
     },
     behavior: {
       wants: [
-        {node_types:['app_server', 'droplet', 'worker_server'], via: 'tcp', all:true},
-        {node_types:['db_server'], via: 'replication', all:true}
+        {nodeTypes:['appServer', 'droplet', 'workerServer'], via: 'tcp', all:true},
+        {nodeTypes:['dbServer'], via: 'replication', all:true}
       ],
-      connection_preference:['tcp', 'mount', 'replication'],
-      requests: 'recursive_async'
+      connectionPreference:['tcp', 'mount', 'replication'],
+      requests: 'recursiveAsync'
     }
   },
 
-  'log_server': {
+  'logServer': {
     name: 'Logging Server',
     description: 'a server dedicated to aggregating and indexing logs and analytics.',
     category: 'DO Server Components',
@@ -204,21 +204,21 @@ const NODES = {
       name: '',
       agent: true,
       backups: true,
-      private_network: true
+      privateNetwork: true
     },
     behavior: {
       wants: [
-        {node_types:['app_server'], via: 'udp', all:true},
-        {node_types:['worker_server'], via: 'udp', all:true},
-        {node_types:['db_server'], via: 'udp', all:true},
-        {node_types:['cache_server'], via: 'udp', all:true}
+        {nodeTypes:['appServer'], via: 'udp', all:true},
+        {nodeTypes:['workerServer'], via: 'udp', all:true},
+        {nodeTypes:['dbServer'], via: 'udp', all:true},
+        {nodeTypes:['cacheServer'], via: 'udp', all:true}
       ],
-      connection_preference:['udp'],
+      connectionPreference:['udp'],
       requests: 'respond'
     }
   },
 
-  'cache_server': {
+  'cacheServer': {
     name: 'Cache Server',
     description: 'a server dedicated to caching data.',
     category: 'DO Server Components',
@@ -227,18 +227,18 @@ const NODES = {
       name: '',
       agent: true,
       backups: true,
-      private_network: true
+      privateNetwork: true
     },
     behavior: {
       wants: [
-        {node_types:['app_server'], via: 'tcp', all:true}
+        {nodeTypes:['appServer'], via: 'tcp', all:true}
       ],
-      connection_preference:['tcp', 'mount', 'replication'],
+      connectionPreference:['tcp', 'mount', 'replication'],
       requests: 'respond'
     }
   },
 
-  'worker_server': {
+  'workerServer': {
     name: 'Worker Server',
     description: 'a stateless server dedicated to performing a task and returning the results',
     category: 'DO Server Components',
@@ -247,15 +247,15 @@ const NODES = {
       name: '',
       agent: true,
       backups: true,
-      private_network: true
+      privateNetwork: true
     },
     behavior: {
       wants: [
-        {node_types:['db_server'], via: 'mount'},
-        {node_types:['cache_server'], via: 'mount'}
+        {nodeTypes:['dbServer'], via: 'mount'},
+        {nodeTypes:['cacheServer'], via: 'mount'}
       ],
-      connection_preference:['tcp'],
-      requests: 'recursive_async'
+      connectionPreference:['tcp'],
+      requests: 'recursiveAsync'
     }
   },
 
@@ -266,25 +266,25 @@ const NODES = {
     metadata: {
       name: '',
       agent: false,
-      private_network: false,
-      enable_ipv6: false,
+      privateNetwork: false,
+      enableIpv6: false,
       backups: false,
       image: 'Ubuntu 16.04.4 x64',
       size:  's-4vcpu-8gb',
       region: 'nyc3',
       tags: '',
-      cloud_firewall: 'disabled',
-      block_storage: null,
+      cloudFirewall: 'disabled',
+      blockStorage: null,
       scale:1
     },
     behavior: {
       wants: [
-        {node_types:['load_balancer', 'floating_ip','gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
-        {node_types:['db_server'], via: 'tcp'},
-        {node_types:['cache_server'], via: 'tcp'}
+        {nodeTypes:['loadBalancer', 'floatingIp','gateway', 'browser', 'mobile', 'iotDevice'], via: 'https'},
+        {nodeTypes:['dbServer'], via: 'tcp'},
+        {nodeTypes:['cacheServer'], via: 'tcp'}
       ],
-      connection_preference:['https', 'http', 'websocket', 'tcp', 'udp'],
-      requests: 'recursive_sync'
+      connectionPreference:['https', 'http', 'websocket', 'tcp', 'udp'],
+      requests: 'recursiveSync'
     }
   },
 
@@ -299,11 +299,11 @@ const NODES = {
     },
     behavior: {
       wants: [
-          {node_types:['app_server', 'worker_server', 'log_server'], via: 'https', all:true},
-          {node_types:['browser'], via: 'https'}
+          {nodeTypes:['appServer', 'workerServer', 'logServer'], via: 'https', all:true},
+          {nodeTypes:['browser'], via: 'https'}
       ],
-      incompatible_with:['load_balancer', 'db_server'],
-      connection_preference:['https'],
+      incompatibleWith:['loadBalancer', 'dbServer'],
+      connectionPreference:['https'],
       requests: 'respond'
     }
   },
@@ -320,7 +320,7 @@ const NODES = {
     }
   },
 
-  'github_repo': {
+  'githubRepo': {
     name: 'GitHub Repo',
     description: 'Source Code Management platform.',
     category: '3rd Party Tools',
@@ -329,7 +329,7 @@ const NODES = {
     behavior: {
       wants: [],
       regionless:true,
-      connection_preference:['https', 'http']
+      connectionPreference:['https', 'http']
     }
   },
 
@@ -356,14 +356,14 @@ const NODES = {
     },
     behavior: {
       wants: [
-        {node_types:['gateway', 'browser', 'mobile', 'iot_device'], via: 'https'},
-        {node_types:['load_balancer', 'floating_ip', 'gateway'], via: 'https'},
+        {nodeTypes:['gateway', 'browser', 'mobile', 'iotDevice'], via: 'https'},
+        {nodeTypes:['loadBalancer', 'floatingIp', 'gateway'], via: 'https'},
       ],
-      connection_limitations:['http', 'https', 'udp', 'websockets'],
-      min_connections: 2,
-      max_connections: 2,
+      connectionLimitations:['http', 'https', 'udp', 'websockets'],
+      minConnections: 2,
+      maxConnections: 2,
       regionless: true,
-      requests: 'pass_through'
+      requests: 'passThrough'
     }
   }
 };

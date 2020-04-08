@@ -15,11 +15,11 @@ class Plan extends React.Component {
   render() {
 
     const {item, identifier, template, editAction} = this.props,
-          item_type = typeof(identifier) === 'string' ? 'node' : 'connector';
+          itemType = typeof(identifier) === 'string' ? 'node' : 'connector';
   
     if(!item) return (<form className="infragram--rightPane collapsed"></form>);
 
-    const all_metadata = Object.assign({}, (item_type === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (item_type === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
+    const allMetadata = Object.assign({}, (itemType === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (itemType === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
     
     return (
       <div className="infragram--rightPane bui-Box">
@@ -27,9 +27,9 @@ class Plan extends React.Component {
         <p>{template.description}</p>
         <form className="bui-Form--spacing">
 
-        {item_type === 'connector' ?
+        {itemType === 'connector' ?
           <div className="bui-Select">
-            <label htmlFor="type">{item_type} type:</label>
+            <label htmlFor="type">{itemType} type:</label>
             <select
               id="type"
               onChange={this.handleChange}
@@ -39,12 +39,12 @@ class Plan extends React.Component {
             </select>
           </div> : undefined }
 
-          {Object.keys(all_metadata).map((m,i) => 
+          {Object.keys(allMetadata).map((m,i) => 
             <NodeEditorField
               key={i}
               name={m}
-              value={all_metadata[m]}
-              specs={item_type in DATA.DOCUMENTATION && m in DATA.DOCUMENTATION[item_type] ? DATA.DOCUMENTATION[item_type][m] : {}}
+              value={allMetadata[m]}
+              specs={itemType in DATA.DOCUMENTATION && m in DATA.DOCUMENTATION[itemType] ? DATA.DOCUMENTATION[itemType][m] : {}}
               editAction={editAction}
               identifier={identifier}
             />

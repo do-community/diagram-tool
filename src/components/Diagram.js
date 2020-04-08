@@ -111,15 +111,15 @@ class Diagram extends React.Component {
       } else {
         if (target.dataset.category === 'node')
           target.dataset.selected === 'false'
-            ? this.props.selectNodes(target.dataset.click_key, event.shiftKey)
-            : this.props.deselectNodes(target.dataset.click_key);
+            ? this.props.selectNodes(target.dataset.clickKey, event.shiftKey)
+            : this.props.deselectNodes(target.dataset.clickKey);
         else if (target.dataset.category === 'connector')
           target.dataset.selected === 'false'
             ? this.props.selectConnectors(
-                parseInt(target.dataset.click_key, 10),
+                parseInt(target.dataset.clickKey, 10),
                 event.shiftKey
               )
-            : this.props.deselectConnectors(parseInt(target.dataset.click_key, 10));
+            : this.props.deselectConnectors(parseInt(target.dataset.clickKey, 10));
         else if (target.dataset.category === 'request')
           console.log('play');
       }
@@ -172,8 +172,8 @@ class Diagram extends React.Component {
         };
   }
 
-  diagramDrop(target_category, target, item, offset) {
-    dndHelper.handleDrop(this.props, target_category, target, item, offset);
+  diagramDrop(targetCategory, target, item, offset) {
+    dndHelper.handleDrop(this.props, targetCategory, target, item, offset);
   }
 
   share(e) {
@@ -214,7 +214,7 @@ class Diagram extends React.Component {
         mappedNodes[key] = <Node
           key={key}
           id={key}
-          node_template={DATA.NODES[nodes[key].type]}
+          nodeTemplate={DATA.NODES[nodes[key].type]}
           metadata={nodes[key].metadata}
           position={nodes[key].position}
           type={nodes[key].type}
@@ -231,7 +231,7 @@ class Diagram extends React.Component {
         <Region
           key={region}
           id={region}
-          region_name={region}
+          regionName={region}
           bounds={helpers.getBoundingRectangle(region, nodes)}
           onDrop={(item, offset) =>
             this.diagramDrop('region', region, item, offset)
@@ -243,7 +243,7 @@ class Diagram extends React.Component {
         <Connector
           key={i}
           id={i}
-          connector_template={DATA.CONNECTORS[connector.type]}
+          connectorTemplate={DATA.CONNECTORS[connector.type]}
           metadata={connector.metadata}
           between={[
             nodes[connector.between[0]].position,

@@ -10,7 +10,7 @@ const DOCUMENTATION = {
 			validation:[1,40],
 			info:'The node name or hostname.'
 		},
-	    short_name: {
+	    shortName: {
 	    	type: 'string',
 	    	validation: [0,15],
 	    	info: 'Optional shorter name (15 char max) of node to be displayed in diagrams.'
@@ -68,7 +68,7 @@ const DOCUMENTATION = {
 	        info: 'Droplet image',
 	        default: 'Ubuntu 16.04.4 x64',
 	    },
-	    user_data: {
+	    userData: {
 	    	type: 'string',
 	    	info: 'commands to be run upon server creation.'
 	    },
@@ -77,43 +77,43 @@ const DOCUMENTATION = {
 	        info: 'Should node accept public (outside regional network) connections?',
 	        default: false
 	    },
-	    private_network: {
+	    privateNetwork: {
 	        type: 'boolean',
 	        info: 'Allow droplet to communicate on internal datacenter network.',
 	        default: true
 	    },
-	    enable_ipv6: {
+	    enableIpv6: {
 	        type: 'boolean',
 	        info: 'Assign droplet an IPV6 address in addition to IPV4.',
 	        default: true
 	    },
 	    id: {
 	        type: 'string',
-	        system_only: true,
+	        systemOnly: true,
 	        info: 'DigitalOcean-assigned ID of node.'
 	    },
-	    public_ipv4: {
+	    publicIpv4: {
 	        type: 'string',
 	        validation: [7, 15],
-	        system_only: true,
+	        systemOnly: true,
 	        info: 'Public IPv4 address'
 	    },
-	    public_ipv6: {
+	    publicIpv6: {
 	        type: 'string',
 	        validation: [7, 200],
-	        system_only: true,
+	        systemOnly: true,
 	        info: 'Public IPv6 address'
 	    },
-	    private_ipv4: {
+	    privateIpv4: {
 	        type: 'string',
 	        validation: [7, 15],
-	        system_only: true,
+	        systemOnly: true,
 	        info: 'Private IPv4 address'
 	    },
-	    private_ipv6: {
+	    privateIpv6: {
 	        type: 'string',
 	        validation: [7, 200],
-	        system_only: true,
+	        systemOnly: true,
 	        info: 'Private IPv6 address'
 	    },
 	    scale: {
@@ -135,19 +135,19 @@ const DOCUMENTATION = {
 	    	type: 'color',
 	    	info: 'Optional accent color to use on node.'
 	    },
-	    cloud_firewall: {
+	    cloudFirewall: {
 	        type: 'select',
-	        validation: ['disabled', 'tag_based', 'customized'],
+	        validation: ['disabled', 'tagBased', 'customized'],
 	        info: 'Cloud firewall',
 	        default: 'disabled'
 	    },
-	    block_storage: {
+	    blockStorage: {
 	        type: 'number',
 	        validation: [0,16000],
 	        info: 'Expandable SSD block storage.',
 	        default: 100
 	    },
-	    management_method: {
+	    managementMethod: {
 	    	type: 'select',
 	        validation: ['web', 'doctl', 'terminal', 'terraform'],
 	        info: 'How the infrastructure is deployed and managed',
