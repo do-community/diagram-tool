@@ -7,6 +7,7 @@ import Region from './Region';
 import NodeEditor from './NodeEditor';
 import DiagramMetadata from './DiagramMetadata';
 import { showWhereClick, viewVisible, clear } from '../showWhereClick';
+import lineGenerator from '../lineGenerator';
 
 import DATA from '../data';
 import helpers from '../helpers.js';
@@ -133,11 +134,26 @@ class Diagram extends React.Component {
     } else {
       if (viewVisible()) {
         clear();
+        lineGenerator();
       } else {
         showWhereClick(<Tray
           nodes={this.props.nodes}
           addNode={this.props.addNode}
-        />, event);
+        />, event, 10);
+        lineGenerator([
+          {
+            x1: 0,
+            x2: window.innerWidth,
+            y1: event.clientY,
+            y2: event.clientY,
+          },
+          {
+            x1: event.clientX,
+            x2: event.clientX,
+            y1: 0,
+            y2: window.innerHeight,
+          },
+        ]);
       }
     }
   }

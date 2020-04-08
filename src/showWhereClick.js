@@ -1,4 +1,5 @@
 import React from 'react';
+import lineGenerator from './lineGenerator';
 
 let clickHandler;
 
@@ -42,7 +43,14 @@ class CloseEnoughPositioner extends React.Component {
         // Get the wanted left and top positions with the element.
         let {
             left, top, el,
+            cornerPaddding,
         } = this.props;
+
+        // Add the corner padding.
+        if (cornerPaddding) {
+            top = `${Number(top.slice(0, -2)) + cornerPaddding}px`;
+            left = `${Number(left.slice(0, -2)) + cornerPaddding}px`;
+        }
 
         // Ensure it fits on the Y axis.
         const topInt = Number(top.slice(0, -2));
@@ -77,10 +85,10 @@ export const updatePosition = () => {
     }
 }
 
-export const showWhereClick = (el, event) => {
+export const showWhereClick = (el, event, cornerPaddding) => {
     const left = `${event.clientX + window.pageXOffset}px`;
     const top = `${event.clientY + window.pageYOffset}px`;
-    clickHandler.setState({el: <CloseEnoughPositioner left={left} top={top} el={el} />, left, top});
+    clickHandler.setState({el: <CloseEnoughPositioner left={left} top={top} el={el} cornerPaddding={cornerPaddding} />, left, top});
 }
 
 export const getPosition = () => {
@@ -91,6 +99,7 @@ export const getPosition = () => {
 }
 
 export const clear = () => {
+    lineGenerator();
     clickHandler.setState({el: null});
 }
 
