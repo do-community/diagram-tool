@@ -39,11 +39,11 @@ export default class FileLikeBrowser extends React.Component {
 
         return <div className="file-like-browser">
             <div style={{paddingLeft: 25, paddingRight: 25}}>
-                <h3 className="title is-3" style={{textAlign: "center"}}>
-                    <span style={{float: "left"}}>
+                <h3 className="title is-3" style={{textAlign: 'center'}}>
+                    <span style={{float: 'left'}}>
                         {
-                            backAction ? <a onClick={backAction} style={{color: "black", cursor: "default"}}>
-                                {"<"}
+                            backAction ? <a onClick={backAction} style={{color: 'black', cursor: 'default'}}>
+                                {'<'}
                             </a> : undefined
                         }
                     </span>
