@@ -44,3 +44,6 @@ index.html
 
 # parceljs related stuff.
 .cache
+
+# Stop .idea bload.
+.idea/

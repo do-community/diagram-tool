@@ -1,6 +1,6 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import NODES from '../data/NODES.js';
+import NODES from '../data/nodes';
 import ICONS from '../data/ICONS.js';
 import ConnectorDragHandle from './ConnectorDragHandle';
 

@@ -1,13 +1,13 @@
 import DIAGRAMS from './DIAGRAMS';
 import CONNECTORS from './CONNECTORS';
-import NODES from './NODES';
+import NODES from './nodes';
 import DOCUMENTATION from './DOCUMENTATION';
 import ICONS from './ICONS';
 
 const DATA = {
 	DIAGRAMS:DIAGRAMS,
 	CONNECTORS:CONNECTORS,
-	NODES:NODES,
+	NODES,
 	NODES_BY_CATEGORY: 
 	  Object.keys(NODES).reduce( (acc,k) => {
       if (!(NODES[k].category in acc)) {
