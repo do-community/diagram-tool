@@ -19,9 +19,9 @@ export default {
         connectionPreference:['https'],
         requests: 'respond',
     },
-    icon: <g id="spaces">
-        <clipPath id="clipRight"><rect fill="black" x="0" y="0" width="50" height="100" /></clipPath>
-        <clipPath id="clipLeft"><rect fill="black" x="50" y="0" width="50" height="100" /></clipPath>
+    icon: <g>
+        <clipPath><rect fill="black" x="0" y="0" width="50" height="100" /></clipPath>
+        <clipPath><rect fill="black" x="50" y="0" width="50" height="100" /></clipPath>
         <circle className="paper stroked" cx="50" cy="50" r="49" />
         <circle className="unfilled stroked" cx="50" cy="50" r="24" clipPath="url(#clipLeft)" strokeWidth="4" />
         <circle className="unfilled stroked" cx="50" cy="50" r="14" clipPath="url(#clipRight)" strokeWidth="4" />

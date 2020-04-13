@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default <g transform="scale(0.5)" id="objectStorage">
+export default <g transform="scale(0.5)">
     <path className="paper stroked" d="M50,1c27.063,0,49,21.938,49,49S77.063,99,50,99C22.938,99,1,77.063,1,50S22.938,1,50,1z" />
     <path className="white stroked" d="M33.644,44.427c0-9.034,7.323-16.356,16.356-16.356s16.356,7.323,16.356,16.356" />
     <path className="darkblue" d="M66.356,45.361c0,2.615-7.323,4.735-16.356,4.735c-8.143,0-14.895-1.723-16.148-3.978 c-0.137-0.247-0.208-0.5-0.208-0.757c0-2.615,7.323-4.735,16.356-4.735S66.356,42.746,66.356,45.361z" />

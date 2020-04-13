@@ -19,7 +19,7 @@ export default {
         connectionPreference:['tcp', 'mount', 'replication'],
         requests: 'respond',
     },
-    icon: <g id="cacheServer" className="stroked">
+    icon: <g className="stroked">
         <rect className="darkblue unstroked" x="43" y="45" width="4" height="4" />
         <rect className="darkblue unstroked" x="48" y="45" width="4" height="4" />
         <rect className="darkblue unstroked" x="53" y="45" width="4" height="4" />

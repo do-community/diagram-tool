@@ -22,7 +22,7 @@ export default {
         minConnections: 1,
         regionless: true,
     },
-    icon: <g id="internet" transform="translate(18, 20)">
+    icon: <g transform="translate(18, 20)">
         <path
         className="offwhite stroked"
         fill="current-color"

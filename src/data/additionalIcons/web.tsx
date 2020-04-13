@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default <g id="web" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 452 339" transform="matrix(1,0,0,1,0,-600)">
+export default <g xmlns="http://www.w3.org/2000/svg" viewBox="0 0 452 339" transform="matrix(1,0,0,1,0,-600)">
     <text x="41" y="690">Droplets</text>
     <line x1="41.16" y1="725.06" x2="412.59" y2="725.06" fill="none" stroke="#0069ff" strokeMiterlimit="10" strokeWidth="0.81" opacity="0.2"></line>
     <line x1="41.16" y1="725.06" x2="80.59" y2="725.06" fill="none" stroke="#0069ff" strokeMiterlimit="10" strokeWidth="0.81"></line>
