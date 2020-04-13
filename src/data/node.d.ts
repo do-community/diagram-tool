@@ -41,4 +41,5 @@ export default interface NodeDefinition {
     behavior: Behavior;
     labelOffset?: number;
     extends?: string;
+    icon: JSX.Element;
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import NODES from '../data/nodes';
-import ICONS from '../data/ICONS.js';
+import nodes from '../data/nodes';
+import data from '../data';
 import ConnectorDragHandle from './ConnectorDragHandle';
+const { additionalIcons } = data;
 
 class Node extends React.Component {
   handleOffset() {
@@ -46,18 +47,18 @@ class Node extends React.Component {
               ?
               undefined
               :
-              ICONS.bubble
+              additionalIcons.bubble
             }
             {nodeTemplate.extends && nodeTemplate.extends === 'droplet'
               ?
-              ICONS.droplet
+              additionalIcons.droplet
               :
               undefined
             }
-            {ICONS[type]}
+            {nodeTemplate.icon}
             {
               metadata.blockStorage ? 
-              <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{ICONS.blockStorage}</svg>
+              <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{additionalIcons.blockStorage}</svg>
               :
               null
             }
@@ -71,7 +72,7 @@ class Node extends React.Component {
                 y={Math.round((100 - scale) / 2) + 'px'}
                 
               >
-                {ICONS[metadata.managementMethod]}
+                {additionalIcons[metadata.managementMethod]}
               </svg>
             ) : null}
             
@@ -104,14 +105,14 @@ class Node extends React.Component {
                         className={'qual_' + tags[tag].colorId}
                         style={{width: '10px', height: '10px'}}
                       >
-                        {ICONS.tag}
+                        {additionalIcons.tag}
                       </svg>
                     </svg> : '')
                 ))
               : null}
           </figcaption>
 
-          {NODES[type].behavior.requests === 'creator' ? <button className="createRequest selectShow" data-click_key={id} data-category="request">▶</button> : undefined}
+          {nodes[type].behavior.requests === 'creator' ? <button className="createRequest selectShow" data-click_key={id} data-category="request">▶</button> : undefined}
 
           {['n', 'e', 's', 'w'].map(d => (
             <ConnectorDragHandle key={d} dir={d} parent={id} />

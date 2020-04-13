@@ -20,7 +20,7 @@ class NodeEditor extends React.Component {
   
     if(!item) return (<form className="infragram--rightPane collapsed"></form>);
 
-    const allMetadata = Object.assign({}, (itemType === 'node' && DATA.NODES[item.type].extends && DATA.NODES[item.type].extends === 'droplet' ? DATA.NODES.droplet.metadata : {}), (itemType === 'node' ? DATA.NODES[item.type].metadata : DATA.CONNECTORS[item.type].metadata), item.metadata);
+    const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
     
     return (
       <div className="editor side-panel">
@@ -36,7 +36,7 @@ class NodeEditor extends React.Component {
               onChange={this.handleChange}
               value={item.type}
             >
-              {Object.keys(DATA.CONNECTORS).map((o,i) => <option value={o} key={'opt_'+o+'_'+i}>{o}</option>)}
+              {Object.keys(DATA.connectors).map((o,i) => <option value={o} key={'opt_'+o+'_'+i}>{o}</option>)}
             </select>
           </div> : undefined }
 
@@ -45,7 +45,7 @@ class NodeEditor extends React.Component {
               key={i}
               name={m}
               value={allMetadata[m]}
-              specs={itemType in DATA.DOCUMENTATION && m in DATA.DOCUMENTATION[itemType] ? DATA.DOCUMENTATION[itemType][m] : {}}
+              specs={itemType in DATA.documentation && m in DATA.documentation[itemType] ? DATA.documentation[itemType][m] : {}}
               editAction={editAction}
               identifier={identifier}
             />

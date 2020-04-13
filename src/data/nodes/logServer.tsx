@@ -1,3 +1,4 @@
+import * as React from "react";
 import Node from "../node";
 
 export default {
@@ -21,4 +22,5 @@ export default {
         connectionPreference:['udp'],
         requests: 'respond',
     },
+    icon: <path id="logServer" className="darkblue unstroked" d="M37,52L40,52L43,48L46,59L51,42L54,57L57,50L60,52L63,52" />,
 } as Node;

@@ -115,7 +115,7 @@ const dndHelper = {
 				helpers.addNodeAndConnections(
 					item.key,
 					helpers.mouseToGrid(offset),
-					DATA.NODES[item.key].metadata,
+					DATA.nodes[item.key].metadata,
 					props
 				);
 			}

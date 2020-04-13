@@ -121,18 +121,18 @@ const helpers = {
             callback(JSON.parse(request.responseText));
             return;
           } else {
-            callback(DATA.DIAGRAMS[0]);
+            callback(DATA.diagrams[0]);
             return;
           }
         };
 
         request.onerror = function() {
-          callback(DATA.DIAGRAMS[0]);
+          callback(DATA.diagrams[0]);
           return;
         };
         request.send();
       } catch (err) {
-        callback(DATA.DIAGRAMS[0]);
+        callback(DATA.diagrams[0]);
         return;
       }
     } else {
@@ -144,7 +144,7 @@ const helpers = {
         callback(JSON.parse(serializedState));
         return;
       } catch (err) {
-        callback(DATA.DIAGRAMS[0]);
+        callback(DATA.diagrams[0]);
         return;
       }
     }
@@ -230,7 +230,7 @@ const helpers = {
 
     Object.keys(nodes).forEach(key => {
       if (get(nodes[key], "metadata.region") === region) {
-        const edge = get(DATA.NODES[nodes[key].type], "metadata.edge") || get(DATA.NODES[nodes[key].type], "behavior.edge");
+        const edge = get(DATA.nodes[nodes[key].type], "metadata.edge") || get(DATA.nodes[nodes[key].type], "behavior.edge");
         if (nodes[key].position[0] < bounds[0]) {
           bounds[0] = nodes[key].position[0] + (edge ? 0.5 : 0);
         } //left
@@ -515,9 +515,9 @@ const helpers = {
         guid: this.guid(),
         position: this.getClosestOpenPosition(newNodePosition, state.nodes),
         connections: [],
-        metadata: metadata || DATA.NODES[newNodeType].metadata
+        metadata: metadata || DATA.nodes[newNodeType].metadata
       },
-      nodeSpecs = DATA.NODES[newNodeType],
+      nodeSpecs = DATA.nodes[newNodeType],
       regions = this.getRegionsFromNodes(state.nodes);
     console.log('addNodeAndConnections', update);
     //Auto-set region
@@ -572,10 +572,10 @@ const helpers = {
 
   nodeMaxedOut: function(nodeKey, nodeType, connections) {
     if (
-      typeof get(DATA.NODES[nodeType], "behavior.maxConnections") === "number"
+      typeof get(DATA.nodes[nodeType], "behavior.maxConnections") === "number"
     ) {
       return (
-        DATA.NODES[nodeType].behavior.maxConnections <=
+        DATA.nodes[nodeType].behavior.maxConnections <=
         connections.reduce((ct, c) => {
           if (c.between[0] === nodeKey || c.between[1] === nodeKey) ct++;
           return ct;
@@ -588,25 +588,25 @@ const helpers = {
   nodeTypesCompatible: function(nodeA, nodeB) {
     //Check each node for disallowed connections (node.behavior.incompatibleWith)
     if (
-      (get(DATA.NODES[nodeA], "behavior.incompatibleWith") &&
-        DATA.NODES[nodeA].behavior.incompatibleWith.indexOf(nodeB) > -1) ||
-      (get(DATA.NODES[nodeB], "behavior.incompatibleWith") &&
-        DATA.NODES[nodeB].behavior.incompatibleWith.indexOf(nodeA) > -1)
+      (get(DATA.nodes[nodeA], "behavior.incompatibleWith") &&
+        DATA.nodes[nodeA].behavior.incompatibleWith.indexOf(nodeB) > -1) ||
+      (get(DATA.nodes[nodeB], "behavior.incompatibleWith") &&
+        DATA.nodes[nodeB].behavior.incompatibleWith.indexOf(nodeA) > -1)
     )
       return false;
     return true;
   },
 
   getConnectorFromWants: function(fromNode, toNode) {
-    if (DATA.NODES[fromNode].behavior.wants) {
-      const ideals = DATA.NODES[fromNode].behavior.wants.reduce((acc, w) => {
+    if (DATA.nodes[fromNode].behavior.wants) {
+      const ideals = DATA.nodes[fromNode].behavior.wants.reduce((acc, w) => {
         if ("nodeTypes" in w && w.nodeTypes.indexOf(toNode) > -1) {
           acc.push({
             type: w.via,
             metadata: Object.assign(
               {},
-              "metadata" in DATA.CONNECTORS[w.via]
-                ? DATA.CONNECTORS[w.via].metadata
+              "metadata" in DATA.connectors[w.via]
+                ? DATA.connectors[w.via].metadata
                 : {},
               w.metadata || {}
             )
@@ -644,7 +644,7 @@ const helpers = {
       conn.to = toNode;
       return conn;
     }
-    return { to: toNode, via: "tcp", metadata: DATA.CONNECTORS.tcp.metadata };
+    return { to: toNode, via: "tcp", metadata: DATA.connectors.tcp.metadata };
   },
 
   connectNodes: function(fromNode, toNode, nodes, connections) {
@@ -685,7 +685,7 @@ const helpers = {
       nodes[toNode].type
     );
     if (conn) return conn;
-    return {type:"tcp", metadata:DATA.CONNECTORS.tcp.metadata};
+    return {type:"tcp", metadata:DATA.connectors.tcp.metadata};
   },
 
   handleSingleAndDoubleClick: function(event, onSingle, onDouble) {

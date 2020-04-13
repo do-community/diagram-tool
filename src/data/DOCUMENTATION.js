@@ -1,9 +1,9 @@
-/* 	DOCUMENTATION:
+/* 	documentation:
 	Documents all the possible prop types and metadata
 	that can be associated with Nodes, Connectors, Diagrams
 */
 
-const DOCUMENTATION = {
+const documentation = {
 	node:{
 		name: {
 			type:'string',
@@ -194,4 +194,4 @@ const DOCUMENTATION = {
 	}
 };
 
-export default DOCUMENTATION;
+export default documentation;

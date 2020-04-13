@@ -22,7 +22,7 @@ export default class Tray extends React.Component {
 				x: Number(position.left.slice(0, -2)),
 				y: Number(position.top.slice(0, -2)),
 			}),
-			DATA.NODES[nodeId].metadata,
+			DATA.nodes[nodeId].metadata,
 			this.props,
 		);
 	}
@@ -32,11 +32,11 @@ export default class Tray extends React.Component {
 	}
 
 	render() {
-		// TODO: Modify how nodes are fetched.
 		if (this.state.category) {
-			const buttons = Object.keys(DATA.NODES_BY_CATEGORY[this.state.category]).map(id => {
+			const buttons = Object.keys(DATA.nodesByCategory[this.state.category]).map(id => {
+				const node = DATA.nodes[id];
 				return {
-					id, icon: DATA.ICONS[id], name: DATA.NODES[id].name,
+					id, icon: node.icon, name: node.name,
 				};
 			});
 
@@ -47,10 +47,9 @@ export default class Tray extends React.Component {
 				onClick={nodeId => this.onNodeClick(nodeId)}
 			/>;
 		} else {
-			const buttons = Object.keys(DATA.NODES_BY_CATEGORY).map(id => {
+			const buttons = Object.keys(DATA.nodesByCategory).map(id => {
 				return {
-					// TODO: Edit icon!
-					id, icon: DATA.ICONS.workerServer, name: id,
+					id, icon: DATA.additionalIcons.folder, name: id,
 				};
 			});
 

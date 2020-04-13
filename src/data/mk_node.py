@@ -28,7 +28,8 @@ def main():
         print("Please supply the node as an argument.")
         return
     arg = sys.argv[1]
-    ts = """import Node from "../node";
+    ts = """import * as React from "react";
+import Node from "../node";
 
 export default {
     // TODO: Add content here.

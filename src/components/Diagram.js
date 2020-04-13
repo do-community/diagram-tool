@@ -9,7 +9,7 @@ import DiagramMetadata from './DiagramMetadata';
 import { showWhereClick, viewVisible, clear } from '../showWhereClick';
 import lineGenerator from '../lineGenerator';
 
-import DATA from '../data';
+import data from '../data';
 import helpers from '../helpers.js';
 
 class Diagram extends React.Component {
@@ -178,7 +178,7 @@ class Diagram extends React.Component {
             this.props.selection[category + 's'][0]
           ],
           template:
-            DATA[category.toUpperCase() + 'S'][
+            data[category.toLowerCase() + 's'][
               this.props[category + 's'][
                 this.props.selection[category + 's'][0]
               ].type
@@ -230,7 +230,7 @@ class Diagram extends React.Component {
         mappedNodes[key] = <Node
           key={key}
           id={key}
-          nodeTemplate={DATA.NODES[nodes[key].type]}
+          nodeTemplate={data.nodes[nodes[key].type]}
           metadata={nodes[key].metadata}
           position={nodes[key].position}
           type={nodes[key].type}
@@ -259,7 +259,7 @@ class Diagram extends React.Component {
         <Connector
           key={i}
           id={i}
-          connectorTemplate={DATA.CONNECTORS[connector.type]}
+          connectorTemplate={data.connectors[connector.type]}
           metadata={connector.metadata}
           between={[
             nodes[connector.between[0]].position,

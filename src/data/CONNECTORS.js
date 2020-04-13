@@ -1,4 +1,4 @@
-const CONNECTORS = {
+export default {
   tcp: {
     name: 'TCP',
     mode: 'duplex',
@@ -79,5 +79,3 @@ const CONNECTORS = {
     }
   }
 };
-
-export default CONNECTORS;
