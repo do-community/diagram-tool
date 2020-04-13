@@ -1,7 +1,7 @@
-import diagrams from './diagrams';
-import connectors from './connectors';
-import nodes from './nodes';
-import documentation from './documentation';
+import diagrams from './diagrams.js';
+import connectors from './connectors.js';
+import nodes from './nodes.ts';
+import documentation from './documentation.js';
 import * as additionalIcons from './additionalIcons';
 
 export default {
