@@ -42,12 +42,6 @@ class Node extends React.Component {
             viewBox="0 0 100 100"
             style={metadata.color ? { color: metadata.color } : {}}
           >
-            {nodeTemplate.behavior.regionless
-              ?
-              undefined
-              :
-              additionalIcons.bubble
-            }
             {nodeTemplate.extends && nodeTemplate.extends === 'droplet'
               ?
               additionalIcons.droplet
