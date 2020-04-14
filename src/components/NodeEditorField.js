@@ -4,7 +4,7 @@ class NodeEditorField extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
-		this.input_from_specs = this.input_from_specs.bind(this);
+		this.inputFromSpecs = this.inputFromSpecs.bind(this);
 	}
 
 	handleChange(e) {
@@ -14,7 +14,7 @@ class NodeEditorField extends React.Component {
 		});
 	}
 
-	input_from_specs(name, value, specs) {
+	inputFromSpecs(name, value, specs) {
 		switch (specs.type) {
 			case 'string':
 				return (
@@ -109,7 +109,7 @@ class NodeEditorField extends React.Component {
 
 	render() {
 		const { name, value, specs } = this.props;
-		return 	this.input_from_specs(name, value, specs);
+		return 	this.inputFromSpecs(name, value, specs);
 	}
 }
 

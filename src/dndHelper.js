@@ -6,14 +6,14 @@ import helpers from "./helpers.js";
 import flow from "lodash/flow";
 
 const dndHelper = {
-	dnd_connect: function(c, m) {
+	dndConnect: function(c, m) {
 		return {
 			connectDragSource: c.dragSource(),
 			isDragging: m.isDragging()
 		};
 	},
 
-	dnd_collect: function(c, m) {
+	dndCollect: function(c, m) {
 		return {
 			connectDropTarget: c.dropTarget(),
 			isOver: m.isOver(),
@@ -24,8 +24,8 @@ const dndHelper = {
 	},
 
 	composeDragAndDrop: function(type, action, component) {
-		let _dnd_collect = this.dnd_collect,
-			_dnd_connect = this.dnd_connect;
+		let _dndCollect = this.dndCollect,
+			_dndConnect = this.dndConnect;
 		return flow(
 			DragSource(
 				type,
@@ -34,7 +34,7 @@ const dndHelper = {
 						return { type: type, action: action, key: p.id || p.parent };
 					}
 				},
-				_dnd_connect
+				_dndConnect
 			),
 			DropTarget(
 				["node", "connector"],
@@ -43,13 +43,13 @@ const dndHelper = {
 						m.didDrop() ? null : p.onDrop(m.getItem(), m.getClientOffset());
 					}
 				},
-				_dnd_collect
+				_dndCollect
 			)
 		)(component);
 	},
 
 	composeDrag: function(type, action, component) {
-		let _dnd_connect = this.dnd_connect;
+		let _dndConnect = this.dndConnect;
 		return DragSource(
 			type,
 			{
@@ -57,15 +57,15 @@ const dndHelper = {
 					return { type: type, action: action, key: p.id || p.parent };
 				}
 			},
-			_dnd_connect
+			_dndConnect
 		)(component);
 	},
 
 	/** TODO: @andy simplify this callback hell - right now onDrop is only defined for children of <Diagram>
 	 - So if onDrop is undefined we call parent function **/
 	composeDrop: function(component) {
-		let _dnd_collect = this.dnd_collect,
-			_dnd_handleDrop = this.handleDrop;
+		let _dndCollect = this.dndCollect,
+			_dndHandleDrop = this.handleDrop;
 		return DropTarget(
 			["node", "connector"],
 			{
@@ -73,7 +73,7 @@ const dndHelper = {
 					m.didDrop()
 						? null
 						: typeof p.onDrop !== "function"
-							? _dnd_handleDrop(
+							? _dndHandleDrop(
 									p,
 									"diagram",
 									null,
@@ -83,12 +83,12 @@ const dndHelper = {
 							: p.onDrop(m.getItem(), m.getClientOffset());
 				}
 			},
-			_dnd_collect
+			_dndCollect
 		)(component);
 	},
 
-	handleDrop(props, target_category, target, item, offset) {
-		if (target_category === "tray") {
+	handleDrop(props, targetCategory, target, item, offset) {
+		if (targetCategory === "tray") {
 			/* Dragging to Tray = Deleting*/
 			props["delete" + helpers.capitalize(item.type)](item.key);
 			return { action: "deleted", success: true };
@@ -108,14 +108,14 @@ const dndHelper = {
 				);
 			} else if (item.action === "add") {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
-				if (target_category === "connector") {
+				if (targetCategory === "connector") {
 					props.deleteConnector(target);
 				}
 				//Add Node with Connections
 				helpers.addNodeAndConnections(
 					item.key,
 					helpers.mouseToGrid(offset),
-					DATA.NODES[item.key].metadata,
+					DATA.nodes[item.key].metadata,
 					props
 				);
 			}
@@ -125,21 +125,21 @@ const dndHelper = {
 			item.key != target
 		) {
 			//Check if these two nodes can connect
-			const ideal_connection = helpers.connectNodes(
+			const idealConnection = helpers.connectNodes(
 				target,
 				item.key,
 				props.nodes,
 				props.connectors
 			);
-			if (!ideal_connection.error) {
+			if (!idealConnection.error) {
 				props.addConnector(
 					item.key,
 					target,
-					ideal_connection.type,
-					ideal_connection.metadata || {}
+					idealConnection.type,
+					idealConnection.metadata || {}
 				);
 			} else {
-				console.error(ideal_connection.error);
+				console.error(idealConnection.error);
 			}
 		}
 		return { moved: true };

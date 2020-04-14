@@ -17,12 +17,12 @@ export default class MainMenu extends React.Component {
     }
 
     newDiagram() {
-        window.localStorage.removeItem('infragram_state');
+        window.localStorage.removeItem('infragramState');
         this.props.switchToApp();
     }
 
     handleQuery() {
-        const l = window.localStorage.getItem('infragram_state');
+        const l = window.localStorage.getItem('infragramState');
         return l ? btoa(l) : null;
     }
 

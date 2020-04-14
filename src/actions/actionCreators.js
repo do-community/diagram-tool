@@ -6,12 +6,12 @@ export function initialize(data) {
 }
 
 //addNode - takes a node type, x/y position, and metadata that will override the defaults for this node type
-export function addNode(key, node_type, x, y, metadata, connections = []) {
+export function addNode(key, nodeType, x, y, metadata, connections = []) {
   return function (dispatch) {
     dispatch({
       type: 'ADD_NODE',
       key,
-      node_type,
+      nodeType,
       x,
       y,
       metadata
@@ -19,7 +19,7 @@ export function addNode(key, node_type, x, y, metadata, connections = []) {
 
     connections.map((c) => dispatch({
       type: 'ADD_CONNECTOR',
-      connector_type: c.type,
+      connectorType: c.type,
       start: key,
       end: c.to,
       metadata: c.metadata
@@ -105,10 +105,10 @@ export function deleteNode(key) {
 }
 
 
-export function addConnector(start, end, connector_type, metadata) {
+export function addConnector(start, end, connectorType, metadata) {
   return {
     type: 'ADD_CONNECTOR',
-    connector_type,
+    connectorType,
     metadata,
     start,
     end
@@ -134,7 +134,7 @@ export function editConnector(key, metadata) {
 
 export function editConnectorType(key, connectorType) {
   return {
-    type: 'EDIT_CONNECTOR_TYPE',
+    type: 'EDIT_connectorType',
     key,
     connectorType
   }

@@ -60,6 +60,7 @@
     "posthtml-custom-elements": "^1.1.2",
     "posthtml-extend": "0.3.0",
     "prettier": "1.10.2",
-    "react-addons-test-utils": "^15.6.2"
+    "react-addons-test-utils": "^15.6.2",
+    "typescript": "^3.8.3"
   }
 }

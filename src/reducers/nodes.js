@@ -3,9 +3,9 @@ function nodes(state = [], action) {
     case 'INITIALIZE' :
       return action.data.nodes && typeof(action.data.nodes) === 'object' ? action.data.nodes : {};
     case 'MOVE_NODE':
-      return Object.keys(state).reduce((new_obj, key) => {
+      return Object.keys(state).reduce((newObj, key) => {
         if (key === action.key) {
-          new_obj[key] = {
+          newObj[key] = {
             ...state[key],
             position: [
               action.relative ? state[key].position[0] + action.x : action.x,
@@ -13,32 +13,32 @@ function nodes(state = [], action) {
             ]
           };
         } else {
-          new_obj[key] = {...state[key]};
+          newObj[key] = {...state[key]};
         }
-        return new_obj;
+        return newObj;
       }, {});
 
     case 'ADD_NODE':
       return {
         ...state,
         [action.key]: {
-          type: action.node_type,
+          type: action.nodeType,
           metadata:action.metadata,
           position: [action.x, action.y]
         }
       };
 
     case 'DELETE_NODE':
-      return Object.keys(state).reduce((new_obj, key) => {
-        if (key != action.key) new_obj[key] = {...state[key]}
-        return new_obj;
+      return Object.keys(state).reduce((newObj, key) => {
+        if (key != action.key) newObj[key] = {...state[key]}
+        return newObj;
       }, {});
 
     case 'EDIT_NODE':
-      return Object.keys(state).reduce((new_obj, key) => {
-        if (key === action.key) new_obj[key] = {...state[key], metadata:{...state[key].metadata, ...action.metadata}}
-        else new_obj[key] = {...state[key]}
-        return new_obj;
+      return Object.keys(state).reduce((newObj, key) => {
+        if (key === action.key) newObj[key] = {...state[key], metadata:{...state[key].metadata, ...action.metadata}}
+        else newObj[key] = {...state[key]}
+        return newObj;
       }, {});
     default:
       return state;

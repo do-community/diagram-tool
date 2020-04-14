@@ -1,8 +1,9 @@
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import NODES from '../data/NODES.js';
-import ICONS from '../data/ICONS.js';
+import nodes from '../data/nodes';
+import data from '../data';
 import ConnectorDragHandle from './ConnectorDragHandle';
+const { additionalIcons } = data;
 
 class Node extends React.Component {
   handleOffset() {
@@ -12,8 +13,8 @@ class Node extends React.Component {
     }
   }
   render() {
-    let {
-        node_template,
+      let {
+        nodeTemplate,
         id,
         metadata,
         tags,
@@ -22,7 +23,7 @@ class Node extends React.Component {
         connectDropTarget
       } = this.props,
       scale = Math.round('scale' in metadata ? 60 * metadata.scale : 60),
-      label_offset = { bottom: (node_template.label_offset ? node_template.label_offset : 0) + 'px' };
+      labelOffset = { bottom: (nodeTemplate.labelOffset ? nodeTemplate.labelOffset : 0) + 'px' };
       metadata = metadata || {};
 
     return connectDropTarget(
@@ -41,33 +42,39 @@ class Node extends React.Component {
             viewBox="0 0 100 100"
             style={metadata.color ? { color: metadata.color } : {}}
           >
-            {node_template.extends && node_template.extends === 'droplet'
+            {nodeTemplate.behavior.regionless
               ?
-              ICONS.droplet
+              undefined
+              :
+              additionalIcons.bubble
+            }
+            {nodeTemplate.extends && nodeTemplate.extends === 'droplet'
+              ?
+              additionalIcons.droplet
               :
               undefined
             }
-            {ICONS[type]}
+            {nodeTemplate.icon}
             {
-              metadata.block_storage ?
-              <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{ICONS.block_storage}</svg>
+              metadata.blockStorage ? 
+              <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{additionalIcons.blockStorage}</svg>
               :
               null
             }
 
-            {metadata.management_method ? (
+            {metadata.managementMethod ? (
               <svg
                 width={scale + 'px'}
                 height={scale + 'px'}
                 style={{width: scale + 'px', height: scale + 'px'}}
-                x={Math.round(((100 - scale) / 2) - (metadata.block_storage ? Math.cbrt(Math.max(1000,metadata.block_storage))/2.0 : 0)) + 'px'}
+                x={Math.round(((100 - scale) / 2) - (metadata.blockStorage ? Math.cbrt(Math.max(1000,metadata.blockStorage))/2.0 : 0)) + 'px'}
                 y={Math.round((100 - scale) / 2) + 'px'}
               >
-                {ICONS[metadata.management_method]}
+                {additionalIcons[metadata.managementMethod]}
               </svg>
             ) : null}
-
-            {metadata.active_disable_temporarily ? (
+            
+            {metadata.activeDisableTemporarily ? (
               <circle className="active" r="4" cx="12" cy="89" />
             ) : null}
 
@@ -83,8 +90,8 @@ class Node extends React.Component {
             ) : null}
           </svg>
 
-          <figcaption style={label_offset}>
-            {metadata.name || node_template.short_name}
+          <figcaption style={labelOffset}>
+            {metadata.name || nodeTemplate.shortName}
             {metadata.tags
               ? (typeof(metadata.tags) === 'string' ? metadata.tags.split(',') : metadata.tags).map((tag, i) => (
                   (tag in tags ?
@@ -92,17 +99,17 @@ class Node extends React.Component {
                       <svg
                         width="10px"
                         height="10px"
-                        className={'qual_' + tags[tag].color_id}
+                        className={'qual_' + tags[tag].colorId}
                         style={{width: '10px', height: '10px'}}
                       >
-                        {ICONS.tag}
+                        {additionalIcons.tag}
                       </svg>
                     </svg> : '')
                 ))
               : null}
           </figcaption>
 
-          {NODES[type].behavior.requests === 'creator' ? <button className="createRequest selectShow" data-click_key={id} data-category="request">▶</button> : undefined}
+          {nodes[type].behavior.requests === 'creator' ? <button className="createRequest selectShow" data-click_key={id} data-category="request">▶</button> : undefined}
 
           {['n', 'e', 's', 'w'].map(d => (
             <ConnectorDragHandle key={d} dir={d} parent={id} />

@@ -6,7 +6,7 @@ function connectors(state = [], action) {
       return [
         ...state,
         {
-          type: action.connector_type,
+          type: action.connectorType,
           metadata:action.metadata,
           between: [action.start, action.end]
         }
@@ -19,7 +19,7 @@ function connectors(state = [], action) {
         return c;
       });
 
-    case 'EDIT_CONNECTOR_TYPE' :
+    case 'EDIT_connectorType' :
       return state.map((c,i) => {
         if(i === action.key) {
           return {...c, type:action.connectorType};

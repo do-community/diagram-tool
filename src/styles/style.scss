@@ -177,31 +177,25 @@ body {
     text-align: center;
   }
 
-  .scrollable {
-    height: 100%;
-    overflow: hidden;
-    overflow-y: scroll;
-  }
-
-  .side-panel {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    -webkit-transition: width .05s linear;
-    transition: width .05s linear;
-    -webkit-transform: translateZ(0) scale(1,1);
+  .file-like-browser {
+    position: sticky;
     z-index: $topLayer;
     background: $gray100;
-    border: 1px solid $gray300;
+    border: 1px solid gray300;
+    user-select: none;
 
-    h3 {
+    div {
       @extend .small-padding;
-      display: block;
       text-align: center;
-      margin: 0;
-      font-size: $fontmedium;
-      font-weight: bold;
-      background: $gray300;
+      svg {
+        width: 60px;
+        height: 60px;
+        margin: 5px;
+      }
+      label {
+        background: $white_semitransparent;
+        color: $gray600;
+      }
     }
 
     h4 {
@@ -212,6 +206,13 @@ body {
       box-shadow: 0 -2px 0 $gray200;
       margin: 0;
     }
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 25px;
+    -webkit-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
   }
 
   .main {
@@ -231,52 +232,6 @@ body {
 
       &.collapsed {
         right: -30rem;
-      }
-    }
-
-    .tray {
-      left: 0;
-      width: 10rem;
-      display: flex;
-      flex-direction: column;
-
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        flex: 1;
-      }
-
-      li[data-category="node"] {
-        @extend .small-padding;
-        text-align: center;
-        svg {
-          width: 60px;
-          height: 60px;
-          margin: 5px;
-        }
-        label {
-          top: -20px;
-          position: relative;
-          background: $white_semitransparent;
-          color: $gray600;
-        }
-      }
-
-      .collapseButton {
-        display: block;
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        height: 20px;
-        width: 20px;
-        background: $gray300;
-        padding-left: 2px;
-        border: none;
-        border-radius: 10px;
-        box-shadow: none;
-        z-index: 1000001;
       }
     }
 

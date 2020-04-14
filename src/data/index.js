@@ -1,23 +1,23 @@
-import DIAGRAMS from './DIAGRAMS';
-import CONNECTORS from './CONNECTORS';
-import NODES from './NODES';
-import DOCUMENTATION from './DOCUMENTATION';
-import ICONS from './ICONS';
+import diagrams from './diagrams';
+import connectors from './connectors';
+import nodes from './nodes';
+import documentation from './documentation';
+import additionalIconsMassImport from './additionalIcons/*.tsx';
 
-const DATA = {
-	DIAGRAMS:DIAGRAMS,
-	CONNECTORS:CONNECTORS,
-	NODES:NODES,
-	NODES_BY_CATEGORY: 
-	  Object.keys(NODES).reduce( (acc,k) => {
-      if (!(NODES[k].category in acc)) {
-        acc[NODES[k].category] = {};
-      }
-      acc[NODES[k].category][k] = NODES[k];
-      return acc;
-    }, {}),
-  DOCUMENTATION:DOCUMENTATION,
-  ICONS:ICONS,
+const additionalIcons = {};
+Object.keys(additionalIconsMassImport).map(k => additionalIcons[k] = additionalIconsMassImport[k].default);
+
+export default {
+	diagrams,
+	connectors,
+	nodes,
+	nodesByCategory: Object.keys(nodes).reduce((acc, k) => {
+    if (!(nodes[k].category in acc)) {
+      acc[nodes[k].category] = {};
+    }
+    acc[nodes[k].category][k] = nodes[k];
+    return acc;
+  }, {}),
+  documentation,
+  additionalIcons,
 }
-
-export default DATA;

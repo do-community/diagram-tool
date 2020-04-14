@@ -6,18 +6,18 @@ import helpers from '../helpers.js';
 class Connector extends React.Component {
 	render() {
 		const {
-			connector_template,
+			connectorTemplate,
 			id,
 			metadata,
 			between,
 			connectDropTarget
 		} = this.props;
 
-		let pos, viewBox, path, w, h, dir, dns_path;
+		let pos, viewBox, path, w, h, dir, dnsPath;
 
 		/* If connector is connected to nodes, calculate how to draw the line */
 
-		let invert, start, end, section_style;
+		let invert, start, end, sectionStyle;
 		if (between) {
 			// Break connections into six types
 			// (we dont care which is first/last, just always start with leftmost)
@@ -35,7 +35,7 @@ class Connector extends React.Component {
 			invert = between[0][0] > between[1][0],
 			start = invert ? between[1] : between[0],
 			end = invert ? between[0] : between[1],
-			section_style = metadata.style && metadata.style === 'angular' ? 3 : 2;
+			sectionStyle = metadata.style && metadata.style === 'angular' ? 3 : 2;
 			h = Math.abs(end[1] - start[1]) * 103;
 			w = (end[0] - start[0]) * 100;
 			dir = 'v';
@@ -55,7 +55,7 @@ class Connector extends React.Component {
 				};
 				path = [[w / 2, 0], [w / 2, h + 3]];
 				viewBox = '0 0 ' + w + ' ' + h;
-				dns_path = [[w - 2, 0], [w - 2, 20]];
+				dnsPath = [[w - 2, 0], [w - 2, 20]];
 			} else if (start[1] == end[1]) {
 				dir = 'h'; // h - horizontal
 				h = 12;
@@ -69,7 +69,7 @@ class Connector extends React.Component {
 				};
 				path = [[0, 12], [w + 3, 12]];
 				viewBox = '0 0 ' + w + ' 30';
-				dns_path = [[0, 2], [12, 2]];
+				dnsPath = [[0, 2], [12, 2]];
 			} else if (w >= h) {
 				w -= 64;
 				h += 20;
@@ -89,20 +89,20 @@ class Connector extends React.Component {
 				if (start[1] > end[1]) {
 					path = [
 						[0, h - 12],
-						[w / section_style, h - 12],
-						[w - (w / section_style), 12],
+						[w / sectionStyle, h - 12],
+						[w - (w / sectionStyle), 12],
 						[w + 3, 12]
 					];
-					dns_path = [[0, h], [10, h]];
+					dnsPath = [[0, h], [10, h]];
 				} else {
 					// ht - horizontal, top to bottom (left to right)
 					path = [
 						[0, 12],
-						[w / section_style, 12],
-						[w - (w / section_style), h - 12],
+						[w / sectionStyle, 12],
+						[w - (w / sectionStyle), h - 12],
 						[w + 3, h - 12]
 					];
-					dns_path = [[0, 0], [15, 0]];
+					dnsPath = [[0, 0], [15, 0]];
 				}
 			} else {
 				h -= 68;
@@ -122,33 +122,33 @@ class Connector extends React.Component {
 				if (start[1] > end[1]) {
 					path = [
 						[3, h],
-						[3, h - (h / section_style)],
-						[w - 13, h / section_style],
+						[3, h - (h / sectionStyle)],
+						[w - 13, h / sectionStyle],
 						[w - 13, -3]
 					];
-					dns_path = [[w - 1, 0], [w - 1, 20]];
+					dnsPath = [[w - 1, 0], [w - 1, 20]];
 				} else {
 					path = [
 						[3, 0],
-						[3, h / section_style],
-						[w - 13, h - (h / section_style)],
+						[3, h / sectionStyle],
+						[w - 13, h - (h / sectionStyle)],
 						[w - 13, h + 3]
 					];
-					dns_path = [[10, 0], [10, 20]];
+					dnsPath = [[10, 0], [10, 20]];
 				}
 			}
 		}
 
 		const center = { left: w / 2, top: h / 2 },
-			d_string = helpers.lineToSVGString(
+			dString = helpers.lineToSVGString(
 				path,
 				dir,
-				!('opacity' in connector_template),
-				connector_template.metadata.style || null
+				!('opacity' in connectorTemplate),
+				connectorTemplate.metadata.style || null
 			);
 
-		pos.zIndex = Math.round(100 * ('opacity' in connector_template) ? connector_template.opacity : 1);
-		pos.opacity = ('opacity' in connector_template) ? connector_template.opacity : 1;
+		pos.zIndex = Math.round(100 * ('opacity' in connectorTemplate) ? connectorTemplate.opacity : 1);
+		pos.opacity = ('opacity' in connectorTemplate) ? connectorTemplate.opacity : 1;
 
 		//TODO: Unhack this
 		window.setTimeout(function() {
@@ -179,7 +179,7 @@ class Connector extends React.Component {
 				className="hoverParent"
 			>
 				<label className="hoverShow">
-					{connector_template.name}
+					{connectorTemplate.name}
 				</label>
 
 				<svg
@@ -195,28 +195,28 @@ class Connector extends React.Component {
 					{/*<path
 						data-js={'wire_' + id}
 						className="offwhitestroked"
-						d={d_string}
+						d={dString}
 						strokeWidth="5px"
 					/>*/}
 					<path
 						className={
-							connector_template.mode === 'duplex'
+							connectorTemplate.mode === 'duplex'
 								? 'unfilled'
 								: 'unfilled dashed'
 						}
-						d={d_string}
+						d={dString}
 						stroke="currentcolor"
 						strokeWidth={
-							connector_template.mode === 'duplex'
+							connectorTemplate.mode === 'duplex'
 								? '3px'
 								: '1px'
 						}
 					/>
 
-					{/*{(!metadata || !metadata.encryption) && connector_template.mode === 'duplex' ? (
+					{(!metadata || !metadata.encryption) && connectorTemplate.mode === 'duplex' ? (
 						<path
 							className="offwhitestroked"
-							d={d_string}
+							d={dString}
 							strokeWidth="2px"
 						/>
 					) : (
@@ -225,7 +225,7 @@ class Connector extends React.Component {
 
 					{metadata && metadata.dns ? (
 						<path
-							d={helpers.lineToSVGString(dns_path, dir, true)}
+							d={helpers.lineToSVGString(dnsPath, dir, true)}
 							stroke="currentcolor"
 						/>
 					) : (
@@ -258,8 +258,8 @@ class Connector extends React.Component {
 						className="dns-label"
 						title={metadata.dns}
 						style={{
-							left: dns_path[1][0] - 2,
-							marginTop: dns_path[1][1]
+							left: dnsPath[1][0] - 2,
+							marginTop: dnsPath[1][1]
 						}}
 					>
 						<dt style={{ borderColor: metadata.color }}>dns:</dt>

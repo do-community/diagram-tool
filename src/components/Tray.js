@@ -1,40 +1,63 @@
 import React from 'react';
-import dndHelper from '../dndHelper.js';
-import TrayNode from './TrayNode';
 import DATA from '../data';
-console.log(DATA.NODES_BY_CATEGORY);
+import { getPosition, clear, updatePosition } from '../showWhereClick';
+import helpers from '../helpers';
+import FileLikeBrowser from './FileLikeBrowser';
 
-class Tray extends React.Component {
+export default class Tray extends React.Component {
 	constructor(props) {
 		super(props);
-		const topOffset = document.getElementById('root').getBoundingClientRect().top + 20;
-		this.state = {'top': topOffset - window.pageYOffset};
+		this.state = {category: null};
 	}
-	toggleMinimized() {
-		const sidenav = document.querySelector('.bui-SideNav');
-		sidenav.classList.toggle('minimized');
-	}
-	render(){
-		return this.props.connectDropTarget(
-			<div className="tray side-panel">
-				<p><a onClick={() => this.props.switchToApp()}>Main Menu</a></p>
-				<h3>Build</h3>
-				<div className="scrollable">
-					<ul>
-						{ Object.keys(DATA.NODES_BY_CATEGORY).map(
-							category => <li key={category}>
-								<h4>{category}</h4>
-								<ul>{ Object.keys(DATA.NODES_BY_CATEGORY[category]).map(
-									(node, i) => { return (<TrayNode key={i} id={node} />) }
-								)}</ul>
-							</li>
-            			) }
-					</ul>
-				</div>
-				<a className="minimizeButton" onClick={this.toggleMinimized}></a>
-			</div>
+
+	onNodeClick(nodeId) {
+		// Clear the UI and get the position where the mouse was clicked.
+		const position = getPosition();
+		clear();
+
+		// Run the drop action.
+		helpers.addNodeAndConnections(
+			nodeId,
+			helpers.mouseToGrid({
+				x: Number(position.left.slice(0, -2)),
+				y: Number(position.top.slice(0, -2)),
+			}),
+			DATA.nodes[nodeId].metadata,
+			this.props,
 		);
 	}
-};
 
-export default dndHelper.composeDrop(Tray);
+	componentDidUpdate() {
+		updatePosition();
+	}
+
+	render() {
+		if (this.state.category) {
+			const buttons = Object.keys(DATA.nodesByCategory[this.state.category]).map(id => {
+				const node = DATA.nodes[id];
+				return {
+					id, icon: node.icon, name: node.name,
+				};
+			});
+
+			return <FileLikeBrowser
+				backAction={() => this.setState({category: null})}
+				title={this.state.category}
+				buttons={buttons}
+				onClick={nodeId => this.onNodeClick(nodeId)}
+			/>;
+		} else {
+			const buttons = Object.keys(DATA.nodesByCategory).map(id => {
+				return {
+					id, icon: DATA.additionalIcons.folder, name: id,
+				};
+			});
+
+			return <FileLikeBrowser
+				title="Category Selection"
+				buttons={buttons}
+				onClick={category => this.setState({category})}
+			/>;
+		}
+	}
+};

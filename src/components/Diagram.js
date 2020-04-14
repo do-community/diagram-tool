@@ -6,10 +6,10 @@ import Connector from './Connector';
 import Region from './Region';
 import NodeEditor from './NodeEditor';
 import DiagramMetadata from './DiagramMetadata';
+import { showWhereClick, viewVisible, clear } from '../showWhereClick';
+import lineGenerator from '../lineGenerator';
 
-
-
-import DATA from '../data';
+import data from '../data';
 import helpers from '../helpers.js';
 
 class Diagram extends React.Component {
@@ -24,8 +24,6 @@ class Diagram extends React.Component {
     this.composeSelectionObject = this.composeSelectionObject.bind(this);
     this.diagramDrop = this.diagramDrop.bind(this);
     this.share = this.share.bind(this);
-
-    //TODO: Not sure where to put this initialize state call, so leaving it here
     helpers.initializeState(function(response) {
       props.initialize(response);
     });
@@ -114,15 +112,15 @@ class Diagram extends React.Component {
       } else {
         if (target.dataset.category === 'node')
           target.dataset.selected === 'false'
-            ? this.props.selectNodes(target.dataset.click_key, event.shiftKey)
-            : this.props.deselectNodes(target.dataset.click_key);
+            ? this.props.selectNodes(target.dataset.clickKey, event.shiftKey)
+            : this.props.deselectNodes(target.dataset.clickKey);
         else if (target.dataset.category === 'connector')
           target.dataset.selected === 'false'
             ? this.props.selectConnectors(
-                parseInt(target.dataset.click_key, 10),
+                parseInt(target.dataset.clickKey, 10),
                 event.shiftKey
               )
-            : this.props.deselectConnectors(parseInt(target.dataset.click_key, 10));
+            : this.props.deselectConnectors(parseInt(target.dataset.clickKey, 10));
         else if (target.dataset.category === 'request')
           console.log('play');
       }
@@ -133,6 +131,30 @@ class Diagram extends React.Component {
         0
     ) {
       this.props.deselectNodes();
+    } else {
+      if (viewVisible()) {
+        clear();
+        lineGenerator();
+      } else {
+        showWhereClick(<Tray
+          nodes={this.props.nodes}
+          addNode={this.props.addNode}
+        />, event, 10);
+        lineGenerator([
+          {
+            x1: 0,
+            x2: window.innerWidth,
+            y1: event.clientY,
+            y2: event.clientY,
+          },
+          {
+            x1: event.clientX,
+            x2: event.clientX,
+            y1: 0,
+            y2: window.innerHeight,
+          },
+        ]);
+      }
     }
   }
 
@@ -156,7 +178,7 @@ class Diagram extends React.Component {
             this.props.selection[category + 's'][0]
           ],
           template:
-            DATA[category.toUpperCase() + 'S'][
+            data[category.toLowerCase() + 's'][
               this.props[category + 's'][
                 this.props.selection[category + 's'][0]
               ].type
@@ -166,8 +188,8 @@ class Diagram extends React.Component {
         };
   }
 
-  diagramDrop(target_category, target, item, offset) {
-    dndHelper.handleDrop(this.props, target_category, target, item, offset);
+  diagramDrop(targetCategory, target, item, offset) {
+    dndHelper.handleDrop(this.props, targetCategory, target, item, offset);
   }
 
   share(e) {
@@ -194,7 +216,6 @@ class Diagram extends React.Component {
         connectors,
         selection,
         connectDropTarget,
-        mode
       } = this.props,
       regions = helpers.getRegionsFromNodes(nodes),
       tags = helpers.getTagsFromNodes(nodes),
@@ -209,7 +230,7 @@ class Diagram extends React.Component {
         mappedNodes[key] = <Node
           key={key}
           id={key}
-          node_template={DATA.NODES[nodes[key].type]}
+          nodeTemplate={data.nodes[nodes[key].type]}
           metadata={nodes[key].metadata}
           position={nodes[key].position}
           type={nodes[key].type}
@@ -226,7 +247,7 @@ class Diagram extends React.Component {
         <Region
           key={region}
           id={region}
-          region_name={region}
+          regionName={region}
           bounds={helpers.getBoundingRectangle(region, nodes)}
           onDrop={(item, offset) =>
             this.diagramDrop('region', region, item, offset)
@@ -238,7 +259,7 @@ class Diagram extends React.Component {
         <Connector
           key={i}
           id={i}
-          connector_template={DATA.CONNECTORS[connector.type]}
+          connectorTemplate={data.connectors[connector.type]}
           metadata={connector.metadata}
           between={[
             nodes[connector.between[0]].position,
@@ -268,11 +289,6 @@ class Diagram extends React.Component {
         <DiagramMetadata
           {...this.props.metadata}
           editAction={this.props.editDiagramMetadata}
-        />
-
-        <Tray
-          mode={mode}
-          onDrop={item => this.diagramDrop('tray', null, item)}
         />
 
         {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
