@@ -1,6 +1,7 @@
 /* Colors */
 $white_semitransparent: rgba(255,255,255,0.5);
 $white_mostlytransparent: rgba(255,255,255,0.2);
+$white:   #FFFFFF;
 $gray50:  #FAFAFA;
 $gray100: #F5F5F5;
 $gray200: #EEEEEE;
@@ -20,6 +21,7 @@ $default_blue: #0080ff;
 $danger: #f25041;
 $success: #00cd8d;
 $attention: #0069ff;
+$region: rgba(229, 228, 237, 0.482);
 
 /* Z-indices */
 $topLayer: 1000;
@@ -40,8 +42,12 @@ html {
 }
 
 body {
-  background: $gray200;
+  background: $white;
   color: $gray800;
+
+  .layout-wrapper {
+    width: 100%;
+  }
 }
 
 .infragram {
@@ -78,10 +84,6 @@ body {
     .paper {
       fill: $white_semitransparent;
       color: $white_semitransparent;
-    }
-    .waxpaper {
-      fill: $white_mostlytransparent;
-      color: $white_mostlytransparent;
     }
     .paperstroked {
       stroke: $white_semitransparent;
@@ -196,6 +198,15 @@ body {
       }
     }
 
+    h4 {
+      @extend .small-padding;
+      display: block;
+      text-align: center;
+      border-top: 2px solid $gray50;
+      box-shadow: 0 -2px 0 $gray200;
+      margin: 0;
+    }
+
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 25px;
@@ -205,7 +216,7 @@ body {
   }
 
   .main {
-    height: calc(100vh - 16px);
+    height: calc(100vh - 104px);
     overflow: hidden;
     position: relative;
 
@@ -252,7 +263,7 @@ body {
       textarea {
         margin: 0;
         border: none;
-        border-top: 1px solid gray200;
+        border-top: 1px solid $gray200;
         padding: 8px 16px;
         width: 75%;
         background: none;
@@ -276,10 +287,7 @@ body {
       div[data-category="region"] {
         @extend .center-on-grid;
         z-index: 1;
-        border: 1px solid light_blue;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.1);
-        box-shadow: 0 0 5px rgba(0,0,0,0.05);
+        background: $region;
 
         label {
           @extend .truncate;
@@ -312,7 +320,7 @@ body {
           width: 40px;
           height: 18px;
           max-width: 100%;
-          background: offwhite;
+          background: $gray200;
           position: absolute;
         }
 
@@ -424,7 +432,7 @@ body {
 
   figure[data-category="node"] {
     svg {
-      color: offwhite_semitransparent;
+      color: $gray200_semitransparent;
     }
   }
 

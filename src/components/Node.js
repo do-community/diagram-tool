@@ -41,14 +41,7 @@ class Node extends React.Component {
             height="100%"
             viewBox="0 0 100 100"
             style={metadata.color ? { color: metadata.color } : {}}
-            
           >
-            {nodeTemplate.behavior.regionless
-              ?
-              undefined
-              :
-              additionalIcons.bubble
-            }
             {nodeTemplate.extends && nodeTemplate.extends === 'droplet'
               ?
               additionalIcons.droplet
@@ -70,7 +63,6 @@ class Node extends React.Component {
                 style={{width: scale + 'px', height: scale + 'px'}}
                 x={Math.round(((100 - scale) / 2) - (metadata.blockStorage ? Math.cbrt(Math.max(1000,metadata.blockStorage))/2.0 : 0)) + 'px'}
                 y={Math.round((100 - scale) / 2) + 'px'}
-                
               >
                 {additionalIcons[metadata.managementMethod]}
               </svg>
@@ -90,7 +82,6 @@ class Node extends React.Component {
                 style={{width: '32px', height: '32px'}}
               />
             ) : null}
-
           </svg>
 
           <figcaption style={labelOffset}>
