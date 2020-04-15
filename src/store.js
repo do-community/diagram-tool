@@ -1,13 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import throttle from 'lodash/throttle';
-import merge from 'lodash/merge';
 
 //import the root reducer
 import rootReducer from './reducers/index';
-
-//default data
-import DATA from './data';
 
 //helpers
 import helpers from './helpers.js';

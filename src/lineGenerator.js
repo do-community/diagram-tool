@@ -1,25 +1,25 @@
 class LineGenerator {
     _createContainer() {
-        const div = document.createElement("div");
-        div.style.position = "absolute";
-        div.style.top = "0";
-        div.style.left = "0";
-        div.style.overflow = "show";
-        div.style.pointerEvents = "none";
+        const div = document.createElement('div');
+        div.style.position = 'absolute';
+        div.style.top = '0';
+        div.style.left = '0';
+        div.style.overflow = 'show';
+        div.style.pointerEvents = 'none';
         document.body.appendChild(div);
         return div;
     }
 
     _createInnerSvg(container) {
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("overflow", "visible");
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('overflow', 'visible');
         container.appendChild(svg);
         return svg;
     }
 
     _purgeLines() {
         if (this.lineDiv) this.lineDiv.remove();
-        if (this.eventHandler) window.removeEventListener("resize", this.eventHandler);
+        if (this.eventHandler) window.removeEventListener('resize', this.eventHandler);
     }
 
     drawLine(obj) {
@@ -31,28 +31,28 @@ class LineGenerator {
         const {x, y} = obj;
         
         // Draw the X line.
-        const xLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        xLine.setAttribute("stroke", "#000000");
-        xLine.setAttribute("stroke-width", "1");
-        xLine.setAttribute("x1", "0");
-        xLine.setAttribute("x2", `${window.innerWidth}`);
-        xLine.setAttribute("y1", `${y}`);
-        xLine.setAttribute("y2", `${y}`);
+        const xLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        xLine.setAttribute('stroke', '#000000');
+        xLine.setAttribute('stroke-width', '1');
+        xLine.setAttribute('x1', '0');
+        xLine.setAttribute('x2', `${window.innerWidth}`);
+        xLine.setAttribute('y1', `${y}`);
+        xLine.setAttribute('y2', `${y}`);
         svg.appendChild(xLine);
 
         // Draw the Y line.
-        const yLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        yLine.setAttribute("stroke", "#000000");
-        yLine.setAttribute("stroke-width", "1");
-        yLine.setAttribute("x1", `${x}`);
-        yLine.setAttribute("x2", `${x}`);
-        yLine.setAttribute("y1", "0");
-        yLine.setAttribute("y2", `${window.innerHeight}`);
+        const yLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        yLine.setAttribute('stroke', '#000000');
+        yLine.setAttribute('stroke-width', '1');
+        yLine.setAttribute('x1', `${x}`);
+        yLine.setAttribute('x2', `${x}`);
+        yLine.setAttribute('y1', '0');
+        yLine.setAttribute('y2', `${window.innerHeight}`);
         svg.appendChild(yLine);
 
         // Create the event handler.
         this.eventHandler = () => this.drawLine(obj);
-        window.addEventListener("resize", this.eventHandler);
+        window.addEventListener('resize', this.eventHandler);
     }
 }
 

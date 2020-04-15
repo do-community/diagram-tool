@@ -9,7 +9,7 @@ export default class Landing extends React.Component {
             <div className="background-bottom">{this.props.backgroundBottom}</div>
             <div className="container">
                 <h1>{ this.props.title }</h1>
-                <p style={{fontSize: "initial"}} dangerouslySetInnerHTML={{__html: this.props.description}}></p>
+                <p style={{fontSize: 'initial'}} dangerouslySetInnerHTML={{__html: this.props.description}}></p>
 
                 {this.props.innerContent}
 

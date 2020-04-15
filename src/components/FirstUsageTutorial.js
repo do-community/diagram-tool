@@ -5,7 +5,7 @@ export default class FirstUsageTutorial extends React.Component {
         super(props);
         this.mounted = false;
         this.getWindowSize();
-        window.addEventListener("resize", this.getWindowSize.bind(this));
+        window.addEventListener('resize', this.getWindowSize.bind(this));
     }
 
     componentDidMount() {
@@ -20,10 +20,10 @@ export default class FirstUsageTutorial extends React.Component {
 
     render() {
         return <span style={{
-            position: "absolute",
-            textAlign: "center",
+            position: 'absolute',
+            textAlign: 'center',
             left: `${this.state.width / 2}px`,
-            WebkitTransform: "translate(-50%, -50%)",
+            WebkitTransform: 'translate(-50%, -50%)',
             top: `${this.state.height / 2}px`,
         }}>
             <h1 className="title is-1">To start, simply click somewhere on the screen.</h1>

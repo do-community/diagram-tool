@@ -75,7 +75,7 @@ class CloseEnoughPositioner extends React.Component {
         }
 
         // Render the element with all of this wrapped.
-        return <div style={{left, top, position: "absolute"}} className="infragram do-bulma" ref={this.ref}>{el}</div>;
+        return <div style={{left, top, position: 'absolute'}} className="infragram do-bulma" ref={this.ref}>{el}</div>;
     }
 }
 

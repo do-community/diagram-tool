@@ -1,9 +1,9 @@
 // Drag and drop helper
 
-import { DropTarget, DragSource } from "react-dnd";
-import DATA from "./data";
-import helpers from "./helpers.js";
-import flow from "lodash/flow";
+import { DropTarget, DragSource } from 'react-dnd';
+import DATA from './data';
+import helpers from './helpers.js';
+import flow from 'lodash/flow';
 
 const dndHelper = {
 	dndConnect: function(c, m) {
@@ -30,14 +30,14 @@ const dndHelper = {
 			DragSource(
 				type,
 				{
-					beginDrag: (p, m, c) => {
+					beginDrag: p => {
 						return { type: type, action: action, key: p.id || p.parent };
 					}
 				},
 				_dndConnect
 			),
 			DropTarget(
-				["node", "connector"],
+				['node', 'connector'],
 				{
 					drop(p, m) {
 						m.didDrop() ? null : p.onDrop(m.getItem(), m.getClientOffset());
@@ -53,7 +53,7 @@ const dndHelper = {
 		return DragSource(
 			type,
 			{
-				beginDrag: (p, m, c) => {
+				beginDrag: p => {
 					return { type: type, action: action, key: p.id || p.parent };
 				}
 			},
@@ -67,15 +67,15 @@ const dndHelper = {
 		let _dndCollect = this.dndCollect,
 			_dndHandleDrop = this.handleDrop;
 		return DropTarget(
-			["node", "connector"],
+			['node', 'connector'],
 			{
-				drop(p, m, c) {
+				drop(p, m) {
 					m.didDrop()
 						? null
-						: typeof p.onDrop !== "function"
+						: typeof p.onDrop !== 'function'
 							? _dndHandleDrop(
 									p,
-									"diagram",
+									'diagram',
 									null,
 									m.getItem(),
 									m.getClientOffset()
@@ -88,17 +88,16 @@ const dndHelper = {
 	},
 
 	handleDrop(props, targetCategory, target, item, offset) {
-		if (targetCategory === "tray") {
+		if (targetCategory === 'tray') {
 			/* Dragging to Tray = Deleting*/
-			props["delete" + helpers.capitalize(item.type)](item.key);
-			return { action: "deleted", success: true };
+			props['delete' + helpers.capitalize(item.type)](item.key);
+			return { action: 'deleted', success: true };
 		}
 		console.log(item)
 
 		// Add or Move Item
-		let update = {};
-		if (item.type === "node") {
-			if (item.action === "move") {
+		if (item.type === 'node') {
+			if (item.action === 'move') {
 				props.moveNode(
 					item.key,
 					...helpers.getClosestOpenPosition(
@@ -106,9 +105,9 @@ const dndHelper = {
 						props.nodes
 					)
 				);
-			} else if (item.action === "add") {
+			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
-				if (targetCategory === "connector") {
+				if (targetCategory === 'connector') {
 					props.deleteConnector(target);
 				}
 				//Add Node with Connections
@@ -120,7 +119,7 @@ const dndHelper = {
 				);
 			}
 		} else if (
-			item.type === "connector" &&
+			item.type === 'connector' &&
 			target in props.nodes &&
 			item.key != target
 		) {

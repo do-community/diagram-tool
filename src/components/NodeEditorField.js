@@ -22,7 +22,7 @@ class NodeEditorField extends React.Component {
 						<input
 							id={name}
 							type="text"
-							value={value || ""}
+							value={value || ''}
 							onChange={this.handleChange}
 							maxLength={
 								'validation' in specs && typeof specs.validation[1] === 'number'
@@ -40,7 +40,7 @@ class NodeEditorField extends React.Component {
 						<input
 							id={name}
 							type="number"
-							value={value || ""}
+							value={value || ''}
 							min={
 								'validation' in specs && typeof specs.validation[0] === 'number'
 									? specs.validation[0]
@@ -76,7 +76,7 @@ class NodeEditorField extends React.Component {
 						<select
 							id={name}
 							onChange={this.handleChange}
-							value={value || ""}
+							value={value || ''}
 							style={{'paddingTop':'14px'}}
 						>
 							{specs.validation.map((o,i) => <option value={o} key={'opt_'+o+'_'+i}>{o}</option>)}
@@ -89,7 +89,7 @@ class NodeEditorField extends React.Component {
 					<input
 						id={name}
 						type="color"
-						value={value || ""}
+						value={value || ''}
 						onChange={this.handleChange}
 						placeholder={name}
 					/>
@@ -99,7 +99,7 @@ class NodeEditorField extends React.Component {
 					<input
 						id={name}
 						type="text"
-						value={value || ""}
+						value={value || ''}
 						onChange={this.handleChange}
 						placeholder={name}
 					/>
