@@ -131,7 +131,7 @@ class Diagram extends React.Component {
         0
     ) {
       this.props.deselectNodes();
-    } else if (event.target.tagName === "DIV") {
+    } else if (event.target.tagName === 'DIV') {
       if (viewVisible()) {
         clear();
         lineGenerator();
