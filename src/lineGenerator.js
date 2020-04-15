@@ -19,24 +19,40 @@ class LineGenerator {
 
     _purgeLines() {
         if (this.lineDiv) this.lineDiv.remove();
+        if (this.eventHandler) window.removeEventListener("resize", this.eventHandler);
     }
 
-    drawLine(items) {
+    drawLine(obj) {
+        // Handle the initialisation of the lines.
         this._purgeLines();
-        if (!items) return;
+        if (!obj) return;
         this.lineDiv = this._createContainer();
         const svg = this._createInnerSvg(this.lineDiv);
-        for (const obj of items) {
-            const {x1, x2, y1, y2} = obj;
-            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line.setAttribute("stroke", "#000000");
-            line.setAttribute("stroke-width", "1");
-            line.setAttribute("x1", x1.toString());
-            line.setAttribute("x2", x2.toString());
-            line.setAttribute("y1", y1.toString());
-            line.setAttribute("y2", y2.toString());
-            svg.appendChild(line);
-        }
+        const {x, y} = obj;
+        
+        // Draw the X line.
+        const xLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        xLine.setAttribute("stroke", "#000000");
+        xLine.setAttribute("stroke-width", "1");
+        xLine.setAttribute("x1", "0");
+        xLine.setAttribute("x2", `${window.innerWidth}`);
+        xLine.setAttribute("y1", `${y}`);
+        xLine.setAttribute("y2", `${y}`);
+        svg.appendChild(xLine);
+
+        // Draw the Y line.
+        const yLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        yLine.setAttribute("stroke", "#000000");
+        yLine.setAttribute("stroke-width", "1");
+        yLine.setAttribute("x1", `${x}`);
+        yLine.setAttribute("x2", `${x}`);
+        yLine.setAttribute("y1", "0");
+        yLine.setAttribute("y2", `${window.innerHeight}`);
+        svg.appendChild(yLine);
+
+        // Create the event handler.
+        this.eventHandler = () => this.drawLine(obj);
+        window.addEventListener("resize", this.eventHandler);
     }
 }
 

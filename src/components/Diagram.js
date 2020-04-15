@@ -140,20 +140,10 @@ class Diagram extends React.Component {
           nodes={this.props.nodes}
           addNode={this.props.addNode}
         />, event, 10);
-        lineGenerator([
-          {
-            x1: 0,
-            x2: window.innerWidth,
-            y1: event.clientY,
-            y2: event.clientY,
-          },
-          {
-            x1: event.clientX,
-            x2: event.clientX,
-            y1: 0,
-            y2: window.innerHeight,
-          },
-        ]);
+        lineGenerator({
+          x: event.clientX,
+          y: event.clientY,
+        });
       }
     }
   }
