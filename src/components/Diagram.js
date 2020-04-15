@@ -8,6 +8,7 @@ import NodeEditor from './NodeEditor';
 import DiagramMetadata from './DiagramMetadata';
 import { showWhereClick, viewVisible, clear } from '../showWhereClick';
 import lineGenerator from '../lineGenerator';
+import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
@@ -264,6 +265,9 @@ class Diagram extends React.Component {
 
       {Object.values(mappedNodes)}
     </div>
+  
+    let blankNodeElement;
+    if (Object.keys(mappedNodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
     return connectDropTarget(
       <div
@@ -275,6 +279,7 @@ class Diagram extends React.Component {
         onMouseDown={this.mouseDown}
         onClick={this.click}
       >
+        {blankNodeElement}
 
         <DiagramMetadata
           {...this.props.metadata}
