@@ -192,12 +192,12 @@ class Connector extends React.Component {
 							: metadata.color
 					}
 				>
-					{/*<path
+					<path
 						data-js={'wire_' + id}
 						className="offwhitestroked"
 						d={dString}
 						strokeWidth="5px"
-					/>*/}
+					/>
 					<path
 						className={
 							connectorTemplate.mode === 'duplex'
