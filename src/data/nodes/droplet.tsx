@@ -28,7 +28,9 @@ export default {
         connectionPreference:['https', 'http', 'websocket', 'tcp', 'udp'],
         requests: 'recursiveSync',
     },
-    icon: <g transform="scale(0.5) translate(25, 45)" className="darkblue">
-        <path className="lightblue stroked" d="M75.498,5.571c0,0,37.501,37.884,37.501,58.598c0,20.709-16.79,37.498-37.501,37.498C54.789,101.667,38,84.879,38,64.169C37.997,43.456,75.498,5.571,75.498,5.571z" />
+    icon: <g transform="scale(1.5) translate(12, 12)" className="dropletSvg">
+        <circle className="cls-2" cx="21" cy="21" r="20.79"/>
+        <path className="cls-3" d="M21,33.06A10.2,10.2,0,0,1,10.83,23C10.83,14.61,21,8.94,21,8.94s10.17,5.87,10.17,14.15A10.14,10.14,0,0,1,21,33.06Z"/>
+        <path className="cls-3" d="M21,26.28a3.37,3.37,0,0,1-3.39-3.39c0-2.61,3.39-5.09,3.39-5.09s3.39,2.42,3.39,5.09A3.37,3.37,0,0,1,21,26.28Z"/>
     </g>,
 } as Node;

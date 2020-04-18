@@ -10,8 +10,11 @@ export default {
         wants: [],
         regionless: true,
     },
-    icon: <g transform="translate(-15, -12)" xmlns="http://www.w3.org/2000/svg" viewBox="14 14 100 100">
-        <path fill="#4040B2" d="M71.574,66.804L84,59.637V45.28l-12.426,7.183" /><path fill="#5C4EE5" d="M57.788,45.28l12.426,7.183v14.341l-12.426-7.174" />
-        <path fill="#5C4EE5" d="M44,51.622l12.424,7.174V44.447L44,37.272 M57.788,75.554l12.426,7.174V68.38l-12.426-7.176" />
+    icon: <g transform="scale(1.5) translate(12, 12)" className="terraformSvg">
+        <circle className="cls-2" cx="21" cy="21" r="20.79"/>
+        <path className="cls-3" d="M10.89,17.53l4.61,2.64V14.93l-4.61-2.64Z"/>
+        <path className="cls-3" d="M18.63,21.94l4.62,2.65V19.34L18.63,16.7Z"/>
+        <path className="cls-3" d="M26.5,19.34v5.25l4.61-2.65V16.7Z"/>
+        <path className="cls-3" d="M18.63,31l4.62,2.64V28.43l-4.6-2.62Z"/>
     </g>,
 } as Node;

@@ -20,11 +20,14 @@ export default {
         minConnections: 2,
         edge: true,
     },
-    icon: <g>
-        <path className="darkblue" d="M37.384,44.101c3.258,0,5.898,2.641,5.898,5.898 s-2.641,5.898-5.898,5.898c-3.257,0-5.898-2.641-5.898-5.898S34.127,44.101,37.384,44.101z" />
-        <path className="darkblue" d="M65.543,61.256c1.628,0,2.949,1.32,2.949,2.949 s-1.321,2.95-2.949,2.95c-1.629,0-2.949-1.321-2.949-2.95S63.914,61.256,65.543,61.256z" />
-        <path className="lightstroked unfilled" d="M63.661,37.698c0,0-4.481,12.092-20.463,12.092" />
-        <path className="lightblue" d="M65.564,32.845c1.629,0,2.95,1.32,2.95,2.949 c0,1.628-1.321,2.949-2.95,2.949s-2.949-1.321-2.949-2.949C62.616,34.165,63.936,32.845,65.564,32.845z" />
-        <path className="stroked unfilled" d="M63.661,61.901c0,0-4.481-12.092-20.463-12.092" />
+    icon: <g transform="scale(1.5) translate(12, 12)" className="floatingIpSvg">
+        <circle className="cls-2" cx="21" cy="21" r="20.79"/>
+        <line className="cls-3" x1="25.42" y1="16.25" x2="25.42" y2="16.25"/>
+        <path className="cls-4" d="M22.2,19.19a11.48,11.48,0,0,1-1.95,1"/>
+        <line className="cls-3" x1="18.14" y1="20.76" x2="18.14" y2="20.76"/>
+        <circle className="cls-5" cx="26.99" cy="28.55" r="2.58"/>
+        <path className="cls-6" d="M27.12,28.94a11.72,11.72,0,0,0-11-7.87h-.64"/>
+        <path className="cls-7" d="M27,10.87a2.58,2.58,0,1,1-2.58,2.57A2.57,2.57,0,0,1,27,10.87Z"/>
+        <circle className="cls-7" cx="12.29" cy="21.07" r="3.61"/>
     </g>,
 } as Node;

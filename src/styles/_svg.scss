@@ -1,0 +1,357 @@
+.loadBalancerSvg {
+  .cls-1,.cls-3,.cls-4 {
+      fill: none;
+  }
+  .cls-1 {
+      stroke: #000;
+      stroke-miterlimit: 10;
+  }
+  .cls-2 {
+      fill: #0069ff;
+  }
+  .cls-3, .cls-4 {
+      stroke: #fff;
+      stroke-width: 1.49px;
+  }
+  .cls-4 {
+      stroke-linecap: round;
+      stroke-dasharray: 0 3.46;
+  }
+}
+.dropletSvg {
+  .cls-1, .cls-3 {
+    fill: none;
+  }
+  .cls-1 {
+      stroke: #000;
+      stroke-miterlimit: 10;
+  }
+  .cls-2 {
+      fill: #0069ff;
+  }
+  .cls-3 {
+      stroke: #fff;
+      stroke-width: 1.49px;
+  }
+}
+.floatingIpSvg {
+  .cls-1, .cls-3, .cls-4, .cls-6, .cls-7{
+    fill: none;
+  }
+  .cls-1{
+    stroke: #000;
+  }
+  .cls-1, .cls-6 {
+    stroke-miterlimit: 10;
+  }
+  .cls-2 {
+    fill: #0069ff;
+  }
+  .cls-3, .cls-4, .cls-6, .cls-7 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+  .cls-3, .cls-4 {
+    stroke-linecap: round;
+  }
+  .cls-4 {
+    stroke-dasharray: 0 4.38;
+  }
+  .cls-5 {
+    fill: #fff;
+  }
+  .cls-7 {
+    stroke-linejoin: round;
+  }
+}
+.managedDbSvg {
+  .cls-1,.cls-3 {
+    fill: none;
+  }
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+  .cls-2 {
+    fill: #0069ff;
+  }
+  .cls-3 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+  .cls-4 {
+    fill: #fff;
+  }
+}
+.spacesSvg {
+  .cls-1 {
+    fill: none;
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+  .cls-2 {
+    fill: #0069ff;
+  }
+  .cls-3 {
+    fill: #fff;
+  }
+}
+.apiSvg {
+  .cls-1,
+  .cls-3 {
+    fill: none;
+  }
+
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+
+  .cls-4 {
+    font-size: 16px;
+    fill: #fff;
+    font-family: ProximaNova-Extrabld, Proxima Nova;
+  }
+
+  .cls-5 {
+    letter-spacing: 0em;
+  }
+
+  .cls-6 {
+    letter-spacing: -0.01em;
+  }
+
+  .cls-7 {
+    letter-spacing: 0em;
+  }
+
+  .cls-8 {
+    letter-spacing: 0em;
+  }
+
+  .cls-9 {
+    letter-spacing: 0em;
+  }
+
+  .cls-10 {
+    letter-spacing: 0em;
+  }
+
+  .cls-11 {
+    letter-spacing: 0em;
+  }
+
+  .cls-12 {
+    letter-spacing: 0em;
+  }
+
+  .cls-13 {
+    letter-spacing: 0em;
+  }
+
+  .cls-14 {
+    letter-spacing: -0.01em;
+  }
+
+  .cls-15 {
+    letter-spacing: -0.02em;
+  }
+
+  .cls-16 {
+    letter-spacing: 0em;
+  }
+
+  .cls-17 {
+    letter-spacing: 0em;
+  }
+
+  .cls-18 {
+    letter-spacing: 0em;
+  }
+
+  .cls-19 {
+    letter-spacing: 0em;
+  }
+
+  .cls-20 {
+    letter-spacing: -0.08em;
+  }
+
+  .cls-21 {
+    letter-spacing: 0em;
+  }
+
+  .cls-22 {
+    letter-spacing: 0em;
+  }
+
+  .cls-23 {
+    letter-spacing: 0em;
+  }
+
+  .cls-24 {
+    letter-spacing: 0em;
+  }
+
+  .cls-25 {
+    letter-spacing: 0em;
+  }
+
+  .cls-26 {
+    letter-spacing: 0em;
+  }
+
+  .cls-27 {
+    letter-spacing: 0em;
+  }
+
+  .cls-28 {
+    letter-spacing: -0.01em;
+  }
+
+  .cls-29 {
+    letter-spacing: 0em;
+  }
+}
+.monitoringSvg {
+  .cls-1,
+  .cls-3 {
+    fill: none;
+  }
+
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+}
+.customImageSvg {
+  .cls-1,
+  .cls-3,
+  .cls-5 {
+    fill: none;
+  }
+
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3,
+  .cls-5 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+
+  .cls-4 {
+    fill: #fff;
+  }
+
+  .cls-5 {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+.ciCdSvg {
+  .cls-1 {
+    fill: none;
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3 {
+    fill: #fff;
+  }
+}
+.workerSvg {
+  .cls-1,
+  .cls-3,
+  .cls-4,
+  .cls-5,
+  .cls-6,
+  .cls-7 {
+    fill: none;
+  }
+
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3,
+  .cls-4,
+  .cls-5,
+  .cls-6,
+  .cls-7 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+
+  .cls-3,
+  .cls-4,
+  .cls-5,
+  .cls-6 {
+    stroke-linecap: round;
+  }
+
+  .cls-4 {
+    stroke-dasharray: 0 3.11;
+  }
+
+  .cls-5 {
+    stroke-dasharray: 0 2.94;
+  }
+
+  .cls-6 {
+    stroke-dasharray: 0 2.95;
+  }
+}
+.terraformSvg {
+  .cls-1,
+  .cls-3 {
+    fill: none;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-1 {
+    stroke: #000;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3 {
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+}
