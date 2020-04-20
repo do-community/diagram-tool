@@ -2,23 +2,26 @@
 
 import Node from './node';
 
-import workerServer from './nodes/workerServer';
-import cloudflare from './nodes/cloudflare';
-import logServer from './nodes/logServer';
-import iotDevice from './nodes/iotDevice';
-import loadBalancer from './nodes/loadBalancer';
-import ciCd from './nodes/ciCd';
-import githubRepo from './nodes/githubRepo';
-import browser from './nodes/browser';
-import cacheServer from './nodes/cacheServer';
-import spaces from './nodes/spaces';
-import mobile from './nodes/mobile';
-import appServer from './nodes/appServer';
-import dbServer from './nodes/dbServer';
-import developerDevice from './nodes/developerDevice';
-import internet from './nodes/internet';
-import floatingIp from './nodes/floatingIp';
-import terraform from './nodes/terraform';
 import droplet from './nodes/droplet';
+import iotDevice from './nodes/iotDevice';
+import appServer from './nodes/appServer';
+import internet from './nodes/internet';
+import spaces from './nodes/spaces';
+import redisServer from './nodes/redisServer';
+import githubRepo from './nodes/githubRepo';
+import cloudflare from './nodes/cloudflare';
+import workerServer from './nodes/workerServer';
+import dbServer from './nodes/dbServer';
+import floatingIp from './nodes/floatingIp';
+import ciCd from './nodes/ciCd';
+import cacheServer from './nodes/cacheServer';
+import mySqlServer from './nodes/mySqlServer';
+import loadBalancer from './nodes/loadBalancer';
+import logServer from './nodes/logServer';
+import mobile from './nodes/mobile';
+import postgresServer from './nodes/postgresServer';
+import terraform from './nodes/terraform';
+import browser from './nodes/browser';
+import developerDevice from './nodes/developerDevice';
 
-export default {workerServer, cloudflare, logServer, iotDevice, loadBalancer, ciCd, githubRepo, browser, cacheServer, spaces, mobile, appServer, dbServer, developerDevice, internet, floatingIp, terraform, droplet} as {[index: string]: Node};
+export default {droplet, iotDevice, appServer, internet, spaces, redisServer, githubRepo, cloudflare, workerServer, dbServer, floatingIp, ciCd, cacheServer, mySqlServer, loadBalancer, logServer, mobile, postgresServer, terraform, browser, developerDevice} as {[index: string]: Node};

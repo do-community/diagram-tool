@@ -35,7 +35,7 @@ export default {
     // TODO: Add content here.
 } as Node;
 """
-    fp = "./nodes/"+arg+".ts"
+    fp = "./nodes/"+arg+".tsx"
     open(fp, "w+").write(ts)
     generate_ts_file()
     print("Node file written to " + fp + " and is now just awaiting content being added to it. :)")
