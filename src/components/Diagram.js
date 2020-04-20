@@ -291,17 +291,6 @@ class Diagram extends React.Component {
         {diagramDiv}
 
         <NodeEditor {...selected} />
-
-        <div className="bui-GridContainer shareButton">
-          <div className="bui-Col-3">
-            <a href="#" className="bui-Button" onClick={this.share}>
-              Share
-            </a>
-          </div>
-          <div className="bui-Col-9">
-            <input className="shareText" type="text" />
-          </div>
-        </div>
       </div>
     );
   }

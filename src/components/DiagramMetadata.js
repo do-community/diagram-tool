@@ -13,13 +13,11 @@ class DiagramMetadata extends React.Component {
 	}
 
 	render() {
-		let {name, description} = this.props;
+		let {name} = this.props;
 
 		return (
-			<div className="diagramMetadata hoverParent">
-				<input type="text" onChange={this.handleChange} name="name" value={name || ''} />
-				<br/>
-				<textarea onChange={this.handleChange} name="description" value={description}>{description}</textarea>
+			<div className="diagramMetadata hoverParent do-bulma">
+				<input type="text" className="input" onChange={this.handleChange} name="name" value={name || ''} placeholder="Diagram name" />
 			</div>
 		);
 	}
