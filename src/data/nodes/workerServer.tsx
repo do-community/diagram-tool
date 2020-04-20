@@ -14,8 +14,8 @@ export default {
     },
     behavior: {
         wants: [
-            {nodeTypes:['dbServer'], via: 'mount'},
-            {nodeTypes:['cacheServer'], via: 'mount'}
+            {nodeTypes:['dbServer'], via: 'tcp'},
+            {nodeTypes:['cacheServer'], via: 'tcp'}
         ],
         connectionPreference:['tcp'],
         requests: 'recursiveAsync',
