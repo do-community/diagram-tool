@@ -99,6 +99,20 @@ body {
     }
   }
 
+  /* NODE CONFIG */
+  .node-config {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-left: 10px;
+    border-radius: 25px;
+
+    width: 10%;
+    -webkit-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+  }
+
   /* TAG COLORS */
   .qual_1 {
     fill: #9b82f3;

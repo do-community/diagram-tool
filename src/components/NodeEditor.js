@@ -18,12 +18,12 @@ class NodeEditor extends React.Component {
     const {item, identifier, template, editAction} = this.props,
           itemType = typeof(identifier) === 'string' ? 'node' : 'connector';
   
-    if(!item) return (<form className="infragram--rightPane collapsed"></form>);
+    if(!item) return (<span />);
 
     const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
-    
+
     return (
-      <div className="editor side-panel">
+      <div className="node-config">
         <h3>{template.name} settings:</h3>
         <p>{template.description}</p>
         <form className="bui-Form--spacing">

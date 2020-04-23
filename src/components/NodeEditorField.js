@@ -19,6 +19,7 @@ class NodeEditorField extends React.Component {
 			case 'string':
 				return (
 					<div className="bui-FloatLabel">
+						<label htmlFor={name}>{specs.title}: </label>
 						<input
 							id={name}
 							type="text"
@@ -31,12 +32,12 @@ class NodeEditorField extends React.Component {
 							}
 							placeholder={name}
 						/>
-						<label htmlFor={name}>{name}</label>
 					</div>
 				);
 			case 'number':
 				return (
 					<div className="bui-FloatLabel">
+						<label htmlFor={name}>{specs.title}: </label>
 						<input
 							id={name}
 							type="number"
@@ -54,12 +55,12 @@ class NodeEditorField extends React.Component {
 							onChange={this.handleChange}
 							placeholder={name}
 						/>
-					<label htmlFor={name}>{name}</label>
 					</div>
 				);
 			case 'boolean':
 				return (
 					<div className="bui-Checkbox">
+						<label htmlFor={name}>{specs.title}: </label>
 						<input
 							id={name}
 							type="checkbox"
@@ -67,12 +68,12 @@ class NodeEditorField extends React.Component {
 							onChange={this.handleChange}
 							placeholder={name}
 						/>
-						<label htmlFor={name}>{name}</label>
 					</div>
 				);
 			case 'select':
 				return (
 					<div className="bui-FloatLabel bui-Select">
+						<label htmlFor={name} style={{opacity:1, top:0}} >{specs.title}: </label>
 						<select
 							id={name}
 							onChange={this.handleChange}
@@ -81,7 +82,6 @@ class NodeEditorField extends React.Component {
 						>
 							{specs.validation.map((o,i) => <option value={o} key={'opt_'+o+'_'+i}>{o}</option>)}
 						</select>
-						<label htmlFor={name} style={{opacity:1, top:0}} >{name}:</label>
 					</div>
 				);
 			case 'color':

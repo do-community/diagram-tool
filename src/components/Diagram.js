@@ -79,11 +79,11 @@ class Diagram extends React.Component {
 
   paste() {
     if(!helpers.copyPastingText()) {
-      Object.keys(this.props.selection.clipboard).map(n => {
+      Object.values(this.props.selection.clipboard).map(c => {
         helpers.addNodeAndConnections(
-          this.props.selection.clipboard[n].type,
-          this.props.selection.clipboard[n].position,
-          this.props.selection.clipboard[n].metadata,
+          c.type,
+          c.position,
+          c.metadata,
           this.props
         );
       });
@@ -285,8 +285,6 @@ class Diagram extends React.Component {
           {...this.props.metadata}
           editAction={this.props.editDiagramMetadata}
         />
-
-        {/*<ModeSelector mode={this.props.mode} modes={ ['Build', 'Test'] } />*/}
 
         {diagramDiv}
 
