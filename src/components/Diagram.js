@@ -132,7 +132,11 @@ class Diagram extends React.Component {
         0
     ) {
       this.props.deselectNodes();
-    } else if (event.target.tagName === 'DIV') {
+    } else if (
+      event.target.tagName === 'DIV' && (
+        event.target.getAttribute('data-category') === 'region' || event.target.getAttribute('class') === 'diagram'
+      )
+    ) {
       if (viewVisible()) {
         clear();
         lineGenerator();
