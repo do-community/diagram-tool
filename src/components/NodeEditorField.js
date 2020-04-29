@@ -81,7 +81,7 @@ class NodeEditorField extends React.Component {
 							type="color"
 							value={value || ''}
 							onChange={this.handleChange}
-							style={{width: "100px"}}
+							style={{width: '100px'}}
 							placeholder={name}
 						/>
 					</div>
