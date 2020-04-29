@@ -16,26 +16,6 @@ class NodeEditorField extends React.Component {
 
 	inputFromSpecs(name, value, specs) {
 		switch (specs.type) {
-			case 'string':
-				return (
-					<div className="bui-FloatLabel">
-						<label htmlFor={name}>{specs.title}: </label>
-						<input
-							id={name}
-							type="text"
-							className="input"
-							value={value || ''}
-							onChange={this.handleChange}
-							maxLength={
-								'validation' in specs && typeof specs.validation[1] === 'number'
-									? specs.validation[1]
-									: ''
-							}
-							placeholder={specs.title}
-							style={{width: '200px', height: '40px'}}
-						/>
-					</div>
-				);
 			case 'number':
 				return (
 					<div className="bui-FloatLabel">
@@ -93,25 +73,38 @@ class NodeEditorField extends React.Component {
 				);
 			case 'color':
 				return (
-					<input
-						id={name}
-						type="color"
-						value={value || ''}
-						onChange={this.handleChange}
-						placeholder={name}
-					/>
+					<div className="bui-FloatLabel bui-Select">
+						<label htmlFor={name} style={{opacity:1, top:0}} >{specs.title}: </label>
+						<br />
+						<input
+							id={name}
+							type="color"
+							value={value || ''}
+							onChange={this.handleChange}
+							style={{width: "100px"}}
+							placeholder={name}
+						/>
+					</div>
 				);
 			default:
 				return (
-					<input
-						id={name}
-						type="text"
-						value={value || ''}
-						onChange={this.handleChange}
-						placeholder={specs.title}
-						style={{width: '200px', height: '40px'}}
-						className="input"
-					/>
+					<div className="bui-FloatLabel">
+						<label htmlFor={name}>{specs.title}: </label>
+						<input
+							id={name}
+							type="text"
+							className="input"
+							value={value || ''}
+							onChange={this.handleChange}
+							maxLength={
+								'validation' in specs && typeof specs.validation[1] === 'number'
+									? specs.validation[1]
+									: ''
+							}
+							placeholder={specs.title}
+							style={{width: '200px', height: '40px'}}
+						/>
+					</div>
 				);
 		}
 	}

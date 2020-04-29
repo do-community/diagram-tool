@@ -255,8 +255,8 @@ const helpers = {
   },
 
   getKeyedElement: function(target) {
-    while (!target.dataset.clickKey && target.id !== 'root') {
-      target = target.parentNode;
+    while (!target.dataset.click_key && target.id !== 'root') {
+      target = target.parentElement;
     }
     return target.id === 'root' ? null : target;
   },

@@ -113,15 +113,15 @@ class Diagram extends React.Component {
       } else {
         if (target.dataset.category === 'node')
           target.dataset.selected === 'false'
-            ? this.props.selectNodes(target.dataset.clickKey, event.shiftKey)
-            : this.props.deselectNodes(target.dataset.clickKey);
+            ? this.props.selectNodes(target.dataset.click_key, event.shiftKey)
+            : this.props.deselectNodes(target.dataset.click_key);
         else if (target.dataset.category === 'connector')
           target.dataset.selected === 'false'
             ? this.props.selectConnectors(
-                parseInt(target.dataset.clickKey, 10),
+                parseInt(target.dataset.click_key, 10),
                 event.shiftKey
               )
-            : this.props.deselectConnectors(parseInt(target.dataset.clickKey, 10));
+            : this.props.deselectConnectors(parseInt(target.dataset.click_key, 10));
         else if (target.dataset.category === 'request')
           console.log('play');
       }
@@ -283,6 +283,8 @@ class Diagram extends React.Component {
         onMouseDown={this.mouseDown}
         onClick={this.click}
       >
+        <NodeEditor {...selected} />
+
         {blankNodeElement}
 
         <DiagramMetadata
@@ -291,8 +293,6 @@ class Diagram extends React.Component {
         />
 
         {diagramDiv}
-
-        <NodeEditor {...selected} />
       </div>
     );
   }
