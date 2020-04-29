@@ -23,7 +23,7 @@ If you are contributing, please read the [contributing file](CONTRIBUTING.md) be
 Any stylesheets which are required. Right now, this folder only contains 1 file, but this can be expanded over time.
 
 #### [`src/data`](./src/data)
-This defines the data which is used within the application. When new data is created which the application should use, it should be added there.
+This defines the data which is used within the application. When new data is created which the application should use, it should be added there. If you wish to create a new node, you should run `mk_node.py`.
 
 #### [`src/components`](./src/components)
 This defines the React components that are used within the application. All components which are used should, therefore, be within this folder.
