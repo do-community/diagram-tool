@@ -17,201 +17,27 @@ $fontlarge: 2.4em;
 $paddingstandard: 1rem 2rem;
 $paddingsmall: 0.5rem;
 
-html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 10px;
-}
-
-body {
-  background: $white;
-  color: $gray800;
-
-  .layout-wrapper {
-    width: 100%;
-  }
-}
+/* Import global HTML stuff */
+@import "html";
 
 .infragram {
-  @font-face {
-    font-family: "Humor Sans";
-    src: url('https://infragram.nyc3.digitaloceanspaces.com/Humor-Sans.ttf');
-  }
+  /* Base */
+  @import "infragram_base";
 
-  @import "~do-bulma/src/style";
-  svg {
-    .stroked {
-      stroke: $default_blue;
-    }
-    .lightstroked {
-      stroke: $light_blue;
-    }
-    .thinstroked {
-      stroke-width: 1px;
-    }
-    .unstroked {
-      stroke: none;
-    }
-    .offblack {
-      fill: $gray800;
-      stroke: $gray800;
-    }
-    .white {
-      fill: #FFF;
-    }
-    .offwhite {
-      fill: $gray50;
-      color: $gray50;
-    }
-    .paper {
-      fill: $white_semitransparent;
-      color: $white_semitransparent;
-    }
-    .paperstroked {
-      stroke: $white_semitransparent;
-      fill: none;
-    }
-    .lightblue {
-      fill: $light_blue;
-    }
-    .darkblue {
-      fill: $default_blue;
-    }
-    .unfilled {
-      fill: none;
-    }
-    .active {
-      fill: #15cd72;
-    }
-    .offwhitestroked {
-      fill: none;
-      stroke: $gray50;
-    }
-    .dashed {
-      stroke-dasharray: 4;
-    }
-    .inherit-fill {
-      fill: inherit;
-    }
+  /* SVG Config */
+  @import "svg_config";
 
-    .drag:hover {
-      stroke-width: 5;
-      stroke: #000;
-    }
-  }
+  /* Node Config */
+  @import "node_config";
 
-  /* NODE CONFIG */
-  .node-config {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    margin-left: 10px;
-    border-radius: 25px;
-    position: absolute;
-    z-index: 10000;
-    background-color: whitesmoke;
+  /* Tag colors */
+  @import "tag_colors";
 
-    width: 10%;
-    -webkit-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
-  }
+  /* File like browser */
+  @import "file_like_browser";
 
-  /* TAG COLORS */
-  .qual_1 {
-    fill: #9b82f3;
-  }
-
-  .qual_2 {
-    fill: #71cddd;
-  }
-
-  .qual_3 {
-    fill: #34bc6e;
-  }
-
-  .qual_4 {
-    fill: #95d13c;
-  }
-
-  .qual_5 {
-    fill: #ffb000;
-  }
-
-  .qual_6 {
-    fill: #fe8500;
-  }
-
-  .qual_7 {
-    fill: #ff509e;
-  }
-
-  .qual_8 {
-    fill: #5392ff;
-  }
-
-  /* REUSABLE */
-  .truncate {
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .standard-padding {
-    padding: 1rem 2rem;
-  }
-
-  .small-padding {
-    padding: 0.5rem;
-  }
-
-  .standard-margin {
-    margin: 1rem;
-  }
-
-  .center-on-grid {
-    position: absolute;
-    margin-top: calc(45vh -  86px);
-    margin-left: calc(50% -  175px);
-    text-align: center;
-  }
-
-  .file-like-browser {
-    position: sticky;
-    z-index: $topLayer;
-    background: $gray100;
-    border: 1px solid gray300;
-    user-select: none;
-
-    div {
-      @extend .small-padding;
-      text-align: center;
-      svg {
-        width: 60px;
-        height: 60px;
-        margin: 5px;
-      }
-      label {
-        background: $white_semitransparent;
-        color: $gray600;
-      }
-    }
-
-    h4 {
-      @extend .small-padding;
-      display: block;
-      text-align: center;
-      border-top: 2px solid $gray50;
-      box-shadow: 0 -2px 0 $gray200;
-      margin: 0;
-    }
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 25px;
-    -webkit-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
-  }
+  /* Reusable */
+  @import "reusable";
 
   .main {
     height: calc(100vh - 104px);
@@ -222,197 +48,15 @@ body {
       outline: none;
     }
 
-    .editor {
-      position: absolute;
-      width: 30rem;
-      right: 1rem;
-      z-index: $topLayer;
-
-      &.collapsed {
-        right: -30rem;
-      }
-    }
+    /* Editor */
+    @import "editor";
 
     .modeSelector {
       left: 110px;
     }
 
-    .diagramMetadata {
-      position: absolute;
-      z-index: $topLayer;
-      width: 50%;
-      max-width: 800px;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-
-      h1 {
-        position: relative;
-        display: inline-block;
-        margin: 1rem;
-        font-size: $fontmedium;
-        &:hover h1:after {
-          position: absolute;
-          right: -16px;
-          content: "✎";
-        }
-      }
-
-      textarea {
-        margin: 0;
-        border: none;
-        border-top: 1px solid $gray200;
-        padding: 8px 16px;
-        width: 75%;
-        background: none;
-      }
-    }
-
-    .diagram {
-      position: absolute;
-      width: calc(100% - 120px);
-      height: calc(100vh - 120px);
-      left: 110px;
-      z-index: 1;
-      background-repeat: repeat;
-      background-position: center center;
-      text-align: left;
-
-      &:focus {
-        outline: none;
-      }
-
-      div[data-category="region"] {
-        @extend .center-on-grid;
-        z-index: 0;
-        background: $region;
-
-        label {
-          @extend .truncate;
-          position: absolute;
-          top: -20px;
-          left: 6px;
-          height: 23px;
-          max-width: 50%;
-          padding: 2.5px;
-          border-radius: 3px;
-        }
-      }
-
-      canvas[data-category="region"] {
-        @extend .center-on-grid;
-        z-index: 1;
-      }
-
-      [data-category="node"], [data-category="connector"] {
-        @extend .center-on-grid;
-        width: 100px;
-        height: 100px;
-        z-index: 10;
-        text-align: center;
-
-        label {
-          @extend .truncate;
-          top: calc(50% - 16px);
-          left: calc(50% - 20px);
-          width: 40px;
-          height: 18px;
-          max-width: 100%;
-          background: $gray200;
-          position: absolute;
-        }
-
-        .metadata {
-          position: absolute;
-          bottom: 5px;
-          right: 5px;
-        }
-
-        figcaption {
-          @extend .truncate;
-          height: 18px;
-          max-width: 100%;
-          text-align: left;
-          position: absolute;
-          left: 20px;
-          z-index: -1;
-          text-shadow: 1px 1px 1px offwhite, -1px -1px 1px offwhite;
-          background: $gray200_semitransparent;
-
-          svg {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            margin: 0 0 3px 0;
-            padding: 0;
-          }
-        }
-
-        .createRequest {
-          position: absolute;
-          margin: 50% 0 0 50%;
-          top: -9px;
-          left: -13px;
-          cursor: pointer;
-        }
-
-        .drag {
-          position: absolute;
-          border-radius:  5px;
-          background: gray;
-          width: 10px;
-          height: 10px;
-        }
-        .drag.w {
-          top:  45px;
-          left: 00px;
-          cursor: w-resize;
-        }
-        .drag.e {
-          top:  45px;
-          right: 0;
-          cursor: e-resize;
-        }
-        .drag.s {
-          bottom: 0;
-          left:  45px;
-          cursor: s-resize;
-        }
-        .drag.n {
-          top: 0;
-          left:  45px;
-          cursor: n-resize;
-        }
-
-        .dns-label {
-          position: absolute;
-          margin: auto;
-          text-align: center;
-          top: -14px;
-          width: auto;
-          dt, dd {
-            display: inline-block;
-            float: left;
-            margin: 0;
-            padding: 1px 2px;
-            line-height: 14px;
-            border-radius: 2px 0 0 2px;
-            border: 1px solid;
-            border-right: none;
-            background: $gray300;
-          }
-          dd {
-            @extend .truncate;
-            border-radius: 0 2px 2px 0;
-            border: 1px solid;
-            border-left: none;
-            background: none;
-            color: $gray800;
-            max-width: calc(100% - 30px);
-          }
-        }
-      }
-    }
+    /* Diagram */
+    @import "diagram";
   }
 
   .hoverParent:hover {
@@ -468,22 +112,5 @@ body {
     border: 1px solid blue;
     background: rgba(150,150,255,0.1);
     display: none;
-  }
-
-  .shareButton {
-    position: absolute;
-    left: calc(50% - 230px);
-    width: 460px;
-    bottom:10px;
-  }
-
-  .minimizeButton {
-    width: 32px;
-    &:after {
-      content: "◀";
-    }
-  }
-  .minimized .minimizeButton:after {
-    content: "▶";
   }
 }

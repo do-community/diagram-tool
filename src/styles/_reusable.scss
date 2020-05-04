@@ -1,0 +1,24 @@
+.truncate {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.standard-padding {
+    padding: 1rem 2rem;
+}
+
+.small-padding {
+    padding: 0.5rem;
+}
+
+.standard-margin {
+    margin: 1rem;
+}
+
+.center-on-grid {
+    position: absolute;
+    margin-top: calc(45vh -  86px);
+    margin-left: calc(50% -  175px);
+    text-align: center;
+}

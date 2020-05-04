@@ -1,0 +1,38 @@
+.file-like-browser {
+    position: sticky;
+    z-index: $topLayer;
+    background: $gray100;
+    border: 1px solid gray300;
+    user-select: none;
+
+    div {
+      @extend .small-padding;
+      text-align: center;
+      svg {
+        width: 60px;
+        height: 60px;
+        margin: 5px;
+      }
+      label {
+        background: $white_semitransparent;
+        color: $gray600;
+      }
+    }
+
+    h4 {
+      @extend .small-padding;
+      display: block;
+      text-align: center;
+      border-top: 2px solid $gray50;
+      box-shadow: 0 -2px 0 $gray200;
+      margin: 0;
+    }
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 25px;
+    -webkit-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 7px 5px 0px rgba(0,0,0,0.75);
+}
+

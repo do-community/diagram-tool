@@ -1,0 +1,10 @@
+.editor {
+    position: absolute;
+    width: 30rem;
+    right: 1rem;
+    z-index: $topLayer;
+
+    &.collapsed {
+        right: -30rem;
+    }
+}

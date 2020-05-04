@@ -1,0 +1,176 @@
+.diagram {
+    position: absolute;
+    width: calc(100% - 120px);
+    height: calc(100vh - 120px);
+    left: 110px;
+    z-index: 1;
+    background-repeat: repeat;
+    background-position: center center;
+    text-align: left;
+
+    &:focus {
+        outline: none;
+    }
+
+    div[data-category="region"] {
+        @extend .center-on-grid;
+        z-index: 0;
+        background: $region;
+
+        label {
+        @extend .truncate;
+        position: absolute;
+        top: -20px;
+        left: 6px;
+        height: 23px;
+        max-width: 50%;
+        padding: 2.5px;
+        border-radius: 3px;
+        }
+    }
+
+    canvas[data-category="region"] {
+        @extend .center-on-grid;
+        z-index: 1;
+    }
+
+    [data-category="node"], [data-category="connector"] {
+        @extend .center-on-grid;
+        width: 100px;
+        height: 100px;
+        z-index: 10;
+        text-align: center;
+
+        label {
+            @extend .truncate;
+            top: calc(50% - 16px);
+            left: calc(50% - 20px);
+            width: 40px;
+            height: 18px;
+            max-width: 100%;
+            background: $gray200;
+            position: absolute;
+        }
+
+        .metadata {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        figcaption {
+            @extend .truncate;
+            height: 18px;
+            max-width: 100%;
+            text-align: left;
+            position: absolute;
+            left: 20px;
+            z-index: -1;
+            text-shadow: 1px 1px 1px offwhite, -1px -1px 1px offwhite;
+            background: $gray200_semitransparent;
+
+            svg {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                margin: 0 0 3px 0;
+                padding: 0;
+            }
+        }
+
+        .createRequest {
+            position: absolute;
+            margin: 50% 0 0 50%;
+            top: -9px;
+            left: -13px;
+            cursor: pointer;
+        }
+
+        .drag {
+            position: absolute;
+            border-radius:  5px;
+            background: gray;
+            width: 10px;
+            height: 10px;
+        }
+        .drag.w {
+            top:  45px;
+            left: 00px;
+            cursor: w-resize;
+        }
+        .drag.e {
+            top:  45px;
+            right: 0;
+            cursor: e-resize;
+        }
+        .drag.s {
+            bottom: 0;
+            left:  45px;
+            cursor: s-resize;
+        }
+        .drag.n {
+            top: 0;
+            left:  45px;
+            cursor: n-resize;
+        }
+
+        .dns-label {
+            position: absolute;
+            margin: auto;
+            text-align: center;
+            top: -14px;
+            width: auto;
+            dt, dd {
+                display: inline-block;
+                float: left;
+                margin: 0;
+                padding: 1px 2px;
+                line-height: 14px;
+                border-radius: 2px 0 0 2px;
+                border: 1px solid;
+                border-right: none;
+                background: $gray300;
+            }
+            dd {
+                @extend .truncate;
+                border-radius: 0 2px 2px 0;
+                border: 1px solid;
+                border-left: none;
+                background: none;
+                color: $gray800;
+                max-width: calc(100% - 30px);
+            }
+        }
+    }
+}
+
+.diagramMetadata {
+    position: absolute;
+    z-index: $topLayer;
+    width: 50%;
+    max-width: 800px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    h1 {
+      position: relative;
+      display: inline-block;
+      margin: 1rem;
+      font-size: $fontmedium;
+      &:hover h1:after {
+        position: absolute;
+        right: -16px;
+        content: "✎";
+      }
+    }
+
+    textarea {
+      margin: 0;
+      border: none;
+      border-top: 1px solid $gray200;
+      padding: 8px 16px;
+      width: 75%;
+      background: none;
+    }
+}
