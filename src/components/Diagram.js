@@ -3,7 +3,7 @@ import dndHelper from '../dndHelper.js';
 import Tray from './Tray';
 import Node from './Node';
 import Connector from './Connector';
-import Region from './Region';
+import Region from './Category';
 import NodeEditor from './NodeEditor';
 import DiagramMetadata from './DiagramMetadata';
 import { showWhereClick, viewVisible, clear } from '../showWhereClick';
@@ -12,6 +12,7 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
+import ClearButton from './ClearButton.js';
 
 class Diagram extends React.Component {
   
@@ -134,7 +135,7 @@ class Diagram extends React.Component {
       this.props.deselectNodes();
     } else if (
       event.target.tagName === 'DIV' && (
-        event.target.getAttribute('data-category') === 'region' || event.target.getAttribute('class') === 'diagram'
+        event.target.getAttribute('data-category') === 'category' || event.target.getAttribute('class') === 'diagram'
       )
     ) {
       if (viewVisible()) {
@@ -212,7 +213,7 @@ class Diagram extends React.Component {
         selection,
         connectDropTarget,
       } = this.props,
-      regions = helpers.getRegionsFromNodes(nodes),
+      categories = helpers.getCategoriesFromNodes(nodes),
       tags = helpers.getTagsFromNodes(nodes),
       selected = this.composeSelectionObject(
         selection.nodes.length === 1
@@ -238,14 +239,14 @@ class Diagram extends React.Component {
       ))
 
       const diagramDiv = <div className="diagram">
-      {Object.keys(regions).map(region => (
+      {Object.keys(categories).map(category => (
         <Region
-          key={region}
-          id={region}
-          regionName={region}
-          bounds={helpers.getBoundingRectangle(region, nodes)}
+          key={category}
+          id={category}
+          categoryName={category}
+          bounds={helpers.getBoundingRectangle(category, nodes)}
           onDrop={(item, offset) =>
-            this.diagramDrop('region', region, item, offset)
+            this.diagramDrop('category', category, item, offset)
           }
         />
       ))}
@@ -283,6 +284,8 @@ class Diagram extends React.Component {
         onMouseDown={this.mouseDown}
         onClick={this.click}
       >
+        <ClearButton />
+
         <NodeEditor {...selected} />
 
         {blankNodeElement}

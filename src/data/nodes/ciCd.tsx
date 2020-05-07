@@ -8,7 +8,7 @@ export default {
     metadata: {},
     behavior: {
         wants: [],
-        regionless: true,
+        categoryless: true,
     },
     icon: <g transform="scale(1.5) translate(12, 12)" className="ciCdSvg">
         <circle className="cls-2" cx="21" cy="21" r="20.79"/>

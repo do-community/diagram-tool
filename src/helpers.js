@@ -192,14 +192,14 @@ const helpers = {
     //}
   },
 
-  getRegionsFromNodes: function(nodes) {
-    return Object.keys(nodes).reduce((regionsObj, nodeKey) => {
-      if (get(nodes[nodeKey], 'metadata.region')) {
-        if (!regionsObj[nodes[nodeKey].metadata.region])
-          regionsObj[nodes[nodeKey].metadata.region] = [];
-        regionsObj[nodes[nodeKey].metadata.region].push(nodeKey);
+  getCategoriesFromNodes: function(nodes) {
+    return Object.keys(nodes).reduce((categoriesObj, nodeKey) => {
+      if (get(nodes[nodeKey], 'metadata.category')) {
+        if (!categoriesObj[nodes[nodeKey].metadata.category])
+        categoriesObj[nodes[nodeKey].metadata.category] = [];
+        categoriesObj[nodes[nodeKey].metadata.category].push(nodeKey);
       }
-      return regionsObj;
+      return categoriesObj;
     }, {});
   },
 
@@ -225,11 +225,11 @@ const helpers = {
     }, {});
   },
 
-  getBoundingRectangle: function(region, nodes) {
+  getBoundingRectangle: function(category, nodes) {
     let bounds = [999, 999, -999, -999];
 
     Object.keys(nodes).forEach(key => {
-      if (get(nodes[key], 'metadata.region') === region) {
+      if (get(nodes[key], 'metadata.category') === category) {
         const edge = get(DATA.nodes[nodes[key].type], 'metadata.edge') || get(DATA.nodes[nodes[key].type], 'behavior.edge');
         if (nodes[key].position[0] < bounds[0]) {
           bounds[0] = nodes[key].position[0] + (edge ? 0.5 : 0);
@@ -517,21 +517,21 @@ const helpers = {
         metadata: metadata || DATA.nodes[newNodeType].metadata
       },
       nodeSpecs = DATA.nodes[newNodeType],
-      regions = this.getRegionsFromNodes(state.nodes);
+      categorys = this.getCategoriesFromNodes(state.nodes);
     console.log('addNodeAndConnections', update);
-    //Auto-set region
+    //Auto-set category
     if (
-      Object.keys(regions).length === 0 &&
-      !get(nodeSpecs, 'behavior.regionless')
+      Object.keys(categorys).length === 0 &&
+      !get(nodeSpecs, 'behavior.categoryless')
     ) {
-      update.metadata.region = 'nyc3';
+      update.metadata.category = 'Default Category';
     }
     if (
-      !get(update, 'metadata.region') &&
-      !get(nodeSpecs, 'behavior.regionless') &&
-      Object.keys(regions).length == 1
+      !get(update, 'metadata.category') &&
+      !get(nodeSpecs, 'behavior.categoryless') &&
+      Object.keys(categorys).length == 1
     ) {
-      update.metadata.region = Object.keys(regions)[0];
+      update.metadata.category = Object.keys(categorys)[0];
     }
 
     //TRY AND CONNECT TO OTHER NODES BASED ON WANTS

@@ -12,24 +12,26 @@
         outline: none;
     }
 
-    div[data-category="region"] {
+    div[data-category="category"] {
         @extend .center-on-grid;
         z-index: 0;
-        background: $region;
+        background: $category;
+        outline-style: dashed;
+        outline-color: lightblue;
 
         label {
-        @extend .truncate;
-        position: absolute;
-        top: -20px;
-        left: 6px;
-        height: 23px;
-        max-width: 50%;
-        padding: 2.5px;
-        border-radius: 3px;
+            @extend .truncate;
+            position: absolute;
+            top: -20px;
+            left: 6px;
+            height: 23px;
+            max-width: 50%;
+            padding: 2.5px;
+            border-radius: 3px;
         }
     }
 
-    canvas[data-category="region"] {
+    canvas[data-category="category"] {
         @extend .center-on-grid;
         z-index: 1;
     }

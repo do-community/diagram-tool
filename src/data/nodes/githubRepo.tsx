@@ -8,7 +8,7 @@ export default {
     metadata: {},
     behavior: {
         wants: [],
-        regionless: true,
+        categoryless: true,
         connectionPreference:['https', 'http']
     },
     icon: <g transform="scale(0.5) translate(35, 32)" xmlns="http://www.w3.org/2000/svg" viewBox="14 14 100 100" className="offblack">

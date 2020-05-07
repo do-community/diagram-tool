@@ -18,7 +18,7 @@ export default {
         connectionLimitations:['http', 'https', 'udp', 'websockets'],
         minConnections: 2,
         maxConnections: 2,
-        regionless: true,
+        categoryless: true,
         requests: 'passThrough',
     },
     icon: <g transform="scale(0.15) translate(-280, 150)">

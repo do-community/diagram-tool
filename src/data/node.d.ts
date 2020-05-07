@@ -25,7 +25,7 @@ interface WantObject {
 
 interface Behavior {
     wants?: WantObject[];
-    regionless?: boolean;
+    categoryless?: boolean;
     connectionPreference?: string[];
     incompatibleWith?: string[];
     requests: string;

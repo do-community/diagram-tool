@@ -50,12 +50,10 @@ const documentation = {
 	        info: 'Enable weekly backups for 20% increase on cost.',
 	        default: true
 	    },
-	    region: {
-			type: 'select',
-			title: 'Region',
-	    	validation: [null, 'nyc1', 'sfo1', 'nyc2', 'ams2', 'sgp1', 'lon1', 'nyc3', 'ams3', 'fra1', 'tor1', 'sfo2', 'blr1'],
-	    	info: 'server\'s datacenter',
-	    	default: 'nyc2'
+	    category: {
+			type: 'string',
+			title: 'Category',
+	    	info: 'server\'s category',
 	    },
 	    cost: {
 			type: 'number',
@@ -87,7 +85,7 @@ const documentation = {
 	    edge: {
 			type: 'boolean',
 			title: 'Edge',
-	        info: 'Should node accept public (outside regional network) connections?',
+	        info: 'Should node accept public (outside categoryal network) connections?',
 	        default: false
 	    },
 	    privateNetwork: {

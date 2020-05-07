@@ -20,7 +20,7 @@ export default {
         incompatibleWith: ['iotDevice', 'mobile', 'browser'],
         requests: 'creator',
         minConnections: 1,
-        regionless: true,
+        categoryless: true,
     },
     icon: <g transform="translate(18, 20)">
         <path

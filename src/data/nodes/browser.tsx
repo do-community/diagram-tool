@@ -19,7 +19,7 @@ export default {
       incompatibleWith: ['iotDevice', 'mobile'],
       requests: 'creator',
       minConnections: 1,
-      regionless: true,
+      categoryless: true,
     },
     icon: <g transform="scale(0.5) translate(50, 45)">
       <path className="stroked" fill="current-color" d="M 2 12 C 2 5 5 2 12 2 L 88 2 C 95 2 98 5 98 12 L 98 88 C 98 95 95 98 88 98 L 12 98 5 98 2 95 2 88 L 2 12" />
