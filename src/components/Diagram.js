@@ -12,7 +12,6 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
-import MenuButton from './MenuButton.js';
 
 class Diagram extends React.Component {
   
