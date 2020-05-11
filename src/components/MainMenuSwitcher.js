@@ -28,8 +28,9 @@ export default class MainMenuSwitcher extends React.Component {
 
     createAppInstance() {
         const f = () => this.switchToMenu()
+        const m = () => this.switchToMenu()
         const Connection = connect(mapStateToProps, mapDispatchToProps)(Diagram)
-        return <Connection switchToApp={f} />
+        return <Connection switchToApp={f} switchToMenu={m} />
     }
 
     switchToMenu() {

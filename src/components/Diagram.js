@@ -12,7 +12,7 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
-import ClearButton from './ClearButton.js';
+import MenuButton from './MenuButton.js';
 
 class Diagram extends React.Component {
   
@@ -284,7 +284,6 @@ class Diagram extends React.Component {
         onMouseDown={this.mouseDown}
         onClick={this.click}
       >
-        <ClearButton />
 
         <NodeEditor {...selected} />
 
@@ -292,6 +291,7 @@ class Diagram extends React.Component {
 
         <DiagramMetadata
           {...this.props.metadata}
+          switchToMenu={this.props.switchToMenu}
           editAction={this.props.editDiagramMetadata}
         />
 
