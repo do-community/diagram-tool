@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Logging Server',
-    description: 'a server dedicated to aggregating and indexing logs and analytics.',
+    description: 'A server dedicated to aggregating and indexing logs and analytics.',
     category: 'DO Server Components',
     extends: 'droplet',
     metadata: {

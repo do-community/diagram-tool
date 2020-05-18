@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Worker Server',
-    description: 'a stateless server dedicated to performing a task and returning the results',
+    description: 'A stateless server dedicated to performing a task and returning the results.',
     category: 'DO Server Components',
     extends: 'droplet',
     metadata: {

@@ -24,7 +24,7 @@ class NodeEditor extends React.Component {
 
     return (
       <div className="node-config">
-        <h3>{template.name} settings:</h3>
+        <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3>
         <p>{template.description}</p>
         <form className="bui-Form--spacing">
 

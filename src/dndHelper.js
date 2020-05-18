@@ -5,7 +5,7 @@ import DATA from './data';
 import helpers from './helpers.js';
 import flow from 'lodash/flow';
 
-const dndHelper = {
+export default {
 	dndConnect: function(c, m) {
 		return {
 			connectDragSource: c.dragSource(),
@@ -144,4 +144,3 @@ const dndHelper = {
 		return { moved: true };
 	}
 };
-export default dndHelper;

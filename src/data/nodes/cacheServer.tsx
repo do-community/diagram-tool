@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Cache Server',
-    description: 'a server dedicated to caching data.',
+    description: 'The cache server is a server dedicated to caching data.',
     category: 'DO Server Components',
     extends: 'droplet',
     metadata: {

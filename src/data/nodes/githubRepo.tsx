@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'GitHub Repo',
-    description: 'Source Code Management platform.',
+    description: 'A GitHub repository.',
     category: '3rd Party Tools',
     metadata: {},
     behavior: {

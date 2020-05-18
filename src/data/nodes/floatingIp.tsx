@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Floating IP',
-    description: 'an IP address that can be assigned and reassigned to a single droplet',
+    description: 'An IP address that can be assigned and reassigned to a single droplet',
     category: 'DO Server Components',
     metadata: {
         ip: '',

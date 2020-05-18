@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Spaces',
-    description: 'a DigitalOcean object storage space of addressable objects',
+    description: 'Managed file storage by DigitalOcean.',
     category: 'DO Server Components',
     metadata: {
         name: '',

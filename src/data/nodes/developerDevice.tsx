@@ -2,8 +2,8 @@ import * as React from "react";
 import Node from "../node";
 
 export default {
-    name: 'Dev Device',
-    description: 'Developer\'s local device',
+    name: 'Developer Device',
+    description: 'A developer\'s local device',
     category: 'End-User Components',
     metadata: {
         name: '',

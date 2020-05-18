@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Internet',
-    description: 'the publicly accessible internet.',
+    description: 'Defines the publicly accessible internet.',
     category: 'End-User Components',
     labelOffset: -16,
     metadata: {

@@ -7,7 +7,7 @@ class Category extends React.Component {
 
     return connectDropTarget(
       <div key={categoryName} data-category="category" data-type={categoryName} style={bounds}>
-        {bounds.width !== '100px' ? <label>{categoryName}</label> : ''}
+        {bounds.width !== '100px' ? <p>{categoryName}</p> : ''}
       </div>
     )
   }

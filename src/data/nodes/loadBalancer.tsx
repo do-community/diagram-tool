@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Load Balancer',
-    description: 'reverse proxy that distributes network or application traffic across a number of servers',
+    description: 'A reverse proxy that distributes network or application traffic across a number of servers',
     category: 'DO Server Components',
     metadata: {
       name: '',

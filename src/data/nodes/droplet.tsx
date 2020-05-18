@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Droplet',
-    description: 'a droplet',
+    description: 'A DigitalOcean droplet.',
     category: 'DO Server Components',
     metadata: {
         name: '',

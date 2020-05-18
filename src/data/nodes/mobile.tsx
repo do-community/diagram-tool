@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Mobile App (User)',
-    description: 'the end user, communicating via a mobile app',
+    description: 'The mobile app is designed to repersent the end user who is communicating via a mobile app.',
     category: 'End-User Components',
     metadata: {
       name: '',

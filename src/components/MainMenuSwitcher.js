@@ -4,6 +4,7 @@ import Diagram from './Diagram';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/actionCreators';
+import { clear } from '../showWhereClick';
 
 function mapStateToProps(state) {
     return {
@@ -34,7 +35,8 @@ export default class MainMenuSwitcher extends React.Component {
     }
 
     switchToMenu() {
-        this.setState({item: this.menu})
+        clear();
+        this.setState({item: this.menu});
     }
 
     switchToApp() {

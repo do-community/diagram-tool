@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Database Server',
-    description: 'a server dedicated to running a database',
+    description: 'A server dedicated to running a database',
     category: 'DO Server Components',
     extends: 'droplet',
     metadata: {

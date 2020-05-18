@@ -3,7 +3,7 @@ import Node from "../node";
 
 export default {
     name: 'Browser',
-    description: 'the end-user, communicating via a web browser',
+    description: 'The browser is used to repersend the end-user which is communicating via a web browser',
     category: 'End-User Components',
     metadata: {
       name: '',
