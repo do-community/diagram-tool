@@ -1,9 +1,3 @@
-$white_semitransparent: rgba(255,255,255,0.5);
-$white_mostlytransparent: rgba(255,255,255,0.2);
-$white:   #FFFFFF;
-$gray50:  #FAFAFA;
-$gray100: #F5F5F5;
-$gray200: #EEEEEE;
 /*
 Copyright 2020 DigitalOcean
 
@@ -19,6 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+$white_semitransparent: rgba(255,255,255,0.5);
+$white_mostlytransparent: rgba(255,255,255,0.2);
+$white:   #FFFFFF;
+$gray50:  #FAFAFA;
+$gray100: #F5F5F5;
+$gray200: #EEEEEE;
 
 $gray200_semitransparent: rgba(238,238,238,0.5);
 $gray300: #E0E0E0;

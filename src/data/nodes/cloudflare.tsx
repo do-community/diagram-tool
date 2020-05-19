@@ -1,6 +1,3 @@
-import * as React from "react";
-import Node from "../node";
-
 /*
 Copyright 2020 DigitalOcean
 
@@ -16,6 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+import * as React from "react";
+import Node from "../node";
 
 export default {
     name: 'cloudflare',
