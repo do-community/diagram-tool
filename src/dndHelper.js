@@ -22,14 +22,14 @@ import helpers from './helpers.js';
 import flow from 'lodash/flow';
 
 export default {
-	dndConnect: function(c, m) {
+	dndConnect(c, m) {
 		return {
 			connectDragSource: c.dragSource(),
 			isDragging: m.isDragging()
 		};
 	},
 
-	dndCollect: function(c, m) {
+	dndCollect(c, m) {
 		return {
 			connectDropTarget: c.dropTarget(),
 			isOver: m.isOver(),
@@ -39,7 +39,7 @@ export default {
 		};
 	},
 
-	composeDragAndDrop: function(type, action, component) {
+	composeDragAndDrop(type, action, component) {
 		let _dndCollect = this.dndCollect,
 			_dndConnect = this.dndConnect;
 		return flow(
@@ -64,7 +64,7 @@ export default {
 		)(component);
 	},
 
-	composeDrag: function(type, action, component) {
+	composeDrag(type, action, component) {
 		let _dndConnect = this.dndConnect;
 		return DragSource(
 			type,
@@ -79,7 +79,7 @@ export default {
 
 	/** TODO: @andy simplify this callback hell - right now onDrop is only defined for children of <Diagram>
 	 - So if onDrop is undefined we call parent function **/
-	composeDrop: function(component) {
+	composeDrop(component) {
 		let _dndCollect = this.dndCollect,
 			_dndHandleDrop = this.handleDrop;
 		return DropTarget(

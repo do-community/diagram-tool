@@ -20,7 +20,7 @@ limitations under the License.
 */
 
 const documentation = {
-	node:{
+	node: {
 		name: {
 			type:'string',
 			validation:[1,40],
@@ -66,10 +66,10 @@ const documentation = {
 	        info: 'Enable weekly backups for 20% increase on cost.',
 	        default: true
 	    },
-	    category: {
-			type: 'string',
-			title: 'Category',
-	    	info: 'server\'s category',
+	    categories: {
+			type: 'array',
+			title: 'Categories',
+	    	info: 'server\'s categories',
 	    },
 	    cost: {
 			type: 'number',

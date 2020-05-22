@@ -29,7 +29,7 @@ export default {
         backups: false,
         image: 'Ubuntu 16.04.4 x64',
         size:  's-4vcpu-8gb',
-        category: 'Default Category',
+        categories: ["Default Category"],
         tags: '',
         cloudFirewall: 'disabled',
         blockStorage: null,

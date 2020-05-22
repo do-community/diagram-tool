@@ -19,7 +19,7 @@ import dndHelper from '../dndHelper.js';
 import Tray from './Tray';
 import Node from './Node';
 import Connector from './Connector';
-import Region from './Category';
+import Category from './Category';
 import NodeEditor from './NodeEditor';
 import DiagramMetadata from './DiagramMetadata';
 import { showWhereClick, viewVisible, clear } from '../showWhereClick';
@@ -255,10 +255,11 @@ class Diagram extends React.Component {
 
       const diagramDiv = <div className="diagram">
       {Object.keys(categories).map(category => (
-        <Region
+        <Category
           key={category}
           id={category}
           categoryName={category}
+          outlineColor={categories[category][0][1] || '#add8e6'}
           bounds={helpers.getBoundingRectangle(category, nodes)}
           onDrop={(item, offset) =>
             this.diagramDrop('category', category, item, offset)

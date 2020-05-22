@@ -19,7 +19,7 @@ import get from 'lodash/get';
 
 const helpers = {
   // is a user is copy/pasting into input areas, or with text highlighted?
-  copyPastingText: function() {
+  copyPastingText() {
     if (document.activeElement.tagName in ['INPUT', 'TEXTAREA']) {
       return true;
     }
@@ -30,27 +30,27 @@ const helpers = {
   },
 
   //capitalize the first letter of a string
-  capitalize: function(s) {
+  capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
   },
 
   //round a number to two decimal points
-  round2: function(num) {
+  round2(num) {
     return Math.round(num * 100.0) / 100.0;
   },
 
   //Helper used for creating GUIDs (see below)
-  _s4: function() {
+  _s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
   },
   //Generates a random XXXX-XXXX-XXXX guid
-  guid: function() {
+  guid() {
     return this._s4() + this._s4() + this._s4();
   },
 
-  polarToCartesian: function(centerX, centerY, radius, angleInDegrees) {
+  polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     const angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
     return {
       x: centerX + (radius * Math.cos(angleInRadians)),
@@ -58,7 +58,7 @@ const helpers = {
     };
   },
 
-  describeArc: function(x, y, radius, startAngle, endAngle){
+  describeArc(x, y, radius, startAngle, endAngle){
     const start = this.polarToCartesian(x, y, radius, endAngle),
           end = this.polarToCartesian(x, y, radius, startAngle),
           largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
@@ -69,7 +69,7 @@ const helpers = {
     ].join(' ');  
   },
 
-  squigglePath: function(followPath, squiggleStep = 25, squiggleAmplitude = 20, offset = -1) {
+  squigglePath(followPath, squiggleStep = 25, squiggleAmplitude = 20, offset = -1) {
     
     let pathLen = followPath.getTotalLength();
 
@@ -119,7 +119,7 @@ const helpers = {
   // 1. looking for a hash "#uuid" in the url and attempting to grab it from cdn
   // 2. looking in local storage for 'infragramState'
   // 3. just loading some random saved diagram
-  initializeState: function(callback) {
+  initializeState(callback) {
     if (window.location.hash.length === 37) {
       try {
         const uuid = window.location.hash.substring(1);
@@ -168,7 +168,7 @@ const helpers = {
 
   //saves a user's state to local storage so if they refresh or navigate away
   //they wont lose it
-  saveState: function(state) {
+  saveState(state) {
     try {
       const serializedState = JSON.stringify(state);
       localStorage.setItem('infragramState', serializedState);
@@ -178,7 +178,7 @@ const helpers = {
   },
 
   //saves a user's state to remote server when they click "share"
-  remoteSaveState: function(state, callback) {
+  remoteSaveState(state, callback) {
     //try {
     const serializedState = encodeURIComponent(JSON.stringify(state));
     let request = new XMLHttpRequest();
@@ -208,24 +208,31 @@ const helpers = {
     //}
   },
 
-  getCategoriesFromNodes: function(nodes) {
+  getCategoriesFromNodes(nodes) {
+    const colArr = ["#add8e6", "#19925b", "#6988a2", "#0584e3"];
     return Object.keys(nodes).reduce((categoriesObj, nodeKey) => {
-      if (get(nodes[nodeKey], 'metadata.category')) {
-        if (!categoriesObj[nodes[nodeKey].metadata.category])
-        categoriesObj[nodes[nodeKey].metadata.category] = [];
-        categoriesObj[nodes[nodeKey].metadata.category].push(nodeKey);
+      if (get(nodes[nodeKey], 'metadata.categories')) {
+        let colIndex = 0;
+        if (!nodes[nodeKey].metadata.categories) nodes[nodeKey].metadata.categories = [];
+        for (const cat of nodes[nodeKey].metadata.categories) {
+          if (!categoriesObj[cat]) categoriesObj[cat] = [];
+          const col = colArr[colIndex];
+          colIndex++;
+          if (colIndex === colArr.length) colIndex = 0;
+          categoriesObj[cat].push([nodeKey, col]);
+        }
       }
       return categoriesObj;
     }, {});
   },
 
-  stringDeterministicRandom: function(str) {
+  stringDeterministicRandom(str) {
     return str.split('').reduce((num, char, i) => {
       return num + (char.charCodeAt(0) * (i+1)) % 256;
     }, 0);
   },
 
-  getTagsFromNodes: function(nodes) {
+  getTagsFromNodes(nodes) {
     return Object.keys(nodes).reduce((tagsObj, nodeKey) => {
       if (get(nodes[nodeKey], 'metadata.tags')) {
         (typeof(nodes[nodeKey].metadata.tags) === 'string' ? nodes[nodeKey].metadata.tags.split(',') :  nodes[nodeKey].metadata.tags).map(tag => {
@@ -241,11 +248,12 @@ const helpers = {
     }, {});
   },
 
-  getBoundingRectangle: function(category, nodes) {
+  getBoundingRectangle(category, nodes) {
     let bounds = [999, 999, -999, -999];
 
     Object.keys(nodes).forEach(key => {
-      if (get(nodes[key], 'metadata.category') === category) {
+      const c = get(nodes[key], 'metadata.categories');
+      if (c && c.includes(category)) {
         const edge = get(DATA.nodes[nodes[key].type], 'metadata.edge') || get(DATA.nodes[nodes[key].type], 'behavior.edge');
         if (nodes[key].position[0] < bounds[0]) {
           bounds[0] = nodes[key].position[0] + (edge ? 0.5 : 0);
@@ -262,22 +270,24 @@ const helpers = {
       }
     });
 
-    return {
+    const style = {
       left: bounds[0] * 100 + 'px',
       top: bounds[1] * 100 + 'px',
       width: (bounds[2] - bounds[0] + 1) * 100 + 'px',
       height: (bounds[3] - bounds[1] + 1) * 100 + 'px'
     };
+
+    return style;
   },
 
-  getKeyedElement: function(target) {
+  getKeyedElement(target) {
     while (!target.dataset.click_key && target.id !== 'root') {
       target = target.parentElement;
     }
     return target.id === 'root' ? null : target;
   },
 
-  lineToSVGString: function(points, dir, simplex, style) {
+  lineToSVGString(points, dir, simplex, style) {
     let st_1 = '',
       st_2 = '',
       a,
@@ -355,7 +365,7 @@ const helpers = {
     }
   },
 
-  mouseToGrid: function(pos) {
+  mouseToGrid(pos) {
     const _dpos = document.querySelector('.diagram').getBoundingClientRect();
     return [
       Math.ceil((pos.x - _dpos.left + 100.0 - _dpos.width / 2) / 50.0) / 2.0,
@@ -363,7 +373,7 @@ const helpers = {
     ];
   },
 
-  getClosestNodes: function(types, position, nodes, greedy) {
+  getClosestNodes(types, position, nodes, greedy) {
     let minDist = 9999999,
       closest = [],
       dist, i, type;
@@ -386,7 +396,7 @@ const helpers = {
     return closest;
   },
 
-  positionIsOpen: function(nodes, x, y) {
+  positionIsOpen(nodes, x, y) {
     open = true;
     Object.keys(nodes).forEach(key => {
       if (
@@ -398,7 +408,7 @@ const helpers = {
     return open;
   },
 
-  getClosestOpenPosition: function(position, nodes) {
+  getClosestOpenPosition(position, nodes) {
     //FOLLOW A GRID SPIRAL PATTERN AWAY FROM position
     // Starting 1 unit below
     let stride = 4,
@@ -421,7 +431,7 @@ const helpers = {
     }
   },
 
-  getNodesWithinRect: function(nodes, coords) {
+  getNodesWithinRect(nodes, coords) {
     const box = [
       this.mouseToGrid({ x: coords[0], y: coords[1] }),
       this.mouseToGrid({ x: coords[2], y: coords[3] })
@@ -440,7 +450,7 @@ const helpers = {
     return selectedNodes;
   },
 
-  dragHighlight: function(start, selectCB, nodes) {
+  dragHighlight(start, selectCB, nodes) {
     let dragObj = {
       box: document.querySelector('#dragBox'),
       getNodesWithinRect: this.getNodesWithinRect,
@@ -451,7 +461,7 @@ const helpers = {
       _sy: start[1],
       _cx: start[0],
       _cy: start[1],
-      dragUpdate: function(e) {
+      dragUpdate(e) {
         this._cx = e.clientX;
         this._cy = e.clientY;
         //Mouse above startpoint?
@@ -471,12 +481,12 @@ const helpers = {
         }
       },
 
-      captureClick: function(e) {
+      captureClick(e) {
         e.stopPropagation();
         document.body.removeEventListener('click', this.captureClickRef, true);
       },
 
-      dragStop: function(e) {
+      dragStop(e) {
         if (Math.abs(this._cx - this._sx) + Math.abs(this._cy - this._sy) > 10)
           document.body.addEventListener('click', this.captureClickRef, true);
         window.clearTimeout(this.dragDebounce);
@@ -513,7 +523,7 @@ const helpers = {
     document.addEventListener('mouseup', dragObj.dragStopRef);
   },
 
-  addNodeAndConnections: function(
+  addNodeAndConnections(
     newNodeType,
     newNodePosition,
     metadata,
@@ -540,14 +550,14 @@ const helpers = {
       Object.keys(categorys).length === 0 &&
       !get(nodeSpecs, 'behavior.categoryless')
     ) {
-      update.metadata.category = 'Default Category';
+      update.metadata.categories = ['Default Category'];
     }
     if (
-      !get(update, 'metadata.category') &&
+      !get(update, 'metadata.categories') &&
       !get(nodeSpecs, 'behavior.categoryless') &&
       Object.keys(categorys).length == 1
     ) {
-      update.metadata.category = Object.keys(categorys)[0];
+      update.metadata.categories = [Object.keys(categorys)[0]];
     }
 
     //TRY AND CONNECT TO OTHER NODES BASED ON WANTS
@@ -585,7 +595,7 @@ const helpers = {
     return true;
   },
 
-  nodeMaxedOut: function(nodeKey, nodeType, connections) {
+  nodeMaxedOut(nodeKey, nodeType, connections) {
     if (
       typeof get(DATA.nodes[nodeType], 'behavior.maxConnections') === 'number'
     ) {
@@ -600,7 +610,7 @@ const helpers = {
     return false;
   },
 
-  nodeTypesCompatible: function(nodeA, nodeB) {
+  nodeTypesCompatible(nodeA, nodeB) {
     //Check each node for disallowed connections (node.behavior.incompatibleWith)
     if (
       (get(DATA.nodes[nodeA], 'behavior.incompatibleWith') &&
@@ -612,7 +622,7 @@ const helpers = {
     return true;
   },
 
-  getConnectorFromWants: function(fromNode, toNode) {
+  getConnectorFromWants(fromNode, toNode) {
     if (DATA.nodes[fromNode].behavior.wants) {
       const ideals = DATA.nodes[fromNode].behavior.wants.reduce((acc, w) => {
         if ('nodeTypes' in w && w.nodeTypes.indexOf(toNode) > -1) {
@@ -634,7 +644,7 @@ const helpers = {
     return undefined;
   },
 
-  connectNewNodeAndNode: function(newNode, toNode, nodes, connections) {
+  connectNewNodeAndNode(newNode, toNode, nodes, connections) {
     //Check that toNode isnt maxed out
     if (this.nodeMaxedOut(toNode, nodes[toNode].type, connections)) {
       return {
@@ -662,7 +672,7 @@ const helpers = {
     return { to: toNode, via: 'tcp', metadata: DATA.connectors.tcp.metadata };
   },
 
-  connectNodes: function(fromNode, toNode, nodes, connections) {
+  connectNodes(fromNode, toNode, nodes, connections) {
     //Check that fromNode isnt maxed out
     if (this.nodeMaxedOut(fromNode, nodes[fromNode].type, connections)) {
       return {
@@ -703,7 +713,7 @@ const helpers = {
     return {type:'tcp', metadata:DATA.connectors.tcp.metadata};
   },
 
-  handleSingleAndDoubleClick: function(event, onSingle, onDouble) {
+  handleSingleAndDoubleClick(event, onSingle, onDouble) {
     //Only Doubleclick currently does anything
     if (event.target.getAttribute('data-dblclick') == null) {
       event.target.setAttribute('data-dblclick', 1);

@@ -16,6 +16,42 @@ limitations under the License.
 
 import React from 'react';
 
+class ArrayInput extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	handleChange(e, index) {
+		if (index === -1) this.props.value.push('');
+		else this.props.value[index] = e.target.value;
+		this.forceUpdate();
+		this.props.editAction(this.props.identifier, {
+			[this.props.name]: this.props.value,
+		});
+	}
+
+	render() {
+		const arr = this.props.value.map((val, index) => <div key={index}>
+			<input
+				type="text"
+				className="input"
+				value={val}
+				onChange={e => this.handleChange(e, index)}
+				placeholder={this.props.title}
+				key={index}
+				style={{width: '200px', height: '40px'}}
+			/>
+		</div>);
+		return <span>
+			<label htmlFor={this.props.name}>{this.props.title}: </label>
+			{arr}
+			<button onClick={() => this.handleChange(null, -1)}>
+				Add Item
+			</button>
+		</span>;
+	}
+}
+
 class NodeEditorField extends React.Component {
 	constructor(props) {
 		super(props);
@@ -102,6 +138,8 @@ class NodeEditorField extends React.Component {
 						/>
 					</div>
 				);
+			case 'array':
+				return <ArrayInput title={specs.title} name={name} value={value} onChange={this.handleChange} identifier={this.props.identifier} editAction={this.props.editAction} />;
 			default:
 				return (
 					<div className="bui-FloatLabel">
