@@ -30,7 +30,7 @@ import data from '../data';
 import helpers from '../helpers.js';
 
 class Diagram extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.keyDown = this.keyDown.bind(this);
@@ -259,7 +259,7 @@ class Diagram extends React.Component {
           key={category}
           id={category}
           categoryName={category}
-          outlineColor={categories[category][0][1] || '#add8e6'}
+          outlineColor={categories[category][0][1]}
           bounds={helpers.getBoundingRectangle(category, nodes)}
           onDrop={(item, offset) =>
             this.diagramDrop('category', category, item, offset)
@@ -286,7 +286,7 @@ class Diagram extends React.Component {
 
       {Object.values(mappedNodes)}
     </div>
-  
+
     let blankNodeElement;
     if (Object.keys(mappedNodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 

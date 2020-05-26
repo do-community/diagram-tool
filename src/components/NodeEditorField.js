@@ -19,19 +19,37 @@ import React from 'react';
 class ArrayInput extends React.Component {
 	constructor(props) {
 		super(props);
+		const arr = this.props.value.slice();
+		arr.push('');
+		this.state = {values: arr};
 	}
 
 	handleChange(e, index) {
-		if (index === -1) this.props.value.push('');
-		else this.props.value[index] = e.target.value;
-		this.forceUpdate();
+		// If the index isn't -1, update the index.
+		if (index !== -1) this.state.values[index] = e.target.value;
+
+		// Set the values that aren't blank strings.
+		const values = [];
+		for (const v of this.state.values) {
+			if (v !== '') values.push(v);
+		}
+
+		// Push everything into the props.
+		this.props.value.length = 0;
+		for (const v of values) this.props.value.push(v);
+
+		// Add a blank string to the end and set the state.
+		values.push('');
+		this.setState({values});
+
+		// Run edit action on this.
 		this.props.editAction(this.props.identifier, {
 			[this.props.name]: this.props.value,
 		});
 	}
 
 	render() {
-		const arr = this.props.value.map((val, index) => <div key={index}>
+		const arr = this.state.values.map((val, index) => <div key={index}>
 			<input
 				type="text"
 				className="input"
@@ -39,15 +57,13 @@ class ArrayInput extends React.Component {
 				onChange={e => this.handleChange(e, index)}
 				placeholder={this.props.title}
 				key={index}
+				autoComplete="on"
 				style={{width: '200px', height: '40px'}}
 			/>
 		</div>);
 		return <span>
 			<label htmlFor={this.props.name}>{this.props.title}: </label>
 			{arr}
-			<button onClick={() => this.handleChange(null, -1)}>
-				Add Item
-			</button>
 		</span>;
 	}
 }

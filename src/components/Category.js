@@ -19,11 +19,11 @@ import dndHelper from '../dndHelper.js';
 
 class Category extends React.Component {
   render() {
-    let { categoryName, bounds, connectDropTarget, outlineColor} = this.props;
+    let { categoryName, bounds, connectDropTarget, outlineColor } = this.props;
 
     const style = {};
     Object.assign(style, bounds);
-    bounds.outlineColor = outlineColor;
+    style.outlineColor = outlineColor;
     return connectDropTarget(
       <div key={categoryName} data-category="category" data-type={categoryName} style={style}>
         {bounds.width !== '100px' ? <p>{categoryName}</p> : ''}
