@@ -27,7 +27,7 @@ export default class MainMenu extends React.Component {
             <p style={{fontSize: 'initial'}}>
                 <a className="button is-primary" onClick={() => this.newDiagram()} style={{marginRight: '5px'}}>New Diagram </a>
                 <a className="button is-primary" onClick={() => this.saveDiagram()} style={{marginRight: '5px'}}>Save Diagram </a>
-                <a className="button is-primary" onClick={() => this.props.switchToApp()}>Exit </a>
+                <a className="button is-primary" onClick={() => this.props.switchToApp()}>Go To Tool </a>
             </p>
         </div>;
         this.state = {innerContent: this.mainMenu};

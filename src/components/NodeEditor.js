@@ -33,7 +33,7 @@ class NodeEditor extends React.Component {
 
     const {item, identifier, template, editAction} = this.props,
           itemType = typeof(identifier) === 'string' ? 'node' : 'connector';
-  
+
     if(!item) return (<span />);
 
     const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
@@ -56,7 +56,7 @@ class NodeEditor extends React.Component {
             </select>
           </div> : undefined }
 
-          {Object.keys(allMetadata).map((m,i) => 
+          {Object.keys(allMetadata).map((m,i) =>
             <NodeEditorField
               key={i}
               name={m}

@@ -31,7 +31,7 @@ function mapStateToProps(state) {
         mode: state.mode
     }
 }
-  
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
@@ -40,7 +40,7 @@ export default class MainMenuSwitcher extends React.Component {
     constructor(props) {
         super(props)
         this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />
-        this.state = {item: this.createAppInstance()}
+        this.state = {item: this.menu}
     }
 
     createAppInstance() {
