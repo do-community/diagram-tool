@@ -29,7 +29,7 @@ function mapStateToProps(state) {
         nodes: state.nodes,
         selection: state.selection,
         mode: state.mode
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -38,29 +38,30 @@ function mapDispatchToProps(dispatch) {
 
 export default class MainMenuSwitcher extends React.Component {
     constructor(props) {
-        super(props)
-        this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />
-        this.state = {item: this.menu}
+        super(props);
+        this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />;
+        this.state = {item: this.menu};
     }
 
     createAppInstance() {
-        const f = () => this.switchToMenu()
-        const m = () => this.switchToMenu()
-        const Connection = connect(mapStateToProps, mapDispatchToProps)(Diagram)
-        return <Connection switchToApp={f} switchToMenu={m} />
+        const m = () => this.switchToMenu();
+        const Connection = connect(mapStateToProps, mapDispatchToProps)(Diagram);
+        document.body.style.overflow = 'hidden';
+        return <Connection switchToMenu={m} />;
     }
 
     switchToMenu() {
         clear();
+        document.body.style.overflow = 'initial';
         this.setState({item: this.menu});
     }
 
     switchToApp() {
-        this.setState({item: this.createAppInstance()})
+        this.setState({item: this.createAppInstance()});
     }
 
     render() {
         // Return the item to render.
-        return this.state.item
+        return this.state.item;
     }
 }

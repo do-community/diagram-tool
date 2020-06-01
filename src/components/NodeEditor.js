@@ -69,7 +69,7 @@ class NodeEditor extends React.Component {
           )}
         </form>
       </div>
-    )
+    );
   }
 };
 

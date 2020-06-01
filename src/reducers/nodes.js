@@ -46,14 +46,14 @@ function nodes(state = [], action) {
 
     case 'DELETE_NODE':
       return Object.keys(state).reduce((newObj, key) => {
-        if (key != action.key) newObj[key] = {...state[key]}
+        if (key != action.key) newObj[key] = {...state[key]};
         return newObj;
       }, {});
 
     case 'EDIT_NODE':
       return Object.keys(state).reduce((newObj, key) => {
-        if (key === action.key) newObj[key] = {...state[key], metadata:{...state[key].metadata, ...action.metadata}}
-        else newObj[key] = {...state[key]}
+        if (key === action.key) newObj[key] = {...state[key], metadata:{...state[key].metadata, ...action.metadata}};
+        else newObj[key] = {...state[key]};
         return newObj;
       }, {});
     default:

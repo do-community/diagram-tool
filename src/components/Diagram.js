@@ -236,7 +236,7 @@ class Diagram extends React.Component {
           : selection.connectors.length === 1 ? 'connector' : null
       );
 
-      const mappedNodes = {}
+      const mappedNodes = {};
       Object.keys(nodes).forEach(key => (
         mappedNodes[key] = <Node
           key={key}
@@ -251,7 +251,7 @@ class Diagram extends React.Component {
             this.diagramDrop('node', key, item, offset)
           }
         />
-      ))
+      ));
 
       const diagramDiv = <div className="diagram">
       {Object.keys(categories).map(category => (
@@ -285,13 +285,13 @@ class Diagram extends React.Component {
       ))}
 
       {Object.values(mappedNodes)}
-    </div>
+    </div>;
 
     let blankNodeElement;
     if (Object.keys(mappedNodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
     return <div className="modal" style={{display: 'initial'}}>
-      <div className="modal-content" style={{width: '100%', height: '100%', overflow: 'hidden'}}>
+      <div className="modal-content" style={{width: '100%', height: '100%'}}>
         {connectDropTarget(
           <div
             className="main"

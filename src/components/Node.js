@@ -26,7 +26,7 @@ class Node extends React.Component {
     return {
       left: (this.props.position ? this.props.position[0] * 100 : 0) + 'px',
       top: ((this.props.position ? this.props.position[1] * 100 : 0) - window.pageYOffset) + 'px'
-    }
+    };
   }
   render() {
       let {

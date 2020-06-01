@@ -18,7 +18,7 @@ export function initialize(data) {
   return {
     type: 'INITIALIZE',
     data: data
-  }
+  };
 }
 
 //addNode - takes a node type, x/y position, and metadata that will override the defaults for this node type
@@ -50,7 +50,7 @@ export function addNode(key, nodeType, x, y, metadata, connections = []) {
       nodes: [key]
     });
 
-  }
+  };
 }
 
 //move node ID'd by key
@@ -61,7 +61,7 @@ export function moveNode(key, x, y, relative) {
     x,
     y,
     relative
-  }
+  };
 }
 
 //edit the customizable metadata of a node
@@ -70,7 +70,7 @@ export function editNode(key, metadata) {
     type: 'EDIT_NODE',
     key,
     metadata
-  }
+  };
 }
 
 //mark a node as selected and deselect all other nodes
@@ -84,14 +84,14 @@ export function selectNodes(keys, additive=false) {
       type: 'SELECT',
       nodes: typeof(keys) === 'object' ? keys : [keys]
     });
-  }
+  };
 }
 
 export function copyNodes(nodes) {
   return {
     type: 'COPY',
     nodes
-  }
+  };
 }
 
 //deselect everything
@@ -102,7 +102,7 @@ export function deselectNodes(keys) {
   else return {
     type: 'DESELECT',
     nodes: typeof(keys) === 'object' ? keys : [keys]
-  }
+  };
 }
 
 //delete a node from the diagram
@@ -117,7 +117,7 @@ export function deleteNode(key) {
       key
     });
 
-  }
+  };
 }
 
 
@@ -128,7 +128,7 @@ export function addConnector(start, end, connectorType, metadata) {
     metadata,
     start,
     end
-  }
+  };
 }
 
 export function moveConnector(key, start, end) {
@@ -137,7 +137,7 @@ export function moveConnector(key, start, end) {
     key,
     start,
     end
-  }
+  };
 }
 
 export function editConnector(key, metadata) {
@@ -145,7 +145,7 @@ export function editConnector(key, metadata) {
     type: 'EDIT_CONNECTOR',
     key,
     metadata
-  }
+  };
 }
 
 export function editConnectorType(key, connectorType) {
@@ -153,14 +153,14 @@ export function editConnectorType(key, connectorType) {
     type: 'EDIT_connectorType',
     key,
     connectorType
-  }
+  };
 }
 
 export function deleteConnector(key) {
   return {
     type: 'DELETE_CONNECTOR',
     key
-  }
+  };
 }
 
 export function selectConnectors(keys, additive=false) {
@@ -173,7 +173,7 @@ export function selectConnectors(keys, additive=false) {
       type: 'SELECT',
       connectors: typeof(keys) === 'object' ? keys : [keys]
     });
-  }
+  };
 }
 
 export function deselectConnectors(keys) {
@@ -185,7 +185,7 @@ export function deselectConnectors(keys) {
       type: 'DESELECT',
       connectors: typeof(keys) === 'object' ? keys : [keys]
     };
-  }
+  };
 }
 
 //edit the customizable metadata of a diagram
@@ -193,5 +193,5 @@ export function editDiagramMetadata(metadata) {
   return {
     type: 'EDIT_DIAGRAM_METADATA',
     metadata
-  }
+  };
 }

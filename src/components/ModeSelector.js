@@ -26,4 +26,4 @@ class ModeSelector extends React.Component {
 	}
 };
 
-export default ModeSelector
+export default ModeSelector;
