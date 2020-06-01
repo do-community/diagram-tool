@@ -177,7 +177,7 @@ class Diagram extends React.Component {
   }
 
   composeSelectionObject(category) {
-    /* TODO:@andy to clean */
+    /* TODO: clean */
     return category === null
       ? {}
       : {

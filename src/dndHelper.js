@@ -77,8 +77,8 @@ export default {
 		)(component);
 	},
 
-	/** TODO: @andy simplify this callback hell - right now onDrop is only defined for children of <Diagram>
-	 - So if onDrop is undefined we call parent function **/
+	/* TODO: simplify this callback - right now onDrop is only defined for children of <Diagram>
+	    - So if onDrop is undefined we call parent function */
 	composeDrop(component) {
 		let _dndCollect = this.dndCollect,
 			_dndHandleDrop = this.handleDrop;

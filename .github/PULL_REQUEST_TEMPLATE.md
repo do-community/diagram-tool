@@ -2,7 +2,7 @@
 <!-- What part of the source are you modifying? Remove the irrelevant options. -->
 
 - **Build Scripts:** <!-- Scripts relating to building, testing or CI -->
-- **Tool Source:** <!-- Which part of the tool source? Vue, TS, SASS? -->
+- **Tool Source:** <!-- Which part of the tool source? Component, data, reducer, styles? -->
 - **Something else:** <!-- Say what it is, here! -->
 
 ## What issue does this relate to?
