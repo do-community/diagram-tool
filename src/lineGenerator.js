@@ -22,6 +22,7 @@ class LineGenerator {
         div.style.left = '0';
         div.style.overflow = 'show';
         div.style.pointerEvents = 'none';
+        div.style.zIndex = '1150';
         document.body.appendChild(div);
         return div;
     }
@@ -45,7 +46,7 @@ class LineGenerator {
         this.lineDiv = this._createContainer();
         const svg = this._createInnerSvg(this.lineDiv);
         const {x, y} = obj;
-        
+
         // Draw the X line.
         const xLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         xLine.setAttribute('stroke', '#000000');

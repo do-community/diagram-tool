@@ -107,7 +107,7 @@ class Diagram extends React.Component {
   }
 
   click(event) {
-    const target = helpers.getKeyedElement(event.target);
+    const target = event.target;
     if (target) {
       if (target.getAttribute('data-ondoubleclick') === 'add') {
         if (target.getAttribute('data-dblclick') == null) {
@@ -140,6 +140,21 @@ class Diagram extends React.Component {
             : this.props.deselectConnectors(parseInt(target.dataset.click_key, 10));
         else if (target.dataset.category === 'request')
           console.log('play');
+        else if (event.target.getAttribute('class') === 'diagram') {
+          if (viewVisible()) {
+            clear();
+            lineGenerator();
+          } else {
+            showWhereClick(<Tray
+              nodes={this.props.nodes}
+              addNode={this.props.addNode}
+            />, event, 10);
+            lineGenerator({
+              x: event.clientX,
+              y: event.clientY,
+            });
+          }
+        }
       }
     } else if (
       event.target.className === 'diagram' &&
@@ -148,24 +163,6 @@ class Diagram extends React.Component {
         0
     ) {
       this.props.deselectNodes();
-    } else if (
-      event.target.tagName === 'DIV' && (
-        event.target.getAttribute('data-category') === 'category' || event.target.getAttribute('class') === 'diagram'
-      )
-    ) {
-      if (viewVisible()) {
-        clear();
-        lineGenerator();
-      } else {
-        showWhereClick(<Tray
-          nodes={this.props.nodes}
-          addNode={this.props.addNode}
-        />, event, 10);
-        lineGenerator({
-          x: event.clientX,
-          y: event.clientY,
-        });
-      }
     }
   }
 
@@ -290,34 +287,32 @@ class Diagram extends React.Component {
     let blankNodeElement;
     if (Object.keys(mappedNodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
-    return <div className="modal" style={{display: 'initial'}}>
+    return connectDropTarget(<div className="modal" style={{display: 'initial'}}>
       <div className="modal-content" style={{width: '100%', height: '100%'}}>
-        {connectDropTarget(
-          <div
-            className="main"
-            tabIndex="0"
-            onKeyDown={this.keyDown}
-            onCopy={this.copy}
-            onPaste={this.paste}
-            onMouseDown={this.mouseDown}
-            onClick={this.click}
-          >
+        <div
+          className="main"
+          tabIndex="0"
+          onKeyDown={this.keyDown}
+          onCopy={this.copy}
+          onPaste={this.paste}
+          onMouseDown={this.mouseDown}
+          onClick={this.click}
+        >
 
-            <NodeEditor {...selected} />
+          <NodeEditor {...selected} />
 
-            {blankNodeElement}
+          {blankNodeElement}
 
-            <DiagramMetadata
-              {...this.props.metadata}
-              switchToMenu={this.props.switchToMenu}
-              editAction={this.props.editDiagramMetadata}
-            />
+          <DiagramMetadata
+            {...this.props.metadata}
+            switchToMenu={this.props.switchToMenu}
+            editAction={this.props.editDiagramMetadata}
+          />
 
-            {diagramDiv}
-          </div>
-        )}
+          {diagramDiv}
+        </div>
       </div>
-    </div>;
+    </div>);
   }
 }
 

@@ -64,13 +64,13 @@ const helpers = {
           largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
     return [
-        'M', start.x, start.y, 
+        'M', start.x, start.y,
         'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y
-    ].join(' ');  
+    ].join(' ');
   },
 
   squigglePath(followPath, squiggleStep = 25, squiggleAmplitude = 20, offset = -1) {
-    
+
     let pathLen = followPath.getTotalLength();
 
     // Adjust step so that there are a whole number of steps along the path
@@ -278,13 +278,6 @@ const helpers = {
     };
 
     return style;
-  },
-
-  getKeyedElement(target) {
-    while (!target.dataset.click_key && target.id !== 'root') {
-      target = target.parentElement;
-    }
-    return target.id === 'root' ? null : target;
   },
 
   lineToSVGString(points, dir, simplex, style) {
