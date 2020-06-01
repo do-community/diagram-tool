@@ -1,21 +1,21 @@
 {
-  "name": "infragram",
+  "name": "diagram-tool",
   "version": "0.0.1",
   "description": "A cloud infrastructure diagramming app.",
   "scripts": {
     "build:template": "cross-env BLANK_TEMPLATE=false do-vue template && node ./build/create_index.js",
-    "build:parcel": "parcel build ./src/infragram.js --public-url . && parcel build ./src/styles/style.scss --public-url .  --no-minify",
+    "build:parcel": "parcel build ./src/diagram-tool.js --public-url . && parcel build ./src/styles/style.scss --public-url .  --no-minify",
     "build": "npm run clean && npm run build:template && npm run build:parcel && cp ./index.html ./dist/index.html",
     "test": "eslint ./src/**/*.js",
     "lint-and-fix": "eslint ./src/**/*.js --fix",
     "clean": "rimraf dist && rm -f index.html",
     "start": "cross-env BLANK_TEMPLATE=true do-vue template && cross-env NODE_ENV=development node ./build/create_index.js && parcel ./index.html --port 7770",
     "start:do": "cross-env BLANK_TEMPLATE=false do-vue template && cross-env NODE_ENV=development node ./build/create_index.js && parcel ./index.html --port 7770",
-    "deploy:spaces:comment": "do-vue comment infragram"
+    "deploy:spaces:comment": "do-vue comment diagram-tool"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/do-community/infragram.git"
+    "url": "https://github.com/do-community/diagram-tool.git"
   },
   "author": "DigitalOcean",
   "license": "Apache-2.0",

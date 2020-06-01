@@ -1,6 +1,6 @@
-# Infragram
+# Diagram Tool
 
-Infragram is a infrastructure diagram tool. The goal of Infragram is to be able to clearly lay out diagrams for infrastructure which you want to create, allowing you to be able to visualise your plans.
+This tool is a infrastructure diagram tool. The goal of the Diagram Tool is to be able to clearly lay out diagrams for infrastructure which you want to create, allowing you to be able to visualise your plans.
 
 ## Development/Building
 To setup the build/develop environment, you will need to run `npm i` with Node 12+ installed (you can use `nvm` to do this). This will install the dependencies to allow you to build the project.

@@ -117,7 +117,7 @@ const helpers = {
 
   //attempts to get an initial state by
   // 1. looking for a hash "#uuid" in the url and attempting to grab it from cdn
-  // 2. looking in local storage for 'infragramState'
+  // 2. looking in local storage for 'diagramToolState'
   // 3. just loading some random saved diagram
   initializeState(callback) {
     if (window.location.hash.length === 37) {
@@ -153,7 +153,7 @@ const helpers = {
       }
     } else {
       try {
-        const serializedState = localStorage.getItem('infragramState');
+        const serializedState = localStorage.getItem('diagramToolState');
         if (serializedState === null) {
           return undefined;
         }
@@ -171,7 +171,7 @@ const helpers = {
   saveState(state) {
     try {
       const serializedState = JSON.stringify(state);
-      localStorage.setItem('infragramState', serializedState);
+      localStorage.setItem('diagramToolState', serializedState);
     } catch (err) {
       console.error('Could not save state');
     }

@@ -34,12 +34,12 @@ export default class MainMenu extends React.Component {
     }
 
     newDiagram() {
-        window.localStorage.removeItem('infragramState');
+        window.localStorage.removeItem('diagramToolState');
         window.location.replace(`${window.location.origin}${window.location.pathname}`);
     }
 
     handleQuery() {
-        const l = window.localStorage.getItem('infragramState');
+        const l = window.localStorage.getItem('diagramToolState');
         return l ? btoa(l) : null;
     }
 
@@ -66,10 +66,10 @@ export default class MainMenu extends React.Component {
             <Landing
                 backgroundTop={<span></span>}
                 backgroundBottom={<span></span>}
-                title="Infragram"
+                title="Diagram Tool"
                 description="A tool to create infrastructure diagrams."
                 innerContent={this.state.innerContent}
-                github="https://github.com/do-community/infragram"
+                github="https://github.com/do-community/diagram-tool"
             />
         </div>;
     }

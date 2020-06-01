@@ -36,9 +36,9 @@ $paddingsmall: 0.5rem;
 /* Import global HTML stuff */
 @import "html";
 
-.infragram {
+.diagram-tool {
   /* Base */
-  @import "infragram_base";
+  @import "tool_base";
 
   /* SVG Config */
   @import "svg_config";

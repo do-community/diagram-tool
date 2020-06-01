@@ -25,7 +25,7 @@ jobs:
         npm run build
 
     - name: Deploy commit to DigitalOcean Spaces
-      run: aws s3 sync ./dist s3://${{ secrets.SPACES_BUCKET }}/commits/infragram/${{ github.sha }} --endpoint=https://${{ secrets.SPACES_REGION }}.digitaloceanspaces.com --acl public-read --content-encoding utf8
+      run: aws s3 sync ./dist s3://${{ secrets.SPACES_BUCKET }}/commits/diagram-tool/${{ github.sha }} --endpoint=https://${{ secrets.SPACES_REGION }}.digitaloceanspaces.com --acl public-read --content-encoding utf8
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.SPACES_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_ACCESS_KEY }}

@@ -181,7 +181,7 @@ class NodeEditorField extends React.Component {
 
 	render() {
 		const { name, value, specs } = this.props;
-		return <span className="infragram do-bulma"><br />{this.inputFromSpecs(name, value, specs)}</span>;
+		return <span className="diagram-tool do-bulma"><br />{this.inputFromSpecs(name, value, specs)}</span>;
 	}
 }
 
