@@ -33,7 +33,6 @@ function nodes(state = [], action) {
         }
         return newObj;
       }, {});
-
     case 'ADD_NODE':
       return {
         ...state,

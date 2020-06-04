@@ -389,30 +389,30 @@ const helpers = {
     return closest;
   },
 
-  positionIsOpen(nodes, x, y) {
-    open = true;
-    Object.keys(nodes).forEach(key => {
+  positionIsUsed(nodes, x, y) {
+    for (const key in nodes) {
       if (
         Math.abs(nodes[key].position[0] - x) < 1 &&
         Math.abs(nodes[key].position[1] - y) < 1
-      )
-        open = false;
-    });
-    return open;
+      ) {
+        return nodes[key];
+      }
+    }
   },
 
-  getClosestOpenPosition(position, nodes) {
+  getClosestOpenPositionAndHitNode(position, nodes) {
     //FOLLOW A GRID SPIRAL PATTERN AWAY FROM position
     // Starting 1 unit below
     let stride = 4,
       step = 0,
       cx = position[0],
       cy = position[1] + 1;
-    if (this.positionIsOpen(nodes, cx, cy)) return [cx, cy];
+    let r = this.positionIsUsed(nodes, cx, cy);
+    if (!r) return [cx, cy, undefined];
     cx++;
     while (true) {
       //YOLO
-      if (this.positionIsOpen(nodes, cx, cy)) return [cx, cy];
+      if (!this.positionIsUsed(nodes, cx, cy)) return [cx, cy, r];
       //NOT OPEN! - BRAINBENDING SPIRAL PATHER
       cx += (stride % 2 == 0 ? -1 : 1) * (step >= stride ? 0.5 : 0);
       cy += (stride % 2 == 0 ? -1 : 1) * (step < stride ? 0.5 : 0);
@@ -529,9 +529,11 @@ const helpers = {
     */
 
     // Add or Move Item
+    const position = this.getClosestOpenPositionAndHitNode(newNodePosition, state.nodes);
+    position.pop();
     const update = {
         guid: this.guid(),
-        position: this.getClosestOpenPosition(newNodePosition, state.nodes),
+        position,
         connections: [],
         metadata: metadata || DATA.nodes[newNodeType].metadata
       },

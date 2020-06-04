@@ -21,6 +21,39 @@ import DATA from './data';
 import helpers from './helpers.js';
 import flow from 'lodash/flow';
 
+const getCategory = (props, x, y) => {
+	// Get the categories.
+	const categories = helpers.getCategoriesFromNodes(props.nodes);
+
+	// Get the current on top category.
+	let top;
+
+	// Go through each category.
+	for (const key in categories) {
+		// Get the bounds of this category.
+		const bounds = helpers.getBoundingRectangle(key, props.nodes);
+
+		// Set the bounds.
+		bounds.left = Number(bounds.left.slice(0, -2));
+		bounds.top = Number(bounds.top.slice(0, -2));
+		bounds.height = Number(bounds.height.slice(0, -2));
+		bounds.width = Number(bounds.width.slice(0, -2));
+
+		// TODO: Fix the calculation.
+
+		// Check the distance.
+		if (
+			(x > bounds.left && bounds.left + bounds.width >= x) &&
+			(y > bounds.top && bounds.top + bounds.height >= y)
+		) {
+			top = key;
+		}
+	}
+
+	// Return the top category if it's set.
+	return top;
+}
+
 export default {
 	dndConnect(c, m) {
 		return {
@@ -109,18 +142,49 @@ export default {
 			props['delete' + helpers.capitalize(item.type)](item.key);
 			return { action: 'deleted', success: true };
 		}
-		console.log(item)
 
 		// Add or Move Item
 		if (item.type === 'node') {
 			if (item.action === 'move') {
+				// Get the position and potedntially hit node.
+				const pos = helpers.getClosestOpenPositionAndHitNode(
+					helpers.mouseToGrid(offset),
+					props.nodes
+				);
+				const node = pos.pop();
+
+				// Move the current node.
 				props.moveNode(
 					item.key,
-					...helpers.getClosestOpenPosition(
-						helpers.mouseToGrid(offset),
-						props.nodes
-					)
+					...pos,
 				);
+
+				// Check if on top of a node.
+				if (node) {
+					// Defines the categories of the node we were dropped on.
+					let categories = node.metadata.categories.slice() || [];
+
+					// Iterate through the categories.
+					for (const i in categories) {
+						const c = categories[i];
+						if (props.nodes[item.key].metadata.categories.includes(c)) categories[i] = undefined;
+					}
+					const x = [];
+					for (const item of x) if (item) x.push(item);
+					categories = x;
+
+					// Set the categories of the other nodes.
+					for (const c of categories) props.nodes[item.key].metadata.categories.push(c);
+				} else {
+					// Ok, lets check if this is on top of an category.
+
+					// Try and get the category this was placed in.
+					const category = getCategory(props, pos[0], pos[1]);
+					if (category) {
+						// Add the category.
+						if (!props.nodes[item.key].metadata.categories.includes(category)) props.nodes[item.key].metadata.categories.push(category);
+					}
+				}
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
 				if (targetCategory === 'connector') {
