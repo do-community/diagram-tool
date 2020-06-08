@@ -1,3 +1,4 @@
+
 /*
 Copyright 2020 DigitalOcean
 
@@ -14,17 +15,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+function categoryNames(state = [], action) {
+  switch(action.type) {
+  	case 'INITIALIZE' :
+  	  return {};
+    default:
+      return state;
+  }
+}
 
-
-import metadata from './metadata';
-import connectors from './connectors';
-import nodes from './nodes';
-import selection from './selection';
-import mode from './mode';
-import categoryNames from './categoryNames';
-
-const rootReducer = combineReducers({categoryNames, metadata, connectors, nodes, selection, mode, routing: routerReducer});
-
-export default rootReducer;
+export default categoryNames;

@@ -209,7 +209,7 @@ const helpers = {
   },
 
   getCategoriesFromNodes(nodes) {
-    const colArr = ["#add8e6", "#19925b", "#6988a2", "#0584e3"];
+    const colArr = ['#add8e6', '#19925b', '#6988a2', '#0584e3'];
     return Object.keys(nodes).reduce((categoriesObj, nodeKey) => {
       if (get(nodes[nodeKey], 'metadata.categories')) {
         let colIndex = 0;
@@ -545,7 +545,7 @@ const helpers = {
       Object.keys(categorys).length === 0 &&
       !get(nodeSpecs, 'behavior.categoryless')
     ) {
-      update.metadata.categories = ['Default Category'];
+      update.metadata.categories = [];
     }
     if (
       !get(update, 'metadata.categories') &&

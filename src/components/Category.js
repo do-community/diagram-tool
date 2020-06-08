@@ -17,16 +17,46 @@ limitations under the License.
 import React from 'react';
 import dndHelper from '../dndHelper.js';
 
+class CategoryNameEdit extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {edit: false, categoryName: this.props.categoryName};
+  }
+
+  handleChange(e) {
+    this.props.categoryNames[this.props.categoryId] = e.target.value;
+    this.setState({categoryName: e.target.value});
+    this.props.saveCategoryNames();
+  }
+
+  render() {
+    if (!this.state.edit) return <p onClick={() => this.setState({edit: true})}>{this.state.categoryName}</p>;
+    const c = this.handleChange.bind(this);
+    return <span>
+      <div className="diagramMetadata hoverParent do-bulma">
+        <input type="text" className="input" onChange={c} name="name" value={this.state.categoryName || ''} placeholder="Category name" />
+        <div>
+          <a className="button is-info" onClick={() => this.setState({edit: false})}>
+            Exit Edit Mode
+          </a>
+        </div>
+      </div>
+    </span>;
+  }
+}
+
 class Category extends React.Component {
   render() {
-    let { categoryName, bounds, connectDropTarget, outlineColor } = this.props;
+    let { categoryNames, id, bounds, connectDropTarget, outlineColor } = this.props;
+
+    if (!categoryNames[id] || categoryNames[id] === '') categoryNames[id] = 'Unnamed Category';
 
     const style = {};
     Object.assign(style, bounds);
     style.outlineColor = outlineColor;
     return connectDropTarget(
-      <div key={categoryName} data-category="category" data-type={categoryName} style={style}>
-        {bounds.width !== '100px' ? <p>{categoryName}</p> : ''}
+      <div key={id} data-category="category" data-type={id} style={style}>
+        {bounds.width !== '100px' ? <CategoryNameEdit categoryName={categoryNames[id]} categoryNames={categoryNames} saveCategoryNames={this.props.saveCategoryNames} categoryId={id} /> : ''}
       </div>
     );
   }

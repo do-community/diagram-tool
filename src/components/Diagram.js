@@ -44,6 +44,7 @@ class Diagram extends React.Component {
     helpers.initializeState(function(response) {
       props.initialize(response);
     });
+    this.state = {categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}')};
   }
 
   keyDown(event) {
@@ -218,6 +219,10 @@ class Diagram extends React.Component {
     return false;
   }
 
+  saveCategoryNames() {
+    localStorage.setItem('diagramToolCategoryNames', JSON.stringify(this.state.categoryNames));
+  }
+
   render() {
     const {
         nodes,
@@ -232,6 +237,7 @@ class Diagram extends React.Component {
           ? 'node'
           : selection.connectors.length === 1 ? 'connector' : null
       );
+      const categoryNames = this.state.categoryNames;
 
       const mappedNodes = {};
       Object.keys(nodes).forEach(key => (
@@ -255,7 +261,8 @@ class Diagram extends React.Component {
         <Category
           key={category}
           id={category}
-          categoryName={category}
+          saveCategoryNames={this.saveCategoryNames.bind(this)}
+          categoryNames={categoryNames}
           outlineColor={categories[category][0][1]}
           bounds={helpers.getBoundingRectangle(category, nodes)}
           onDrop={(item, offset) =>

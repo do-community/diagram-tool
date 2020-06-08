@@ -28,6 +28,7 @@ function mapStateToProps(state) {
         connectors: state.connectors,
         nodes: state.nodes,
         selection: state.selection,
+        categoryNames: state.categoryNames,
         mode: state.mode
     };
 }

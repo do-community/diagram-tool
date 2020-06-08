@@ -161,20 +161,27 @@ export default {
 
 				// Check if on top of a node.
 				if (node) {
-					// Defines the categories of the node we were dropped on.
-					let categories = node.metadata.categories.slice() || [];
+					// Check the category length.
+					if (node.metadata.categories.length === 0) {
+						const c = Math.random().toString();
+						node.metadata.categories.push(c);
+						props.nodes[item.key].metadata.categories.push(c);
+					} else {
+						// Defines the categories of the node we were dropped on.
+						let categories = node.metadata.categories.slice() || [];
 
-					// Iterate through the categories.
-					for (const i in categories) {
-						const c = categories[i];
-						if (props.nodes[item.key].metadata.categories.includes(c)) categories[i] = undefined;
+						// Iterate through the categories.
+						for (const i in categories) {
+							const c = categories[i];
+							if (props.nodes[item.key].metadata.categories.includes(c)) categories[i] = undefined;
+						}
+						const x = [];
+						for (const item of x) if (item) x.push(item);
+						categories = x;
+
+						// Set the categories of the other nodes.
+						for (const c of categories) props.nodes[item.key].metadata.categories.push(c);
 					}
-					const x = [];
-					for (const item of x) if (item) x.push(item);
-					categories = x;
-
-					// Set the categories of the other nodes.
-					for (const c of categories) props.nodes[item.key].metadata.categories.push(c);
 				} else {
 					// Ok, lets check if this is on top of an category.
 

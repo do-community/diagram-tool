@@ -30,7 +30,8 @@ const defaultState = {
   metadata: {},
   connectors: [],
   nodes: {},
-  selection: {nodes:[], connectors:[], clipboard:{}},
+	selection: {nodes:[], connectors:[], clipboard:{}},
+	categoryNames: {},
   mode: 'Build'
 };
 
@@ -55,7 +56,8 @@ store.subscribe(throttle(() => {
 	helpers.saveState({
 		metadata:appState.metadata,
 		nodes:appState.nodes,
-		connectors:appState.connectors
+		connectors:appState.connectors,
+		categoryNames:appState.categoryNames
 	});
 }, 10000));
 
