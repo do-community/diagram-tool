@@ -33,7 +33,8 @@ class Node extends React.Component {
 
   clearCategories() {
     this.setState({showNotice: false});
-    // TODO: Actually do the clearing.
+    this.props.metadata.categories.length = 0;
+    this.props.updateDiagram();
   }
 
   handleOffset() {
@@ -59,9 +60,13 @@ class Node extends React.Component {
 
     const { showNotice, showNoticeNew } = this.state;
 
+    const categoriesExist = metadata.categories.length !== 0;
+
     if (showNoticeNew) {
-      setTimeout(() => this.setState({showNotice: false}), 10000);
-      this.setState({showNoticeNew: false});
+      if (!categoriesExist) {
+        setTimeout(() => this.setState({showNotice: false}), 10000);
+        this.setState({showNoticeNew: false});
+      }
     }
 
     return connectDropTarget(
@@ -75,7 +80,7 @@ class Node extends React.Component {
           className="hoverParent"
         >
           {
-            showNotice ? <a onClick={this.clearCategories.bind(this)}>cat clear</a> : undefined
+            showNotice && categoriesExist ? <a onClick={this.clearCategories.bind(this)}>cat clear</a> : undefined
           }
           <svg
             width="100%"

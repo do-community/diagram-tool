@@ -255,6 +255,7 @@ class Diagram extends React.Component {
           onDrop={(item, offset) =>
             this.diagramDrop('node', key, item, offset)
           }
+          updateDiagram={this.forceUpdate.bind(this)}
           rendered={x => mappedNodes[key] = x}
         />
       ));
