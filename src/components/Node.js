@@ -22,12 +22,27 @@ import ConnectorDragHandle from './ConnectorDragHandle';
 const { additionalIcons } = data;
 
 class Node extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.rendered(this);
+  }
+
+  clearCategories() {
+    this.setState({showNotice: false});
+    // TODO: Actually do the clearing.
+  }
+
   handleOffset() {
     return {
       left: (this.props.position ? this.props.position[0] * 100 : 0) + 'px',
       top: ((this.props.position ? this.props.position[1] * 100 : 0) - window.pageYOffset) + 'px'
     };
   }
+
   render() {
       let {
         nodeTemplate,
@@ -36,11 +51,18 @@ class Node extends React.Component {
         tags,
         type,
         connectDragSource,
-        connectDropTarget
+        connectDropTarget,
       } = this.props,
       scale = Math.round('scale' in metadata ? 60 * metadata.scale : 60),
       labelOffset = { bottom: (nodeTemplate.labelOffset ? nodeTemplate.labelOffset : 0) + 'px' };
       metadata = metadata || {};
+
+    const { showNotice, showNoticeNew } = this.state;
+
+    if (showNoticeNew) {
+      setTimeout(() => this.setState({showNotice: false}), 10000);
+      this.setState({showNoticeNew: false});
+    }
 
     return connectDropTarget(
       connectDragSource(
@@ -52,6 +74,9 @@ class Node extends React.Component {
           data-selected={this.props.selected === true}
           className="hoverParent"
         >
+          {
+            showNotice ? <a onClick={this.clearCategories.bind(this)}>cat clear</a> : undefined
+          }
           <svg
             width="100%"
             height="100%"
@@ -66,7 +91,7 @@ class Node extends React.Component {
             }
             {nodeTemplate.icon}
             {
-              metadata.blockStorage ? 
+              metadata.blockStorage ?
               <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{additionalIcons.blockStorage}</svg>
               :
               null
@@ -83,7 +108,7 @@ class Node extends React.Component {
                 {additionalIcons[metadata.managementMethod]}
               </svg>
             ) : null}
-            
+
             {metadata.activeDisableTemporarily ? (
               <circle className="active" r="4" cx="12" cy="89" />
             ) : null}

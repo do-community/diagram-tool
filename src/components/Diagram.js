@@ -29,6 +29,8 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 import data from '../data';
 import helpers from '../helpers.js';
 
+export let mappedNodes = {};
+
 class Diagram extends React.Component {
 
   constructor(props) {
@@ -239,9 +241,9 @@ class Diagram extends React.Component {
       );
       const categoryNames = this.state.categoryNames;
 
-      const mappedNodes = {};
+      const mappedNodesElements = {};
       Object.keys(nodes).forEach(key => (
-        mappedNodes[key] = <Node
+        mappedNodesElements[key] = <Node
           key={key}
           id={key}
           nodeTemplate={data.nodes[nodes[key].type]}
@@ -253,6 +255,7 @@ class Diagram extends React.Component {
           onDrop={(item, offset) =>
             this.diagramDrop('node', key, item, offset)
           }
+          rendered={x => mappedNodes[key] = x}
         />
       ));
 
@@ -288,7 +291,7 @@ class Diagram extends React.Component {
         />
       ))}
 
-      {Object.values(mappedNodes)}
+      {Object.values(mappedNodesElements)}
     </div>;
 
     let blankNodeElement;

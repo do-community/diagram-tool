@@ -52,8 +52,7 @@ const getCategory = (props, x, y) => {
 
 	// Return the top category if it's set.
 	return top;
-}
-
+};
 export default {
 	dndConnect(c, m) {
 		return {
