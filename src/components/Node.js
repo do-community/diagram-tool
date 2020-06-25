@@ -60,12 +60,12 @@ class Node extends React.Component {
 
     const { showNotice, showNoticeNew } = this.state;
 
-    const categoriesExist = metadata.categories.length !== 0;
+    const categoriesExist = (metadata.categories || []).length !== 0;
 
     if (showNoticeNew) {
       if (!categoriesExist) {
         setTimeout(() => this.setState({showNotice: false}), 10000);
-        this.setState({showNoticeNew: false});
+        setTimeout(() => this.setState({showNoticeNew: false}), 0);
       }
     }
 
@@ -80,7 +80,9 @@ class Node extends React.Component {
           className="hoverParent"
         >
           {
-            showNotice && categoriesExist ? <a onClick={this.clearCategories.bind(this)}>cat clear</a> : undefined
+            showNotice && categoriesExist ?
+            <a onClick={this.clearCategories.bind(this)} style={{position: 'absolute', top: -40}}>Remove from all categories</a>
+            : undefined
           }
           <svg
             width="100%"

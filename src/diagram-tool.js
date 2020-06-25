@@ -36,6 +36,6 @@ const router = (
       <MainMenuSwitcher />
     </DndProvider>
   </Provider>
-)
+);
 
 render(router, document.getElementById('root'));

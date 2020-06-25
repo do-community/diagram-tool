@@ -53,6 +53,10 @@ const getCategory = (props, x, y) => {
 	// Return the top category if it's set.
 	return top;
 };
+
+// TODO: Remove this
+console.log(getCategory);
+
 export default {
 	dndConnect(c, m) {
 		return {
@@ -161,6 +165,7 @@ export default {
 				// Check if on top of a node.
 				if (node) {
 					// Check the category length.
+					if (!node.metadata.categories) node.metadata.categories = [];
 					if (node.metadata.categories.length === 0) {
 						const c = Math.random().toString();
 						node.metadata.categories.push(c);
@@ -172,24 +177,28 @@ export default {
 						// Iterate through the categories.
 						for (const i in categories) {
 							const c = categories[i];
-							if (props.nodes[item.key].metadata.categories.includes(c)) categories[i] = undefined;
+							if ((props.nodes[item.key].metadata.categories || []).includes(c)) categories[i] = undefined;
 						}
 						const x = [];
-						for (const item of x) if (item) x.push(item);
+						for (const item of categories) if (item) x.push(item);
 						categories = x;
 
 						// Set the categories of the other nodes.
+						if (!props.nodes[item.key].metadata.categories) props.nodes[item.key].metadata.categories = [];
 						for (const c of categories) props.nodes[item.key].metadata.categories.push(c);
 					}
 				} else {
 					// Ok, lets check if this is on top of an category.
 
+					// TODO: Handle seamless category drop
+
 					// Try and get the category this was placed in.
-					const category = getCategory(props, pos[0], pos[1]);
-					if (category) {
+					//const category = getCategory(props, pos[0], pos[1]);
+					//if (!props.nodes[item.key].metadata.categories) props.nodes[item.key].metadata.categories = [];
+					//if (category) {
 						// Add the category.
-						if (!props.nodes[item.key].metadata.categories.includes(category)) props.nodes[item.key].metadata.categories.push(category);
-					}
+						//if (!props.nodes[item.key].metadata.categories.includes(category)) props.nodes[item.key].metadata.categories.push(category);
+					//}
 				}
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS

@@ -99,26 +99,26 @@ export const updatePosition = () => {
     if (positioner) {
         positioner.getWidthsHeights.bind(positioner)();
     }
-}
+};
 
 export const showWhereClick = (el, event, cornerPaddding) => {
     const left = `${event.clientX + window.pageXOffset}px`;
     const top = `${event.clientY + window.pageYOffset}px`;
     clickHandler.setState({el: <CloseEnoughPositioner left={left} top={top} el={el} cornerPaddding={cornerPaddding} />, left, top});
-}
+};
 
 export const getPosition = () => {
     return {
         left: clickHandler.state.left,
         top: clickHandler.state.top,
     };
-}
+};
 
 export const clear = () => {
     lineGenerator();
     clickHandler.setState({el: null});
-}
+};
 
 export const viewVisible = () => {
     return (clickHandler || {state: {el: null}}).state.el !== null;
-}
+};

@@ -577,7 +577,7 @@ const helpers = {
         });
       });
     }
-    console.log(update.connections)
+    console.log(update.connections);
 
     state.addNode(
       update.guid,

@@ -30,7 +30,10 @@ class CategoryNameEdit extends React.Component {
   }
 
   render() {
-    if (!this.state.edit) return <p onClick={() => this.setState({edit: true})}>{this.state.categoryName}</p>;
+    if (!this.state.edit) return this.state.categoryName ?
+      <p onClick={() => this.setState({edit: true})}>{this.state.categoryName}</p>
+      : <i onClick={() => this.setState({edit: true})}>Unnamed Category</i>;
+
     const c = this.handleChange.bind(this);
     return <span>
       <div className="diagramMetadata hoverParent do-bulma">
@@ -49,14 +52,21 @@ class Category extends React.Component {
   render() {
     let { categoryNames, id, bounds, connectDropTarget, outlineColor } = this.props;
 
-    if (!categoryNames[id] || categoryNames[id] === '') categoryNames[id] = 'Unnamed Category';
+    if (categoryNames[id] === '') categoryNames[id] = undefined;
 
     const style = {};
     Object.assign(style, bounds);
     style.outlineColor = outlineColor;
     return connectDropTarget(
       <div key={id} data-category="category" data-type={id} style={style}>
-        {bounds.width !== '100px' ? <CategoryNameEdit categoryName={categoryNames[id]} categoryNames={categoryNames} saveCategoryNames={this.props.saveCategoryNames} categoryId={id} /> : ''}
+        {
+          bounds.width !== '100px' ?
+          <CategoryNameEdit
+            categoryName={categoryNames[id]}
+            categoryNames={categoryNames}
+            saveCategoryNames={this.props.saveCategoryNames}
+            categoryId={id}
+          /> : ''}
       </div>
     );
   }
