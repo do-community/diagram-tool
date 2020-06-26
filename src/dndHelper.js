@@ -31,15 +31,15 @@ const getCategory = (props, x, y) => {
 	// Go through each category.
 	for (const key in categories) {
 		// Get the bounds of this category.
-		const bounds = helpers.getBoundingRectangle(key, props.nodes);
+		let bounds = helpers.getBoundingRectangle(key, props.nodes);
 
-		// Set the bounds.
-		bounds.left = Number(bounds.left.slice(0, -2));
-		bounds.top = Number(bounds.top.slice(0, -2));
-		bounds.height = Number(bounds.height.slice(0, -2));
-		bounds.width = Number(bounds.width.slice(0, -2));
-
-		// TODO: Fix the calculation.
+		// Set the bounds to the way we need it.
+		bounds = {
+			left: bounds[0][0],
+			top: bounds[1][0],
+			width: bounds[2][0],
+			height: bounds[3][0],
+		};
 
 		// Check the distance.
 		if (
@@ -53,9 +53,6 @@ const getCategory = (props, x, y) => {
 	// Return the top category if it's set.
 	return top;
 };
-
-// TODO: Remove this
-console.log(getCategory);
 
 export default {
 	dndConnect(c, m) {
@@ -190,15 +187,13 @@ export default {
 				} else {
 					// Ok, lets check if this is on top of an category.
 
-					// TODO: Handle seamless category drop
-
 					// Try and get the category this was placed in.
-					//const category = getCategory(props, pos[0], pos[1]);
-					//if (!props.nodes[item.key].metadata.categories) props.nodes[item.key].metadata.categories = [];
-					//if (category) {
+					const category = getCategory(props, pos[0], pos[1]);
+					if (!props.nodes[item.key].metadata.categories) props.nodes[item.key].metadata.categories = [];
+					if (category) {
 						// Add the category.
-						//if (!props.nodes[item.key].metadata.categories.includes(category)) props.nodes[item.key].metadata.categories.push(category);
-					//}
+						if (!props.nodes[item.key].metadata.categories.includes(category)) props.nodes[item.key].metadata.categories.push(category);
+					}
 				}
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS

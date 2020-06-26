@@ -252,6 +252,7 @@ class Diagram extends React.Component {
           type={nodes[key].type}
           selected={selection.nodes.indexOf(key) >= 0}
           tags={tags}
+          nodes={nodes}
           onDrop={(item, offset) =>
             this.diagramDrop('node', key, item, offset)
           }
@@ -268,7 +269,7 @@ class Diagram extends React.Component {
           saveCategoryNames={this.saveCategoryNames.bind(this)}
           categoryNames={categoryNames}
           outlineColor={categories[category][0][1]}
-          bounds={helpers.getBoundingRectangle(category, nodes)}
+          bounds={helpers.getDomPosition(category, nodes)}
           onDrop={(item, offset) =>
             this.diagramDrop('category', category, item, offset)
           }

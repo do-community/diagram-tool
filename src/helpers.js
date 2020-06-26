@@ -248,36 +248,47 @@ const helpers = {
     }, {});
   },
 
+  getDomPosition(category, nodes) {
+    const bounds = this.getBoundingRectangle(category, nodes);
+    const c = (i, s) => {
+      let r = bounds[i][0];
+      if (bounds[i][1]) r += s ? -0.5 : 0.5;
+      return r;
+    };
+    return {
+      left: c(0) * 100 + 'px',
+      top: c(1) * 100 + 'px',
+      width: c(2, true) * 100 + 'px',
+      height: c(3, true) * 100 + 'px'
+    };
+  },
+
   getBoundingRectangle(category, nodes) {
-    let bounds = [999, 999, -999, -999];
+    let bounds = [[999, false], [999, false], [-999, false], [-999, false]];
 
     Object.keys(nodes).forEach(key => {
       const c = get(nodes[key], 'metadata.categories');
       if (c && c.includes(category)) {
         const edge = get(DATA.nodes[nodes[key].type], 'metadata.edge') || get(DATA.nodes[nodes[key].type], 'behavior.edge');
-        if (nodes[key].position[0] < bounds[0]) {
-          bounds[0] = nodes[key].position[0] + (edge ? 0.5 : 0);
+        if (nodes[key].position[0] < bounds[0][0]) {
+          bounds[0] = [nodes[key].position[0], edge];
         } //left
-        if (nodes[key].position[1] < bounds[1]) {
-          bounds[1] = nodes[key].position[1] + (edge ? 0.5 : 0);
+        if (nodes[key].position[1] < bounds[1][0]) {
+          bounds[1] = [nodes[key].position[1], edge];
         } //top
-        if (nodes[key].position[0] > bounds[2]) {
-          bounds[2] = nodes[key].position[0] - (edge ? 0.5 : 0);
+        if (nodes[key].position[0] > bounds[2][0]) {
+          bounds[2] = [nodes[key].position[0], edge];
         } //right
-        if (nodes[key].position[1] > bounds[3]) {
-          bounds[3] = nodes[key].position[1] - (edge ? 0.5 : 0);
+        if (nodes[key].position[1] > bounds[3][0]) {
+          bounds[3] = [nodes[key].position[1], edge];
         } //bottom
       }
     });
 
-    const style = {
-      left: bounds[0] * 100 + 'px',
-      top: bounds[1] * 100 + 'px',
-      width: (bounds[2] - bounds[0] + 1) * 100 + 'px',
-      height: (bounds[3] - bounds[1] + 1) * 100 + 'px'
-    };
+    bounds[2][0] -= bounds[0][0] - 1;
+    bounds[3][0] -= bounds[1][0] - 1;
 
-    return style;
+    return bounds;
   },
 
   lineToSVGString(points, dir, simplex, style) {
