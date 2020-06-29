@@ -297,7 +297,7 @@ class Diagram extends React.Component {
     </div>;
 
     let blankNodeElement;
-    if (Object.keys(mappedNodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
+    if (Object.keys(nodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
     return connectDropTarget(<div className="modal" style={{display: 'initial'}}>
       <div className="modal-content" style={{width: '100%', height: '100%'}}>

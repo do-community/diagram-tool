@@ -164,6 +164,7 @@ export default {
 					// Check the category length.
 					if (!node.metadata.categories) node.metadata.categories = [];
 					if (node.metadata.categories.length === 0) {
+						// Create a category for the 2 nodes.
 						const c = Math.random().toString();
 						node.metadata.categories.push(c);
 						props.nodes[item.key].metadata.categories.push(c);
