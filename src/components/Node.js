@@ -37,7 +37,15 @@ class Node extends React.Component {
       const otherNodes = Object.keys(this.props.nodes).filter(
         k => this.props.nodes[k].metadata.categories.includes(cat) && k !== this.props.id).map(
           k => this.props.nodes[k]);
-      if (otherNodes.length === 1) otherNodes[0].metadata.categories.length = 0;
+      if (otherNodes.length === 1) {
+        const a = [...otherNodes[0].metadata.categories];
+        otherNodes[0].metadata.categories.length = 0;
+        for (const c of a) {
+          if (cat !== c) {
+            otherNodes[0].metadata.categories.append(c);
+          }
+        }
+      }
     }
     this.props.metadata.categories.length = 0;
     this.props.updateDiagram();
