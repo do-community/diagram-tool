@@ -21,6 +21,7 @@ import DATA from './data';
 import helpers from './helpers.js';
 import flow from 'lodash/flow';
 import { saveStore } from './store';
+import { refreshDiagram } from './components/Diagram';
 
 const getCategory = (props, x, y) => {
 	// Get the categories.
@@ -200,6 +201,9 @@ export default {
 
 				// Save the store.
 				saveStore();
+
+				// Force the diagram to refresh.
+				refreshDiagram();
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
 				if (targetCategory === 'connector') {

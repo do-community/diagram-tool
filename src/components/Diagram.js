@@ -31,6 +31,8 @@ import helpers from '../helpers.js';
 
 export let mappedNodes = {};
 
+export let refreshDiagram;
+
 class Diagram extends React.Component {
 
   constructor(props) {
@@ -47,6 +49,7 @@ class Diagram extends React.Component {
       props.initialize(response);
     });
     this.state = {categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}')};
+    refreshDiagram = this.forceUpdate.bind(this);
   }
 
   keyDown(event) {
