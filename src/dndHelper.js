@@ -20,6 +20,7 @@ import { DropTarget, DragSource } from 'react-dnd';
 import DATA from './data';
 import helpers from './helpers.js';
 import flow from 'lodash/flow';
+import { saveStore } from './store';
 
 const getCategory = (props, x, y) => {
 	// Get the categories.
@@ -196,6 +197,9 @@ export default {
 						if (!props.nodes[item.key].metadata.categories.includes(category)) props.nodes[item.key].metadata.categories.push(category);
 					}
 				}
+
+				// Save the store.
+				saveStore();
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
 				if (targetCategory === 'connector') {

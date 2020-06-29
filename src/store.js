@@ -50,8 +50,7 @@ const store = createStore(
 	)
 );
 
-//Continuously save application state to localstorage
-store.subscribe(throttle(() => {
+export const saveStore = throttle(() => {
 	const appState = store.getState();
 	helpers.saveState({
 		metadata:appState.metadata,
@@ -59,6 +58,9 @@ store.subscribe(throttle(() => {
 		connectors:appState.connectors,
 		categoryNames:appState.categoryNames
 	});
-}, 10000));
+});
+
+//Continuously save application state to localstorage
+store.subscribe(saveStore);
 
 export default store;

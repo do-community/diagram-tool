@@ -32,7 +32,7 @@ class CategoryNameEdit extends React.Component {
   render() {
     if (!this.state.edit) return this.state.categoryName ?
       <p onClick={() => this.setState({edit: true})}>{this.state.categoryName}</p>
-      : <i onClick={() => this.setState({edit: true})}>Unnamed Category</i>;
+      : <p><i onClick={() => this.setState({edit: true})}>Unnamed Category</i></p>;
 
     const c = this.handleChange.bind(this);
     return <span>
