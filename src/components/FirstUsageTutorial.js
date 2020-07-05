@@ -28,6 +28,10 @@ export default class FirstUsageTutorial extends React.Component {
         this.mounted = true;
     }
 
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
     getWindowSize() {
         const edits = {width: window.innerWidth, height: window.innerHeight};
         if (this.mounted) this.setState(edits);
