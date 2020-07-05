@@ -146,7 +146,7 @@ class Diagram extends React.Component {
             : this.props.deselectConnectors(parseInt(target.dataset.click_key, 10));
         else if (target.dataset.category === 'request')
           console.log('play');
-        else if (event.target.getAttribute('class') === 'diagram') {
+        else if (event.target.getAttribute('class') === 'diagram' || event.target.getAttribute('data-category') === 'category') {
           if (viewVisible()) {
             clear();
             lineGenerator();
