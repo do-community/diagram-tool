@@ -21,7 +21,7 @@ function nodes(state = [], action) {
     case 'INITIALIZE' :
       return action.data.nodes && typeof(action.data.nodes) === 'object' ? action.data.nodes : {};
     case 'MOVE_NODE':
-      mappedNodes[action.key].setState({showNotice: true, showNoticeNew: true});
+      mappedNodes[action.key].setState({showNotice: true});
       return Object.keys(state).reduce((newObj, key) => {
         if (key === action.key) {
           newObj[key] = {

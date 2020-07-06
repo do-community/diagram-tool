@@ -21,6 +21,24 @@ import data from '../data';
 import ConnectorDragHandle from './ConnectorDragHandle';
 const { additionalIcons } = data;
 
+class Timeout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {timedOut: false};
+    setTimeout(this.timeOut.bind(this), props.ms);
+  }
+
+  timeOut() {
+    this.setState({timedOut: true});
+    if (this.props.afterTimeout) this.props.afterTimeout();
+  }
+
+  render() {
+    if (this.state.timedOut) return <span />;
+    return this.props.children;
+  }
+}
+
 class Node extends React.Component {
   constructor(props) {
     super(props);
@@ -58,6 +76,10 @@ class Node extends React.Component {
     };
   }
 
+  afterTimeout() {
+    this.setState({showNotice: false});
+  }
+
   render() {
       let {
         nodeTemplate,
@@ -72,16 +94,9 @@ class Node extends React.Component {
       labelOffset = { bottom: (nodeTemplate.labelOffset ? nodeTemplate.labelOffset : 0) + 'px' };
       metadata = metadata || {};
 
-    const { showNotice, showNoticeNew } = this.state;
+    const { showNotice } = this.state;
 
     const categoriesExist = (metadata.categories || []).length !== 0;
-
-    if (showNoticeNew) {
-      if (!categoriesExist) {
-        setTimeout(() => this.setState({showNotice: false}), 10000);
-        setTimeout(() => this.setState({showNoticeNew: false}), 0);
-      }
-    }
 
     return connectDropTarget(
       connectDragSource(
@@ -94,9 +109,9 @@ class Node extends React.Component {
           className="hoverParent"
         >
           {
-            showNotice && categoriesExist ?
-            <a onClick={this.clearCategories.bind(this)} style={{position: 'absolute', top: -40}}>Remove from all categories</a>
-            : undefined
+            showNotice && categoriesExist ? <Timeout ms={10000} afterTimeout={this.afterTimeout.bind(this)}>
+              <a onClick={this.clearCategories.bind(this)} style={{position: 'absolute', top: -40}}>Remove from all categories</a>
+            </Timeout> : undefined
           }
           <svg
             width="100%"
