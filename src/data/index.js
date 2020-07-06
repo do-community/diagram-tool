@@ -23,17 +23,28 @@ import additionalIconsMassImport from './additionalIcons/*.tsx';
 const additionalIcons = {};
 Object.keys(additionalIconsMassImport).map(k => additionalIcons[k] = additionalIconsMassImport[k].default);
 
-export default {
-	diagrams,
-	connectors,
-	nodes,
-	nodesByCategory: Object.keys(nodes).reduce((acc, k) => {
+const getNodesByCategory = () => {
+  return Object.keys(nodes).reduce((acc, k) => {
     if (!(nodes[k].category in acc)) {
       acc[nodes[k].category] = {};
     }
     acc[nodes[k].category][k] = nodes[k];
     return acc;
-  }, {}),
+  }, {});
+};
+
+const conf = {
+	diagrams,
+	connectors,
+	nodes,
+	nodesByCategory: getNodesByCategory(),
   documentation,
   additionalIcons,
+};
+
+export default conf;
+
+export const importNode = (key, node) => {
+  conf.nodes[key] = node;
+  conf.nodesByCategory = getNodesByCategory();
 };
