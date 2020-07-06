@@ -46,10 +46,11 @@ export default class MainMenu extends React.Component {
     saveDiagram() {
         const url = new URL(window.location.href);
         url.searchParams.set('q', this.handleQuery());
+        navigator.clipboard.writeText(String(url));
         const innerContent = <div>
             <div className="field">
                 <p>
-                    The URL is <code>{String(url)}</code>.
+                    The URL is copied to your clipboard.
                 </p>
             </div>
             <div className="field">
