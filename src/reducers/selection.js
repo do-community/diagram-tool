@@ -28,7 +28,6 @@ function selection(state = [], action) {
       	nodes: Array.from(new Set([...state.nodes, ...(action.nodes || [])])),
         clipboard: {...state.clipboard}
       };
-
     case 'DESELECT':
       return {
       	connectors: state.connectors.filter((v) => action.connectors.indexOf(v) === -1),

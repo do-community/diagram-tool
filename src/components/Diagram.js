@@ -66,7 +66,7 @@ class Diagram extends React.Component {
         move[0] = 0.5;
       } else if (keyCode === 40) {
         move[1] = 0.5;
-      } else if (keyCode === 8) {
+      } else if (keyCode === 8 || keyCode === 46) {
         ['node', 'connector'].map(category =>
           this.props.selection[category + 's'].map(key =>
             this.props['delete' + helpers.capitalize(category)](key)
@@ -159,6 +159,7 @@ class Diagram extends React.Component {
               x: event.clientX,
               y: event.clientY,
             });
+            this.props.deselectNodes();
           }
         }
       }

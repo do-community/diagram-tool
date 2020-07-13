@@ -41,7 +41,7 @@ export default class MainMenuSwitcher extends React.Component {
     constructor(props) {
         super(props);
         this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />;
-        this.state = {item: this.menu};
+        this.state = {item: this.createAppInstance()};
     }
 
     createAppInstance() {
