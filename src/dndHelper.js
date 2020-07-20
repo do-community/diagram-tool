@@ -104,9 +104,9 @@ export default {
 		return DragSource(
 			type,
 			{
-				beginDrag: p => {
+				beginDrag(p) {
 					return { type: type, action: action, key: p.id || p.parent };
-				}
+				},
 			},
 			_dndConnect
 		)(component);

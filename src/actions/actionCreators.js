@@ -116,7 +116,6 @@ export function deleteNode(key) {
       type: 'DELETE_NODE',
       key
     });
-
   };
 }
 

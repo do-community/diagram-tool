@@ -16,7 +16,7 @@ limitations under the License.
 
 import React from 'react';
 //import NodeEditorField from './NodeEditorField.js';
-//import DATA from '../data';
+import DATA from '../data';
 
 class NodeEditor extends React.Component {
 
@@ -29,47 +29,53 @@ class NodeEditor extends React.Component {
     this.props.editType(this.props.identifier, e.target.value);
   }
 
+  rmNode() {
+    this.props.deleteNode(this.props.identifier);
+  }
+
+  rmCats() {
+    for (const cat of this.props.item.metadata.categories) {
+      const otherNodes = Object.keys(this.props.nodes).filter(
+        k => this.props.nodes[k].metadata.categories.includes(cat) && k !== this.props.id).map(
+          k => this.props.nodes[k]);
+      if (otherNodes.length === 1) {
+        const a = [...otherNodes[0].metadata.categories];
+        otherNodes[0].metadata.categories.length = 0;
+        for (const c of a) {
+          if (cat !== c) {
+            otherNodes[0].metadata.categories.append(c);
+          }
+        }
+      }
+    }
+    this.props.item.metadata.categories.length = 0;
+    this.props.updateDiagram();
+  }
+
   render() {
 
-    //const {item, identifier, template, editAction} = this.props,
-    //      itemType = typeof(identifier) === 'string' ? 'node' : 'connector';
+    const {item, identifier, template} = this.props,
+          itemType = typeof(identifier) === 'string' ? 'node' : 'connector';
 
-    //if(!item) return (<span />);
+    if(!item) return (<span />);
 
-   // const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
+    const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
 
     return (
-      <span />
-      // <div className="node-config">
-      //   <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3>
-      //   <p>{template.description}</p>
-      //   <form className="bui-Form--spacing">
-
-      //   {itemType === 'connector' ?
-      //     <div className="bui-Select">
-      //       <label htmlFor="type">{itemType} type:</label>
-      //       <select
-      //         id="type"
-      //         onChange={this.handleChange}
-      //         value={item.type}
-      //       >
-      //         {Object.keys(DATA.connectors).map((o,i) => <option value={o} key={'opt_'+o+'_'+i}>{o}</option>)}
-      //       </select>
-      //     </div> : undefined }
-
-      //     {Object.keys(allMetadata).map((m,i) =>
-      //       <NodeEditorField
-      //         key={i}
-      //         name={m}
-      //         value={allMetadata[m]}
-      //         specs={itemType in DATA.documentation && m in DATA.documentation[itemType] ? DATA.documentation[itemType][m] : {}}
-      //         editAction={editAction}
-      //         identifier={identifier}
-      //       />
-
-      //     )}
-      //   </form>
-      // </div>
+      <div className="node-config">
+        <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3>
+        <p>{template.description}</p>
+        <form className="bui-Form--spacing">
+          {
+            item.metadata.categories.length !== 0 ? <p>
+              <a onClick={this.rmCats.bind(this)}>Remove all categories</a>
+            </p> : undefined
+          }
+          <p>
+            <a onClick={this.rmNode.bind(this)}>Remove node</a>
+          </p>
+        </form>
+      </div>
     );
   }
 };

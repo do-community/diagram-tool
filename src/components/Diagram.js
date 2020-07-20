@@ -159,7 +159,7 @@ class Diagram extends React.Component {
               x: event.clientX,
               y: event.clientY,
             });
-            this.props.deselectNodes();
+            return this.props.deselectNodes();
           }
         }
       }
@@ -169,7 +169,7 @@ class Diagram extends React.Component {
         Object.keys(this.props.selection.connectors).length >
         0
     ) {
-      this.props.deselectNodes();
+      return this.props.deselectNodes();
     }
   }
 
@@ -314,8 +314,7 @@ class Diagram extends React.Component {
           onMouseDown={this.mouseDown}
           onClick={this.click}
         >
-
-          <NodeEditor {...selected} />
+          <NodeEditor {...selected} deleteNode={this.props.deleteNode} updateDiagram={this.forceUpdate.bind(this)} nodes={this.props.nodes} />
 
           {blankNodeElement}
 

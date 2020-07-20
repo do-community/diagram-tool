@@ -21,24 +21,6 @@ import data from '../data';
 import ConnectorDragHandle from './ConnectorDragHandle';
 const { additionalIcons } = data;
 
-class Timeout extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {timedOut: false};
-    setTimeout(this.timeOut.bind(this), props.ms);
-  }
-
-  timeOut() {
-    this.setState({timedOut: true});
-    if (this.props.afterTimeout) this.props.afterTimeout();
-  }
-
-  render() {
-    if (this.state.timedOut) return <span />;
-    return this.props.children;
-  }
-}
-
 class Node extends React.Component {
   constructor(props) {
     super(props);
@@ -49,35 +31,11 @@ class Node extends React.Component {
     this.props.rendered(this);
   }
 
-  clearCategories() {
-    this.setState({showNotice: false});
-    for (const cat of this.props.metadata.categories) {
-      const otherNodes = Object.keys(this.props.nodes).filter(
-        k => this.props.nodes[k].metadata.categories.includes(cat) && k !== this.props.id).map(
-          k => this.props.nodes[k]);
-      if (otherNodes.length === 1) {
-        const a = [...otherNodes[0].metadata.categories];
-        otherNodes[0].metadata.categories.length = 0;
-        for (const c of a) {
-          if (cat !== c) {
-            otherNodes[0].metadata.categories.append(c);
-          }
-        }
-      }
-    }
-    this.props.metadata.categories.length = 0;
-    this.props.updateDiagram();
-  }
-
   handleOffset() {
     return {
       left: (this.props.position ? this.props.position[0] * 100 : 0) + 'px',
       top: ((this.props.position ? this.props.position[1] * 100 : 0) - window.pageYOffset) + 'px'
     };
-  }
-
-  afterTimeout() {
-    this.setState({showNotice: false});
   }
 
   render() {
@@ -94,10 +52,6 @@ class Node extends React.Component {
       labelOffset = { bottom: (nodeTemplate.labelOffset ? nodeTemplate.labelOffset : 0) + 'px' };
       metadata = metadata || {};
 
-    const { showNotice } = this.state;
-
-    const categoriesExist = (metadata.categories || []).length !== 0;
-
     return connectDropTarget(
       connectDragSource(
         <figure
@@ -108,11 +62,6 @@ class Node extends React.Component {
           data-selected={this.props.selected === true}
           className="hoverParent"
         >
-          {
-            showNotice && categoriesExist ? <Timeout ms={10000} afterTimeout={this.afterTimeout.bind(this)}>
-              <a onClick={this.clearCategories.bind(this)} style={{position: 'absolute', top: -40}}>Remove from all categories</a>
-            </Timeout> : undefined
-          }
           <svg
             width="100%"
             height="100%"
