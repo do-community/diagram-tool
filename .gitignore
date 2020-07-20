@@ -42,8 +42,8 @@ index.html
 # Ignore DS_Store (smh macOS)
 .DS_Store
 
-# parceljs related stuff.
-.cache
+# Remove any auto-generated code.
+src/data/additionalIcons/index.ts
 
-# Stop .idea bload.
+# Stop .idea bloat.
 .idea/

@@ -3,14 +3,16 @@
   "version": "0.0.1",
   "description": "A cloud infrastructure diagramming app.",
   "scripts": {
-    "build:template": "cross-env BLANK_TEMPLATE=false do-vue template && node ./build/create_index.js",
-    "build:parcel": "parcel build ./src/diagram-tool.js --public-url . && parcel build ./src/styles/style.scss --public-url .  --no-minify",
-    "build": "npm run clean && npm run build:template && npm run build:parcel && cp ./index.html ./dist/index.html",
+    "build:template": "mkdir dist && do-vue template && node ./build/create_index.js",
+    "build:autogen-icon-imports": "node ./src/data/additionalIconsGenerator.js",
+    "build:webpack": "webpack --config webpack.prod.js",
+    "build": "npm run clean && cross-env BLANK_TEMPLATE=false npm run build:template && npm run build:autogen-icon-imports && npm run build:webpack",
     "test": "eslint ./src/**/*.js",
     "lint-and-fix": "eslint ./src/**/*.js --fix",
-    "clean": "rimraf dist && rm -f index.html",
-    "start": "cross-env BLANK_TEMPLATE=true do-vue template && cross-env NODE_ENV=development node ./build/create_index.js && parcel ./index.html --port 7770",
-    "start:do": "cross-env BLANK_TEMPLATE=false do-vue template && cross-env NODE_ENV=development node ./build/create_index.js && parcel ./index.html --port 7770",
+    "clean": "rimraf dist",
+    "start:__base": "npm run clean && npm run build:template && npm run build:autogen-icon-imports && webpack-dev-server --open --config webpack.dev.js",
+    "start": "cross-env BLANK_TEMPLATE=false npm run start:__base",
+    "start:no-do": "cross-env BLANK_TEMPLATE=true npm run start:__base",
     "deploy:spaces:comment": "do-vue comment diagram-tool"
   },
   "repository": {
@@ -22,7 +24,6 @@
   "dependencies": {
     "babel-eslint": "10.0.3",
     "babel-types": "6.26.0",
-    "core-js": "^3.6.4",
     "d3": "^4.13.0",
     "do-bulma": "git+https://github.com/do-community/do-bulma.git",
     "eslint": "6.8.0",
@@ -50,18 +51,28 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-react": "7.10.4",
     "cross-env": "^7.0.2",
     "do-vue": "git+https://github.com/do-community/do-vue.git",
     "expect": "^1.18.0",
     "expect-jsx": "^2.5.1",
-    "parcel-bundler": "1.12.4",
     "posthtml": "0.12.0",
     "posthtml-custom-elements": "^1.1.2",
     "posthtml-extend": "0.3.0",
     "prettier": "1.10.2",
     "react-addons-test-utils": "^15.6.2",
     "sass": "^1.26.10",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.12",
+    "babel-loader": "8.1.0",
+    "ts-loader": "8.0.1",
+    "sass-loader": "9.0.2",
+    "css-loader": "3.6.0",
+    "mini-css-extract-plugin": "0.9.0",
+    "terser-webpack-plugin": "3.0.7",
+    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "webpack-merge": "5.0.9",
+    "webpack-dev-server": "3.11.0"
   }
 }

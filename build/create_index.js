@@ -24,4 +24,4 @@ const compile = posthtml()
     .html;
 
 // Write the HTML.
-fs.writeFileSync("./index.html", compile)
+fs.writeFileSync("./dist/index.html", compile);

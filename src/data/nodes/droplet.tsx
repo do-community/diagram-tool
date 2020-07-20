@@ -32,7 +32,6 @@ export default {
         categories: [],
         tags: '',
         cloudFirewall: 'disabled',
-        blockStorage: null,
         scale: 1,
     },
     behavior: {

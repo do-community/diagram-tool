@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+import './styles/style.scss';
 
 import React from 'react';
 import { render } from 'react-dom';
