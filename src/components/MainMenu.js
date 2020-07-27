@@ -16,6 +16,7 @@ limitations under the License.
 
 import React from 'react';
 import Landing from './do-vue-ports/Landing';
+import NewDiagramPage from './NewDiagramPage';
 
 export default class MainMenu extends React.Component {
     constructor(props) {
@@ -25,17 +26,13 @@ export default class MainMenu extends React.Component {
                 Select how you wish to proceed.
             </p>
             <p style={{fontSize: 'initial'}}>
-                <a className="button is-primary" onClick={() => this.newDiagram()} style={{marginRight: '5px'}}>New Diagram </a>
+                <a className="button is-primary" onClick={() => this.setState({innerContent: this.NewDiagramPage})} style={{marginRight: '5px'}}>New Diagram </a>
                 <a className="button is-primary" onClick={() => this.saveDiagram()} style={{marginRight: '5px'}}>Save Diagram </a>
                 <a className="button is-primary" onClick={() => this.props.switchToApp()}>Go To Tool </a>
             </p>
         </div>;
+        this.NewDiagramPage = <NewDiagramPage switchToMain={() => this.setState({innerContent: this.mainMenu})} />;
         this.state = {innerContent: this.mainMenu};
-    }
-
-    newDiagram() {
-        window.localStorage.removeItem('diagramToolState');
-        window.location.replace(`${window.location.origin}${window.location.pathname}`);
     }
 
     handleQuery() {

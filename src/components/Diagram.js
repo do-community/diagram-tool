@@ -113,7 +113,23 @@ class Diagram extends React.Component {
   }
 
   click(event) {
-    const target = event.target;
+    let target = event.target;
+    const isNode = () => {
+      let t = target;
+      for (;;) {
+        // If no parent node, return false.
+        if (!t.parentNode) return false;
+
+        // Check if this is a note.
+        if (t.getAttribute('data-category') === 'node') {
+          target = t;
+          return true;
+        }
+
+        // Get the next parent.
+        t = t.parentNode;
+      }
+    };
     if (target) {
       if (target.getAttribute('data-ondoubleclick') === 'add') {
         if (target.getAttribute('data-dblclick') == null) {
@@ -133,7 +149,7 @@ class Diagram extends React.Component {
           );
         }
       } else {
-        if (target.dataset.category === 'node')
+        if (isNode())
           target.dataset.selected === 'false'
             ? this.props.selectNodes(target.dataset.click_key, event.shiftKey)
             : this.props.deselectNodes(target.dataset.click_key);

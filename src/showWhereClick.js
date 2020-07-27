@@ -122,3 +122,7 @@ export const clear = () => {
 export const viewVisible = () => {
     return (clickHandler || {state: {el: null}}).state.el !== null;
 };
+
+document.onkeydown = e => {
+    if (e.keyCode === 27) clear();
+};
