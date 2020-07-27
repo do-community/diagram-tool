@@ -57,6 +57,7 @@ export default class MainMenuSwitcher extends React.Component {
     }
 
     switchToApp() {
+        window.scrollTo(0, 0);
         this.setState({item: this.createAppInstance()});
     }
 
