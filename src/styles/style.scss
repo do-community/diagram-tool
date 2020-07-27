@@ -14,32 +14,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-/* React Photo Gallery */
-@import "~react-image-gallery/styles/scss/image-gallery.scss";
-
-/* Colors */
-@import "colors";
-
-/* SVG Styles */
-@import "svg";
-
 /* Z-indices */
 $topLayer: 1200;
 
 /* Font sizes */
-$fontsmall: 0.8em;
+$fontsmall: 0.6em;
+label { font-size: $fontsmall; }
 $fontregular: 1.2em;
+p { font-size: $fontregular; }
 $fontmedium: 1.8em;
+h2 { font-size: $fontmedium; }
 $fontlarge: 2.4em;
+h1 { font-size: $fontlarge; }
 
 /* Paddings */
 $paddingstandard: 1rem 2rem;
 $paddingsmall: 0.5rem;
 
-/* Import global HTML stuff */
-@import "html";
-
 .diagram-tool {
+  /* React Photo Gallery */
+  @import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+  /* Colors */
+  @import "colors";
+
+  /* SVG Styles */
+  @import "svg";
+
+  /* Import global HTML stuff */
+  @import "html";
+
   /* Base */
   @import "tool_base";
 
