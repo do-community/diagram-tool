@@ -28,7 +28,7 @@ const diagrams = [
     {
         original: 'https://i.imgur.com/erhPjMF.png',
         thumbnail: 'https://i.imgur.com/erhPjMF.png',
-        name: 'Basic Load Balanced Tool',
+        name: 'Basic Load Balanced Diagram',
         diagram: {'metadata':{},'nodes':{'ab5684ad3a71':{'type':'droplet','metadata':{'name':'','agent':false,'privateNetwork':false,'enableIpv6':false,'backups':false,'image':'Ubuntu 16.04.4 x64','size':'s-4vcpu-8gb','categories':['0.848431795901802'],'tags':'','cloudFirewall':'disabled','scale':1},'position':[0,-1.5]},'b2573051a59d':{'type':'droplet','metadata':{'name':'','agent':false,'privateNetwork':false,'enableIpv6':false,'backups':false,'image':'Ubuntu 16.04.4 x64','size':'s-4vcpu-8gb','categories':['0.848431795901802'],'tags':'','cloudFirewall':'disabled','scale':1},'position':[-5,1]},'a12a5d3d16ed':{'type':'loadBalancer','metadata':{'name':'','algo':'round-robin','categories':['0.848431795901802']},'position':[-2.5,0]}},'connectors':[{'type':'https','metadata':{'port':443,'encryption':'TLS','color':'#2ecc71'},'between':['ab5684ad3a71','a12a5d3d16ed']},{'type':'https','metadata':{'port':443,'encryption':'TLS','color':'#2ecc71'},'between':['b2573051a59d','a12a5d3d16ed']}],'categoryNames':{}},
         categoryNames: {'0.848431795901802': 'Application'},
     },
