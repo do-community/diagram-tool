@@ -31,7 +31,6 @@ const defaultState = {
   connectors: [],
   nodes: {},
 	selection: {nodes:[], connectors:[], clipboard:{}},
-	categoryNames: {},
   mode: 'Build'
 };
 

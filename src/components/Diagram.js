@@ -320,7 +320,7 @@ class Diagram extends React.Component {
     if (Object.keys(nodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
     return connectDropTarget(<div className="modal" style={{display: 'initial'}}>
-      <div className="modal-content" style={{width: '100%', height: '100%'}}>
+      <div className="modal-content" style={{width: '100%', height: '100%', padding: 0, margin: 0}}>
         <div
           className="main"
           tabIndex="0"

@@ -52,6 +52,7 @@ class CloseEnoughPositioner extends React.Component {
 
     getWidthsHeights() {
         const domEl = this.ref.current;
+        if (!domEl) return;
         this.setState({contentWidth: domEl.clientWidth, contentHeight: domEl.clientHeight, pageWidth: window.innerWidth, pageHeight: window.innerHeight});
     }
 

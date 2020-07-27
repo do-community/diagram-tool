@@ -17,33 +17,52 @@ limitations under the License.
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 
-const images = [
+const diagrams = [
     {
         original: 'https://i.imgur.com/lPrlNOd.png',
         thumbnail: 'https://i.imgur.com/lPrlNOd.png',
         name: 'Empty Diagram',
-        diagram: {metadata: {}, nodes: {}, connectors: [], categoryNames: {}},
+        diagram: {metadata: {}, nodes: {}, connectors: []},
+        categoryNames: {},
+    },
+    {
+        original: 'https://i.imgur.com/erhPjMF.png',
+        thumbnail: 'https://i.imgur.com/erhPjMF.png',
+        name: 'Basic Load Balanced Tool',
+        diagram: {'metadata':{},'nodes':{'ab5684ad3a71':{'type':'droplet','metadata':{'name':'','agent':false,'privateNetwork':false,'enableIpv6':false,'backups':false,'image':'Ubuntu 16.04.4 x64','size':'s-4vcpu-8gb','categories':['0.848431795901802'],'tags':'','cloudFirewall':'disabled','scale':1},'position':[0,-1.5]},'b2573051a59d':{'type':'droplet','metadata':{'name':'','agent':false,'privateNetwork':false,'enableIpv6':false,'backups':false,'image':'Ubuntu 16.04.4 x64','size':'s-4vcpu-8gb','categories':['0.848431795901802'],'tags':'','cloudFirewall':'disabled','scale':1},'position':[-5,1]},'a12a5d3d16ed':{'type':'loadBalancer','metadata':{'name':'','algo':'round-robin','categories':['0.848431795901802']},'position':[-2.5,0]}},'connectors':[{'type':'https','metadata':{'port':443,'encryption':'TLS','color':'#2ecc71'},'between':['ab5684ad3a71','a12a5d3d16ed']},{'type':'https','metadata':{'port':443,'encryption':'TLS','color':'#2ecc71'},'between':['b2573051a59d','a12a5d3d16ed']}],'categoryNames':{}},
+        categoryNames: {'0.848431795901802': 'Application'},
     },
 ];
 
 export default class NewDiagramPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {page: 0, galleryRef: React.createRef()};
+    }
+
     render() {
         return <span>
-            <h2 className='title is-2' style={{textAlign: 'center'}}>
+            <h3 className='title is-3' style={{textAlign: 'center', margin: '10px'}}>
                 New Diagram
-            </h2>
-            <p>Please select the new diagram type you want:</p>
+            </h3>
             <p>
-                    <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
-                </p>
+                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
+            </p>
+            <h2 className='title is-2' style={{textAlign: 'center'}}>
+                {diagrams[this.state.page].name}
+            </h2>
             <ImageGallery
-                items={images}
+                className="gallery-container"
+                items={diagrams}
                 showFullscreenButton={false}
-                ref={this.galleryRef}
+                ref={this.state.galleryRef}
                 onPlay={index => {
-                    localStorage.setItem('diagramToolState', JSON.stringify(images[index].diagram));
+                    localStorage.setItem('diagramToolState', JSON.stringify(diagrams[index].diagram));
+                    localStorage.setItem('diagramToolCategoryNames', JSON.stringify(diagrams[index].categoryNames));                    
+                    this.state.galleryRef.current.pause();
                     window.location.reload();
                 }}
+                onSlide={page => this.setState({page})}
             />
         </span>;
     }
