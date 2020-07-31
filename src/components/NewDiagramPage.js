@@ -42,15 +42,15 @@ export default class NewDiagramPage extends React.Component {
 
     render() {
         return <span>
-            <h3 className='title is-3' style={{textAlign: 'center', margin: '10px'}}>
+            <p style={{textAlign: 'center', marginBottom: '10px', marginTop: '15px'}}>
                 New Diagram
-            </h3>
-            <p>
+            </p>
+            <p style={{marginBottom: '50px'}}>
                 <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
             </p>
-            <h2 className='title is-2' style={{textAlign: 'center'}}>
+            <h3 className='title is-3' style={{textAlign: 'center'}}>
                 {diagrams[this.state.page].name}
-            </h2>
+            </h3>
             <ImageGallery
                 className="gallery-container"
                 items={diagrams}

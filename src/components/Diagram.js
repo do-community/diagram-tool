@@ -246,6 +246,8 @@ class Diagram extends React.Component {
   }
 
   render() {
+    window.scrollTo(0, 0);
+
     const {
         nodes,
         connectors,
@@ -258,8 +260,8 @@ class Diagram extends React.Component {
         selection.nodes.length === 1
           ? 'node'
           : selection.connectors.length === 1 ? 'connector' : null
-      );
-      const categoryNames = this.state.categoryNames;
+      ),
+      categoryNames = this.state.categoryNames;
 
       const mappedNodesElements = {};
       Object.keys(nodes).forEach(key => (
@@ -319,7 +321,7 @@ class Diagram extends React.Component {
     let blankNodeElement;
     if (Object.keys(nodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
-    return connectDropTarget(<div className="modal" style={{display: 'initial'}}>
+    return connectDropTarget(<div className="modal" style={{display: 'initial', top: 0}}>
       <div className="modal-content" style={{width: '100%', height: '100%', padding: 0, margin: 0}}>
         <div
           className="main"
