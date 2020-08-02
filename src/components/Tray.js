@@ -34,10 +34,7 @@ export default class Tray extends React.Component {
 		// Run the drop action.
 		helpers.addNodeAndConnections(
 			nodeId,
-			helpers.mouseToGrid({
-				x: Number(position.left.slice(0, -2)),
-				y: Number(position.top.slice(0, -2)),
-			}),
+			[Number(position.left.slice(0, -2)), Number(position.top.slice(0, -2))],
 			DATA.nodes[nodeId].metadata,
 			this.props,
 		);
