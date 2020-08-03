@@ -259,7 +259,7 @@ const helpers = {
   },
 
   getBoundingRectangle(category, nodes) {
-    let bounds = [[999, false], [999, false], [-999, false], [-999, false]];
+    let bounds = [[2147483647, false], [2147483647, false], [-2147483647, false], [-2147483647, false]];
 
     Object.keys(nodes).forEach(key => {
       const c = get(nodes[key], 'metadata.categories');
@@ -280,8 +280,8 @@ const helpers = {
       }
     });
 
-    bounds[2][0] -= bounds[0][0] - 1;
-    bounds[3][0] -= bounds[1][0] - 1;
+    bounds[2][0] -= bounds[0][0] - 96;
+    bounds[3][0] -= bounds[1][0] - 96;
 
     return bounds;
   },
@@ -400,8 +400,7 @@ const helpers = {
 
   getClosestOpenPositionAndHitNode(position, nodes) {
     //FOLLOW A GRID SPIRAL PATTERN AWAY FROM position
-    // Starting 1 unit below
-    let stride = 4,
+    let stride = 16,
       step = 0,
       cx = position[0] - 128,
       cy = position[1] - 32;
