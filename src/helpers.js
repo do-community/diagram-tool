@@ -247,7 +247,7 @@ const helpers = {
     const bounds = this.getBoundingRectangle(category, nodes);
     const c = (i, s) => {
       let r = bounds[i][0];
-      if (bounds[i][1]) r += s ? -0.5 : 0.5;
+      if (bounds[i][1]) r += s ? -1 : 1;
       return r;
     };
     return {
@@ -390,8 +390,8 @@ const helpers = {
   positionIsUsed(nodes, x, y) {
     for (const key in nodes) {
       if (
-        Math.abs(nodes[key].position[0] - x) < 1 &&
-        Math.abs(nodes[key].position[1] - y) < 1
+        Math.abs(nodes[key].position[0] - x) < 64 &&
+        Math.abs(nodes[key].position[1] - y) < 64
       ) {
         return nodes[key];
       }
