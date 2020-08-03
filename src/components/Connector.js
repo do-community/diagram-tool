@@ -52,8 +52,8 @@ class Connector extends React.Component {
 			start = invert ? between[1] : between[0],
 			end = invert ? between[0] : between[1],
 			sectionStyle = metadata.style && metadata.style === 'angular' ? 3 : 2;
-			h = Math.abs(end[1] - start[1]) * 103;
-			w = (end[0] - start[0]) * 100;
+			h = Math.abs(end[1] - start[1]);
+			w = Math.abs(end[0] - start[0]);
 			dir = 'v';
 
 
@@ -62,9 +62,9 @@ class Connector extends React.Component {
 				w = 20;
 				h -= 69;
 				pos = {
-					left: start[0] * 100 + 40 + 'px',
+					left: start[0] + 40 + 'px',
 					top:
-						(((start[1] < end[1] ? start[1] : end[1]) + 1) * 100) - 18 +
+						(((start[1] < end[1] ? start[1] : end[1]) + 1)) - 18 +
 						'px',
 					width: '20px',
 					height: h + 'px'
@@ -77,9 +77,9 @@ class Connector extends React.Component {
 				h = 12;
 				w -= 64;
 				pos = {
-					left: (start[0] + 1) * 100 - 18 + 'px',
+					left: (start[0] + 1) - 18 + 'px',
 					top:
-						((start[1] < end[1] ? start[1] : end[1]) * 100) + 38 + 'px',
+						((start[1] < end[1] ? start[1] : end[1])) + 38 + 'px',
 					width: w + 'px',
 					height: '30px'
 				};
@@ -91,9 +91,9 @@ class Connector extends React.Component {
 				h += 20;
 				// if connector travels further in x than in y
 				pos = {
-					left: (start[0] + 0.92) * 100 - 10 + 'px',
+					left: (start[0] + 92) - 10 + 'px',
 					top:
-						(start[1] < end[1] ? start[1] : end[1]) * 100 +
+						(start[1] < end[1] ? start[1] : end[1]) +
 						40 +
 						'px',
 					width: w + 'px',
@@ -121,13 +121,13 @@ class Connector extends React.Component {
 					dnsPath = [[0, 0], [15, 0]];
 				}
 			} else {
-				h -= 68;
+				h -= 48;
 				w += 10;
 				// if connector travels further in y than x
 				pos = {
-					left: start[0] * 100 + 50 + 'px',
+					left: start[0] + 50 + 'px',
 					top:
-						((start[1] < end[1] ? start[1] : end[1]) + 0.82) * 100 +
+						((start[1] < end[1] ? start[1] : end[1]) + 82) +
 						'px',
 					width: w + 'px',
 					height: h + 'px'

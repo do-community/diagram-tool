@@ -34,11 +34,6 @@ const helpers = {
     return s.charAt(0).toUpperCase() + s.slice(1);
   },
 
-  //round a number to two decimal points
-  round2(num) {
-    return Math.round(num * 100.0) / 100.0;
-  },
-
   //Helper used for creating GUIDs (see below)
   _s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -252,19 +247,19 @@ const helpers = {
     const bounds = this.getBoundingRectangle(category, nodes);
     const c = (i, s) => {
       let r = bounds[i][0];
-      if (bounds[i][1]) r += s ? -0.5 : 0.5;
+      if (bounds[i][1]) r += s ? -1 : 1;
       return r;
     };
     return {
-      left: c(0) * 100 + 'px',
-      top: c(1) * 100 + 'px',
-      width: c(2, true) * 100 + 'px',
-      height: c(3, true) * 100 + 'px'
+      left: c(0) + 'px',
+      top: c(1) + 'px',
+      width: c(2, true) + 'px',
+      height: c(3, true) + 'px'
     };
   },
 
   getBoundingRectangle(category, nodes) {
-    let bounds = [[999, false], [999, false], [-999, false], [-999, false]];
+    let bounds = [[2147483647, false], [2147483647, false], [-2147483647, false], [-2147483647, false]];
 
     Object.keys(nodes).forEach(key => {
       const c = get(nodes[key], 'metadata.categories');
@@ -285,8 +280,8 @@ const helpers = {
       }
     });
 
-    bounds[2][0] -= bounds[0][0] - 1;
-    bounds[3][0] -= bounds[1][0] - 1;
+    bounds[2][0] -= bounds[0][0] - 96;
+    bounds[3][0] -= bounds[1][0] - 96;
 
     return bounds;
   },
@@ -319,13 +314,13 @@ const helpers = {
           if (dir === 'h') {
             st_1 +=
               'L ' +
-              this.round2(points[i][0] - 0.5 * offset) +
+              points[i][0] - 0.5 * offset +
               ' ' +
               (points[i][1] + 1.5) +
               ' ';
             st_2 =
               'L ' +
-              this.round2(points[i][0] + 0.5 * offset) +
+              points[i][0] + 0.5 * offset +
               ' ' +
               (points[i][1] - 1.5) +
               ' ' +
@@ -335,13 +330,13 @@ const helpers = {
               'L ' +
               (points[i][0] + 1.5) +
               ' ' +
-              this.round2(points[i][1] - 0.5 * offset) +
+              points[i][1] - 0.5 * offset +
               ' ';
             st_2 =
               'L ' +
               (points[i][0] - 1.5) +
               ' ' +
-              this.round2(points[i][1] + 0.5 * offset) +
+              points[i][1] + 0.5 * offset +
               ' ' +
               st_2;
           }
@@ -367,14 +362,6 @@ const helpers = {
         return st_1;
       }
     }
-  },
-
-  mouseToGrid(pos) {
-    const _dpos = document.querySelector('.diagram').getBoundingClientRect();
-    return [
-      Math.ceil((pos.x - _dpos.left + 100.0 - _dpos.width / 2) / 50.0) / 2.0,
-      Math.floor((pos.y - _dpos.top - 50.0 - _dpos.height / 2.0) / 50.0) / 2.0
-    ];
   },
 
   getClosestNodes(types, position, nodes, greedy) {
@@ -403,8 +390,8 @@ const helpers = {
   positionIsUsed(nodes, x, y) {
     for (const key in nodes) {
       if (
-        Math.abs(nodes[key].position[0] - x) < 1 &&
-        Math.abs(nodes[key].position[1] - y) < 1
+        Math.abs(nodes[key].position[0] - x) < 64 &&
+        Math.abs(nodes[key].position[1] - y) < 64
       ) {
         return nodes[key];
       }
@@ -413,11 +400,10 @@ const helpers = {
 
   getClosestOpenPositionAndHitNode(position, nodes) {
     //FOLLOW A GRID SPIRAL PATTERN AWAY FROM position
-    // Starting 1 unit below
-    let stride = 4,
+    let stride = 16,
       step = 0,
-      cx = position[0],
-      cy = position[1] + 1;
+      cx = position[0] - 128,
+      cy = position[1] - 48;
     let r = this.positionIsUsed(nodes, cx, cy);
     if (!r) return [cx, cy, undefined];
     cx++;
@@ -425,8 +411,8 @@ const helpers = {
       //YOLO
       if (!this.positionIsUsed(nodes, cx, cy)) return [cx, cy, r];
       //NOT OPEN! - BRAINBENDING SPIRAL PATHER
-      cx += (stride % 2 == 0 ? -1 : 1) * (step >= stride ? 0.5 : 0);
-      cy += (stride % 2 == 0 ? -1 : 1) * (step < stride ? 0.5 : 0);
+      cx += (stride % 2 == 0 ? -1 : 1) * (step >= stride ? 1 : 0);
+      cy += (stride % 2 == 0 ? -1 : 1) * (step < stride ? 1 : 0);
       step++;
       if (step == stride * 2) {
         stride++;
@@ -437,8 +423,8 @@ const helpers = {
 
   getNodesWithinRect(nodes, coords) {
     const box = [
-      this.mouseToGrid({ x: coords[0], y: coords[1] }),
-      this.mouseToGrid({ x: coords[2], y: coords[3] })
+      [coords[0], coords[1]],
+      [coords[2], coords[3]],
     ];
     let selectedNodes = [];
     Object.keys(nodes).forEach(key => {
@@ -458,7 +444,6 @@ const helpers = {
     let dragObj = {
       box: document.querySelector('#dragBox'),
       getNodesWithinRect: this.getNodesWithinRect,
-      mouseToGrid: this.mouseToGrid,
       selectCB: selectCB,
       nodes: nodes,
       _sx: start[0],

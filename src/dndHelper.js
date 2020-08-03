@@ -150,8 +150,8 @@ export default {
 			if (item.action === 'move') {
 				// Get the position and potedntially hit node.
 				const pos = helpers.getClosestOpenPositionAndHitNode(
-					helpers.mouseToGrid(offset),
-					props.nodes
+					[offset.x, offset.y],
+					props.nodes,
 				);
 				let node = pos.pop();
 				if (node && node.position[0] === props.nodes[item.key].position[0] && node.position[1] === props.nodes[item.key].position[1]) node = undefined;
@@ -213,7 +213,7 @@ export default {
 				//Add Node with Connections
 				helpers.addNodeAndConnections(
 					item.key,
-					helpers.mouseToGrid(offset),
+					[offset.x, offset.y],
 					DATA.nodes[item.key].metadata,
 					props
 				);
