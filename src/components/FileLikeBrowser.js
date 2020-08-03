@@ -53,7 +53,7 @@ export default class FileLikeBrowser extends React.Component {
             onClick,
         } = this.props;
 
-        return <div className="file-like-browser">
+        return <div className="file-like-browser panel">
             <div style={{paddingLeft: 25, paddingRight: 25}}>
                 <h3 className="title is-3" style={{textAlign: 'center'}}>
                     <span style={{float: 'left'}}>

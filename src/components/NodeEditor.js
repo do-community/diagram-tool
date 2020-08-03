@@ -62,7 +62,7 @@ class NodeEditor extends React.Component {
     const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
 
     return (
-      <div className="node-config">
+      <div className="node-config panel">
         <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3>
         <p>{template.description}</p>
         <form className="bui-Form--spacing">
