@@ -14,14 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { mappedNodes } from '../components/Diagram';
-
 function nodes(state = [], action) {
   switch(action.type) {
     case 'INITIALIZE' :
       return action.data.nodes && typeof(action.data.nodes) === 'object' ? action.data.nodes : {};
     case 'MOVE_NODE':
-      mappedNodes[action.key].setState({showNotice: true});
       return Object.keys(state).reduce((newObj, key) => {
         if (key === action.key) {
           newObj[key] = {
