@@ -403,7 +403,7 @@ const helpers = {
     let stride = 16,
       step = 0,
       cx = position[0] - 128,
-      cy = position[1] - 32;
+      cy = position[1] - 48;
     let r = this.positionIsUsed(nodes, cx, cy);
     if (!r) return [cx, cy, undefined];
     cx++;
