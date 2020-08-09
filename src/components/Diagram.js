@@ -28,6 +28,7 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
+import connectors from '../reducers/connectors.js';
 
 export let mappedNodes = {};
 
@@ -66,22 +67,119 @@ class Diagram extends React.Component {
         move[0] = 8;
       } else if (keyCode === 40) {
         move[1] = 8;
-      } else if (keyCode === 8 || keyCode === 46) {
+      } else if (keyCode === 83) {
+        move = null;
+      }
+      else if (keyCode === 8 || keyCode === 46) {
         ['node', 'connector'].map(category =>
           this.props.selection[category + 's'].map(key =>
             this.props['delete' + helpers.capitalize(category)](key)
           )
         );
       }
-      if (move[0] !== 0 || move[1] !== 0) {
+      if (!move || move[0] !== 0 || move[1] !== 0) {
         if(event.shiftKey) move = move.map((m) => {return m/2.0;});
         ['node', 'connector'].map(category =>
-          this.props.selection[category + 's'].map(key => {
-            this.props['move' + helpers.capitalize(category)](
-              key,
-              ...move,
-              true
-            );
+          this.props.selection[category + 's'].map((key, index, arr) => {
+            if (move) {
+              // Move the node.
+              this.props['move' + helpers.capitalize(category)](
+                key,
+                ...move,
+                true
+              );
+            } else {
+              // Align the node if possible.
+              let connectedNodes = [];
+              if (arr.length === 1) {
+                // Get connected nodes.
+                for (const connector of this.props.connectors) {
+                  if (connector.between.includes(key)) {
+                    for (const between of connector.between) {
+                      if (between !== key) connectedNodes.push(between);
+                    }
+                  }
+                }
+              } else {
+                // Get other nodes which were selected.
+                connectedNodes = arr.filter((_, i) => i !== index);
+              }
+
+              // If there's one connected node, we should try and align it by X/Y depending on what's logical.
+              if (connectedNodes.length === 1) {
+                // Get the node we're connected to.
+                const connectedNode = this.props.nodes[connectedNodes[0]];
+                const currentNode = this.props.nodes[key];
+
+                // Check if we should change the X or Y position.
+                if (Math.abs(connectedNode.position[1] - currentNode.position[1]) > 80) {
+                  // Set the node to be on the same X position.
+                  this.props['move' + helpers.capitalize(category)](
+                    key,
+                    connectedNode.position[0] - currentNode.position[0],
+                    0,
+                    true
+                  );
+                } else {
+                    // Set the node to be on the same Y position.
+                    this.props['move' + helpers.capitalize(category)](
+                      key,
+                      0,
+                      connectedNode.position[1] - currentNode.position[1],
+                      true
+                    );
+                }
+
+                // Return here.
+                return;
+              }
+
+              // Try and get the lowest/highest X/Y.
+              let lowestX = 9999999999;
+              let lowestY = 9999999999;
+              let highestX = -9999999999;
+              let highestY = -9999999999;
+              const nodeX = this.props.nodes[key].position[0];
+              const nodeY = this.props.nodes[key].position[1];
+              for (const node of connectedNodes.map(x => this.props.nodes[x])) {
+                if (lowestX > node.position[0]) lowestX = node.position[0];
+                if (lowestY > node.position[1]) lowestY = node.position[1];
+                if (node.position[0] > highestX) highestX = node.position[0];
+                if (node.position[1] > highestY) highestY = node.position[1];
+              }
+
+              const yDelta = highestY-lowestY;
+
+              // Put the node in the midpoint.
+              const yMidpoint = lowestY+(yDelta/2);
+
+              // Get the X midpoint.
+              const xMidpoint = lowestX+((highestX-lowestX)/2);
+
+              // Do some maths to handle snapping with multiple items.
+              if (80 > yDelta && 200 > Math.abs(lowestY-nodeY)) {
+                this.props['move' + helpers.capitalize(category)](
+                  key,
+                  0,
+                  yMidpoint - nodeY,
+                  true
+                );
+              } else if (connectedNodes.length > 2) {
+                this.props['move' + helpers.capitalize(category)](
+                  key,
+                  xMidpoint - nodeX,
+                  yMidpoint - nodeY,
+                  true
+                );
+              } else {
+                this.props['move' + helpers.capitalize(category)](
+                  key,
+                  xMidpoint - nodeX,
+                  0,
+                  true
+                );
+              }
+            }
           })
         );
       }

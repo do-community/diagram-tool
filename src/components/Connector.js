@@ -60,11 +60,10 @@ class Connector extends React.Component {
 			// v - vertical
 			if (start[0] == end[0]) {
 				w = 20;
-				h -= 69;
 				pos = {
 					left: start[0] + 40 + 'px',
 					top:
-						(((start[1] < end[1] ? start[1] : end[1]) + 1)) - 18 +
+						(((start[1] < end[1] ? start[1] : end[1]) + 20)) +
 						'px',
 					width: '20px',
 					height: h + 'px'
@@ -75,9 +74,9 @@ class Connector extends React.Component {
 			} else if (start[1] == end[1]) {
 				dir = 'h'; // h - horizontal
 				h = 12;
-				w -= 64;
+				//w -= 64;
 				pos = {
-					left: (start[0] + 1) - 18 + 'px',
+					left: (start[0] + 20) + 'px',
 					top:
 						((start[1] < end[1] ? start[1] : end[1])) + 38 + 'px',
 					width: w + 'px',
