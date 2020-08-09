@@ -28,7 +28,6 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
-import connectors from '../reducers/connectors.js';
 
 export let mappedNodes = {};
 
