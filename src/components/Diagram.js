@@ -59,13 +59,13 @@ class Diagram extends React.Component {
     ) {
       let move = [0, 0];
       if (keyCode === 37) {
-        move[0] = -0.5;
+        move[0] = -8;
       } else if (keyCode === 38) {
-        move[1] = -0.5;
+        move[1] = -8;
       } else if (keyCode === 39) {
-        move[0] = 0.5;
+        move[0] = 8;
       } else if (keyCode === 40) {
-        move[1] = 0.5;
+        move[1] = 8;
       } else if (keyCode === 8 || keyCode === 46) {
         ['node', 'connector'].map(category =>
           this.props.selection[category + 's'].map(key =>
