@@ -435,7 +435,8 @@ class Diagram extends React.Component {
 
           <DiagramMetadata
             {...this.props.metadata}
-            switchToMenu={this.props.switchToMenu}
+            switchToNew={this.props.switchToNew}
+            switchToSave={this.props.switchToSave}
             editAction={this.props.editDiagramMetadata}
           />
 

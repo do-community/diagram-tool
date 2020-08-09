@@ -16,12 +16,17 @@ limitations under the License.
 
 import React from 'react';
 
-export default class MenuButton extends React.Component {
+export default class MenuButtons extends React.Component {
     render() {
-        return <span style={{position: 'absolute'}} className="do-bulma diagram-tool">
-            <a className="button is-info" onClick={this.props.switchToMenu}>
-                Menu
-            </a>
+        return <span style={{position: 'absolute'}} className="do-bulma diagram-tool buttons diagramMetadata">
+            <p>
+                <a className="button is-info" onClick={this.props.switchToNew}>
+                    New Diagram
+                </a>
+                <a className="button is-info" onClick={this.props.switchToSave}>
+                    Save Diagram
+                </a>
+            </p>
         </span>;
     }
 }

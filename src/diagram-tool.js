@@ -19,7 +19,7 @@ import './styles/style.scss';
 import React from 'react';
 import { render } from 'react-dom';
 
-import MainMenuSwitcher from './components/MainMenuSwitcher';
+import VisiblePageSwitcher from './components/VisiblePageSwitcher';
 import { ClickPositioner } from './showWhereClick';
 
 import { Provider } from 'react-redux';
@@ -32,7 +32,7 @@ const router = (
   <Provider store={store}>
     <DndProvider backend={Backend}>
       <ClickPositioner />
-      <MainMenuSwitcher />
+      <VisiblePageSwitcher />
     </DndProvider>
   </Provider>
 );

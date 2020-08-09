@@ -41,16 +41,11 @@ export default class NewDiagramPage extends React.Component {
     }
 
     render() {
-        return <span>
-            <p style={{textAlign: 'center', marginBottom: '10px', marginTop: '15px'}}>
+        return <span className="do-bulma">
+            <h3 className='title is-3' style={{textAlign: 'center', marginTop: '50px'}}>
                 New Diagram
-            </p>
-            <p style={{marginBottom: '50px'}}>
-                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
-            </p>
-            <h3 className='title is-3' style={{textAlign: 'center'}}>
-                {diagrams[this.state.page].name}
             </h3>
+            <p style={{textAlign: 'center'}}><b>Currently Shown Diagram:</b> {diagrams[this.state.page].name}</p>
             <ImageGallery
                 className="gallery-container"
                 items={diagrams}
@@ -64,6 +59,9 @@ export default class NewDiagramPage extends React.Component {
                 }}
                 onSlide={page => this.setState({page})}
             />
+            <p style={{marginBottom: '50px', textAlign: 'center'}}>
+                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
+            </p>
         </span>;
     }
 }

@@ -15,10 +15,11 @@ limitations under the License.
 */
 
 import React from 'react';
-import MainMenu from './MainMenu';
 import Diagram from './Diagram';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import NewDiagramPage from './NewDiagramPage';
+import SaveDiagramPage from './SaveDiagramPage';
 import * as actionCreators from '../actions/actionCreators';
 import { clear } from '../showWhereClick';
 
@@ -36,24 +37,32 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-export default class MainMenuSwitcher extends React.Component {
+export default class VisiblePageSwitcher extends React.Component {
     constructor(props) {
         super(props);
-        this.menu = <MainMenu {...this.props} switchToApp={() => this.switchToApp()} />;
         this.state = {item: this.createAppInstance()};
     }
 
     createAppInstance() {
-        const m = () => this.switchToMenu();
+        const x = () => this.switchToNew();
+        const y = () => this.switchToSave();
         const Connection = connect(mapStateToProps, mapDispatchToProps)(Diagram);
         document.body.style.overflow = 'hidden';
-        return <Connection switchToMenu={m} />;
+        return <Connection switchToNew={x} switchToSave={y} />;
     }
 
-    switchToMenu() {
+    switchToNew() {
+        window.scrollTo(0, 0);
         clear();
         document.body.style.overflow = 'initial';
-        this.setState({item: this.menu});
+        this.setState({item: <NewDiagramPage switchToMain={() => this.switchToApp()} />});
+    }
+
+    switchToSave() {
+        window.scrollTo(0, 0);
+        clear();
+        document.body.style.overflow = 'initial';
+        this.setState({item: <SaveDiagramPage switchToMain={() => this.switchToApp()} />});
     }
 
     switchToApp() {
