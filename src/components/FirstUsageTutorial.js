@@ -16,11 +16,33 @@ limitations under the License.
 
 import React from 'react';
 
+class KeybindInfo extends React.Component {
+    render() {
+        return <span>
+           <p style={{marginBottom: '5px'}}>
+                <span style={{border: '1px solid', borderColor: 'black', marginRight: '5px', padding: '1px'}}>
+                    {this.props.keyName}
+                </span>
+                {this.props.description}
+            </p>
+        </span>;
+    }
+}
+
 export default class FirstUsageTutorial extends React.Component {
     constructor(props) {
         super(props);
+        const keybinds = [
+            [' S ', 'Snap node based on selection or connectors'],
+            [' < ', 'Move selected node(s) left'],
+            [' > ', 'Move selected node(s) right'],
+            [' ∧ ', 'Move selected node(s) up'],
+            [' ∨ ', 'Move selected node(s) down'],
+            ['SHIFT', 'Select multiple nodes'],
+        ];
         this.mounted = false;
         this.getWindowSize();
+        this.state.keybinds = keybinds;
         window.addEventListener('resize', this.getWindowSize.bind(this));
     }
 
@@ -39,14 +61,21 @@ export default class FirstUsageTutorial extends React.Component {
     }
 
     render() {
-        return <span style={{
-            position: 'absolute',
-            textAlign: 'center',
-            left: `${this.state.width / 2}px`,
-            WebkitTransform: 'translate(-50%, -50%)',
-            top: `${this.state.height / 2}px`,
-        }}>
-            <h1 className="title is-1">To start, simply click somewhere on the screen.</h1>
+        return <span>
+            <span style={{
+                position: 'absolute',
+                textAlign: 'center',
+                left: `${this.state.width / 2}px`,
+                WebkitTransform: 'translate(-50%, -50%)',
+                top: `${this.state.height / 2}px`,
+            }}>
+                <h1 className="title is-1">To start, simply click on a blank place on the screen to open the node selector.</h1>
+            </span>
+            <span style={{border: '1px solid', borderColor: 'black', padding: '5px', position: 'absolute', margin: '5px'}}>
+                {
+                    this.state.keybinds.map(v => <KeybindInfo keyName={v[0]} description={v[1]} key={v[0]} />)
+                }
+            </span>
         </span>;
     }
 }
