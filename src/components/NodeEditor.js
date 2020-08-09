@@ -67,7 +67,7 @@ class NodeEditor extends React.Component {
         <p>{template.description}</p>
         <form className="bui-Form--spacing">
           {
-            item.metadata.categories.length !== 0 ? <p>
+            (item.metadata.categories || []).length !== 0 ? <p>
               <a style={{cursor: 'default'}} onClick={this.rmCats.bind(this)}>Remove all categories</a>
             </p> : undefined
           }
