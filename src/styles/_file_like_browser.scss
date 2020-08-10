@@ -17,7 +17,6 @@ limitations under the License.
 .file-like-browser {
     position: sticky;
     z-index: $topLayer;
-    background: $gray100;
     user-select: none;
 
     div {
@@ -29,8 +28,8 @@ limitations under the License.
         margin: 5px;
       }
       label {
-        background: $white_semitransparent;
         color: $gray600;
+        cursor: pointer;
       }
     }
 
@@ -45,4 +44,12 @@ limitations under the License.
 
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.file-like-browser-button {
+  cursor: pointer;
+}
+
+.file-like-browser-button:hover {
+  background-color: #dcdada;
 }

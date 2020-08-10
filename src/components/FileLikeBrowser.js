@@ -24,7 +24,7 @@ class ButtonsView extends React.Component {
         } = this.props;
 
         return <div className="columns">
-            {buttons.map(button => <div key={button.id} style={{cursor: 'pointer'}} onClick={() => onClick(button.id)} className="column">
+            {buttons.map(button => <div key={button.id} onClick={() => onClick(button.id)} className="file-like-browser-button column">
                 <svg viewBox="0 0 60 60">
                     <g transform="scale(0.6)">
                         {button.icon}
