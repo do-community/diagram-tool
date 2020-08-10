@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 import React from 'react';
-//import NodeEditorField from './NodeEditorField.js';
 import DATA from '../data';
+import { saveStore } from '../store';
 
 class NodeEditor extends React.Component {
 
@@ -50,6 +50,7 @@ class NodeEditor extends React.Component {
     }
     this.props.item.metadata.categories.length = 0;
     this.props.updateDiagram();
+    saveStore();
   }
 
   render() {
