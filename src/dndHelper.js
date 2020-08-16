@@ -156,6 +156,13 @@ export default {
 				let node = pos.pop();
 				if (node && node.position[0] === props.nodes[item.key].position[0] && node.position[1] === props.nodes[item.key].position[1]) node = undefined;
 
+
+				// Get the diff.
+				const diff = [
+					pos[0] - props.nodes[item.key].position[0],
+					pos[1] - props.nodes[item.key].position[1],
+				];
+
 				// Move the current node.
 				props.moveNode(
 					item.key,
@@ -205,6 +212,9 @@ export default {
 
 				// Force the diagram to refresh.
 				refreshDiagram();
+
+				// Handle any selected nodes.
+				for (const nodeKey of props.selection.nodes.filter(x => x !== item.key)) props.moveNode(nodeKey, ...diff, true);
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
 				if (targetCategory === 'connector') {
