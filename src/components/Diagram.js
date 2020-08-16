@@ -463,6 +463,7 @@ class Diagram extends React.Component {
             switchToNew={this.props.switchToNew}
             switchToSave={this.props.switchToSave}
             editAction={this.props.editDiagramMetadata}
+            nodes={nodes}
           />
 
           {diagramDiv}

@@ -30,14 +30,15 @@ class DiagramMetadata extends React.Component {
 	}
 
 	render() {
-		let { name, switchToNew, switchToSave } = this.props;
+		let { name, switchToNew, switchToSave, nodes } = this.props;
+		const len = Object.keys(nodes).length;
 
 		return (
 			<span>
 				<div className="diagramMetadata hoverParent do-bulma">
 					<input type="text" className="input" onChange={this.handleChange} name="name" value={name || ''} placeholder="Diagram name" />
 					<div style={{marginTop: '20px', marginLeft: 'calc(50% - 30px)'}}>
-						<MenuButtons switchToNew={switchToNew} switchToSave={switchToSave} />
+						<MenuButtons switchToNew={() => switchToNew(len)} switchToSave={switchToSave} />
 					</div>
 				</div>
 			</span>

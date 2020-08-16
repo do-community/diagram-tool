@@ -53,15 +53,16 @@ export default class NewDiagramPage extends React.Component {
                 ref={this.state.galleryRef}
                 onPlay={index => {
                     localStorage.setItem('diagramToolState', JSON.stringify(diagrams[index].diagram));
-                    localStorage.setItem('diagramToolCategoryNames', JSON.stringify(diagrams[index].categoryNames));                    
+                    localStorage.setItem('diagramToolCategoryNames', JSON.stringify(diagrams[index].categoryNames));     
+                    localStorage.setItem('diagramToolFirstBoot', 'false');               
                     this.state.galleryRef.current.pause();
                     window.location.reload();
                 }}
                 onSlide={page => this.setState({page})}
             />
-            <p style={{marginBottom: '50px', textAlign: 'center'}}>
-                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
-            </p>
+            {this.props.nodeCount === 0 ? undefined : <p style={{marginBottom: '50px', textAlign: 'center'}}>
+                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Diagram Editor</a>
+            </p>}
         </span>;
     }
 }

@@ -117,7 +117,7 @@ export const getPosition = () => {
 
 export const clear = () => {
     lineGenerator();
-    clickHandler.setState({el: null});
+    if (clickHandler) clickHandler.setState({el: null});
 };
 
 export const viewVisible = () => {

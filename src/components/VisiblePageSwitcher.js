@@ -40,22 +40,25 @@ function mapDispatchToProps(dispatch) {
 export default class VisiblePageSwitcher extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {item: this.createAppInstance()};
+        if (localStorage.getItem('diagramToolFirstBoot') === 'false') this.state = {item: this.createAppInstance()};
+        else this.switchToNew(0);
     }
 
     createAppInstance() {
-        const x = () => this.switchToNew();
+        const x = n => this.switchToNew(n);
         const y = () => this.switchToSave();
         const Connection = connect(mapStateToProps, mapDispatchToProps)(Diagram);
         document.body.style.overflow = 'hidden';
         return <Connection switchToNew={x} switchToSave={y} />;
     }
 
-    switchToNew() {
+    switchToNew(nodeCount) {
         window.scrollTo(0, 0);
         clear();
         document.body.style.overflow = 'initial';
-        this.setState({item: <NewDiagramPage switchToMain={() => this.switchToApp()} />});
+        const diff = {item: <NewDiagramPage switchToMain={() => this.switchToApp()} nodeCount={nodeCount} />};
+        if (this.state) this.setState(diff);
+        else this.state = diff;
     }
 
     switchToSave() {

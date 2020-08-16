@@ -43,7 +43,7 @@ export default class SaveDiagramPage extends React.Component {
                 {this.state.saved ? 'Successfully copied to clipboard.' : <a onClick={() => this.saveDiagram()}>Click here to copy the diagram to your clipboard.</a>}
             </p>
             <p style={{marginBottom: '50px', textAlign: 'center'}}>
-                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Main Menu</a>
+                <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Diagram Editor</a>
             </p>
         </span>;
     }
