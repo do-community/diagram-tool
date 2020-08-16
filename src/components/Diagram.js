@@ -34,7 +34,6 @@ export let mappedNodes = {};
 export let refreshDiagram;
 
 class Diagram extends React.Component {
-
   constructor(props) {
     super(props);
     this.keyDown = this.keyDown.bind(this);
@@ -50,6 +49,32 @@ class Diagram extends React.Component {
     });
     this.state = {categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}')};
     refreshDiagram = this.forceUpdate.bind(this);
+  }
+
+  manageSnap(key, move) {
+    // Get the node position.
+    const pos = this.props.nodes[key].position;
+
+    // Get the X/Y diff.
+    let xDiff = move[0];
+    let yDiff = move[1];
+
+    // Perform pos[0] mod 8 to get xMod. If it isn't 0, substract/add it to the x diff depending on if it's negative or positive.
+    const xMod = Math.abs(pos[0] % 8);
+    if (xMod !== 0) {
+      if (xDiff > 0) xDiff += xMod;
+      else xDiff -= xMod;
+    }
+
+    // Perform pos[1] mod 8 to get yMod. If it isn't 0, substract/add it to the y diff depending on if it's negative or positive.
+    const yMod = Math.abs(pos[1] % 8);
+    if (yMod !== 0) {
+      if (yDiff > 0) yDiff += yMod;
+      else yDiff -= yMod;
+    }
+
+    // Return the move.
+    return [xDiff, yDiff];
   }
 
   keyDown(event) {
@@ -84,7 +109,7 @@ class Diagram extends React.Component {
               // Move the node.
               this.props['move' + helpers.capitalize(category)](
                 key,
-                ...move,
+                ...this.manageSnap(key, move),
                 true
               );
             } else {
