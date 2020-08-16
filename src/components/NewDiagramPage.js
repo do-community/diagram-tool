@@ -45,7 +45,7 @@ export default class NewDiagramPage extends React.Component {
             <h3 className='title is-3' style={{textAlign: 'center', marginTop: '50px'}}>
                 New Diagram
             </h3>
-            <p style={{textAlign: 'center'}}><b>Currently Shown Diagram:</b> {diagrams[this.state.page].name}</p>
+            <p style={{textAlign: 'center'}}>{diagrams[this.state.page].name}</p>
             <ImageGallery
                 className="gallery-container"
                 items={diagrams}
