@@ -50,10 +50,11 @@ export default class NewDiagramPage extends React.Component {
                 className="gallery-container"
                 items={diagrams}
                 showFullscreenButton={false}
+                showPlayButton={false}
                 ref={this.state.galleryRef}
-                onPlay={index => {
-                    localStorage.setItem('diagramToolState', JSON.stringify(diagrams[index].diagram));
-                    localStorage.setItem('diagramToolCategoryNames', JSON.stringify(diagrams[index].categoryNames));     
+                onClick={() => {
+                    localStorage.setItem('diagramToolState', JSON.stringify(diagrams[this.state.page].diagram));
+                    localStorage.setItem('diagramToolCategoryNames', JSON.stringify(diagrams[this.state.page].categoryNames));     
                     localStorage.setItem('diagramToolFirstBoot', 'false');               
                     this.state.galleryRef.current.pause();
                     window.location.reload();
