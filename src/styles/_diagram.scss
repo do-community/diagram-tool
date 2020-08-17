@@ -160,9 +160,9 @@ limitations under the License.
     z-index: $topLayer;
     width: 50%;
     max-width: 800px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
+    left: 100%;
+    transform: translateX(-100%);
+    text-align: right;
     padding-top: 20px;
 
     h1 {

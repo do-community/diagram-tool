@@ -36,8 +36,10 @@ class DiagramMetadata extends React.Component {
 		return (
 			<span>
 				<div className="diagramMetadata hoverParent do-bulma">
-					<input type="text" className="input" onChange={this.handleChange} name="name" value={name || ''} placeholder="Diagram name" />
 					<div style={{marginTop: '20px', marginLeft: 'calc(50% - 30px)'}}>
+						<div style={{marginRight: '80px'}}>
+							<input type="text" className="input" onChange={this.handleChange} name="name" value={name || ''} style={{marginBottom: '20px'}} placeholder="Diagram name" />
+						</div>
 						<MenuButtons switchToNew={() => switchToNew(len)} switchToSave={switchToSave} />
 					</div>
 				</div>

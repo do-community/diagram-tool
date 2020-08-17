@@ -18,7 +18,7 @@ import React from 'react';
 
 export default class MenuButtons extends React.Component {
     render() {
-        return <span style={{position: 'absolute'}} className="do-bulma diagram-tool buttons diagramMetadata">
+        return <span style={{position: 'absolute'}} className="do-bulma diagram-tool buttons">
             <p>
                 <a className="button is-info" onClick={this.props.switchToNew}>
                     New Diagram
