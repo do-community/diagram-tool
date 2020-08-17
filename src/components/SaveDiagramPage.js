@@ -15,11 +15,12 @@ limitations under the License.
 */
 
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaste } from '@fortawesome/free-solid-svg-icons';
 
 export default class SaveDiagramPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {saved: false};
     }
 
     handleQuery() {
@@ -27,11 +28,14 @@ export default class SaveDiagramPage extends React.Component {
         return l ? btoa(l) : null;
     }
 
-    saveDiagram() {
+    generateUrl() {
         const url = new URL(window.location.href);
         url.searchParams.set('q', this.handleQuery());
-        navigator.clipboard.writeText(String(url));
-        this.setState({saved: true});
+        return String(url);
+    }
+
+    saveDiagram() {
+        navigator.clipboard.writeText(this.generateUrl());
     }
 
     render() {
@@ -39,9 +43,19 @@ export default class SaveDiagramPage extends React.Component {
             <h3 className='title is-3' style={{textAlign: 'center', marginTop: '50px'}}>
                 Save Diagram
             </h3>
-            <p style={{textAlign: 'center'}}>
-                {this.state.saved ? 'Successfully copied to clipboard.' : <a onClick={() => this.saveDiagram()}>Click here to copy the diagram to your clipboard.</a>}
-            </p>
+            <div className="input-container">
+                <i style={{marginTop: '-2px', cursor: 'pointer'}}>
+                    <FontAwesomeIcon icon={faPaste} onClick={() => this.saveDiagram()} />
+                </i>
+                <input
+                    className="input"
+                    type="text"
+                    placeholder="URL"
+                    style={{'cursor': 'default'}}
+                    value={this.generateUrl()}
+                    readOnly={true}
+                />
+            </div>
             <p style={{marginBottom: '50px', textAlign: 'center'}}>
                 <a className="button is-primary" onClick={() => this.props.switchToMain()}>Return to Diagram Editor</a>
             </p>
