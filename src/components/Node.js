@@ -16,7 +16,7 @@ limitations under the License.
 
 import React from 'react';
 import dndHelper from '../dndHelper.js';
-import nodes from '../data/nodes';
+//import nodes from '../data/nodes';
 import data from '../data';
 import ConnectorDragHandle from './ConnectorDragHandle';
 const { additionalIcons } = data;
@@ -44,7 +44,7 @@ class Node extends React.Component {
         id,
         metadata,
         tags,
-        type,
+        //type,
         connectDragSource,
         connectDropTarget,
       } = this.props,
@@ -129,7 +129,7 @@ class Node extends React.Component {
               : null}
           </figcaption>
 
-          {nodes[type].behavior.requests === 'creator' ? <button className="createRequest selectShow" data-click_key={id} data-category="request">▶</button> : undefined}
+          {/* {nodes[type].behavior.requests === 'creator' ? <button className="createRequest selectShow" data-click_key={id} data-category="request">▶</button> : undefined} */}
 
           {['n', 'e', 's', 'w'].map(d => (
             <ConnectorDragHandle key={d} dir={d} parent={id} />

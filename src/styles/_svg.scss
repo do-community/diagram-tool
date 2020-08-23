@@ -118,6 +118,25 @@ limitations under the License.
     fill: #fff;
   }
 }
+.userSvg {
+  .cls-1,.cls-3{
+    fill: none;
+  }
+
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2{
+    fill: #0069ff;
+  }
+
+  .cls-3{
+    stroke: #fff;
+    stroke-width: 1.49px;
+  }
+}
 .apiSvg {
   .cls-1,
   .cls-3 {

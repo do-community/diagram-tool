@@ -551,30 +551,6 @@ const helpers = {
       update.metadata.categories = [Object.keys(categorys)[0]];
     }
 
-    //TRY AND CONNECT TO OTHER NODES BASED ON WANTS
-    if (get(nodeSpecs, 'behavior.wants')) {
-      nodeSpecs.behavior.wants.map(seek => {
-        console.log('wants', seek);
-        let connectionCandidates = this.getClosestNodes(
-          seek.nodeTypes,
-          newNodePosition,
-          state.nodes,
-          seek.all
-        );
-        console.log('candidates', connectionCandidates);
-        connectionCandidates.map(c => {
-          const tryC = this.connectNewNodeAndNode(
-            newNodeType,
-            c,
-            state.nodes,
-            state.connectors
-          );
-          if(!tryC.error) update.connections.push(tryC);
-        });
-      });
-    }
-    console.log(update.connections);
-
     state.addNode(
       update.guid,
       newNodeType,
