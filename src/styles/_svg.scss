@@ -40,6 +40,7 @@ limitations under the License.
       stroke-dasharray: 0 3.46;
   }
 }
+
 .dropletSvg {
   .cls-1, .cls-3 {
     fill: none;
@@ -56,6 +57,7 @@ limitations under the License.
       stroke-width: 1.49px;
   }
 }
+
 .floatingIpSvg {
   .cls-1, .cls-3, .cls-4, .cls-6, .cls-7 {
     fill: none;
@@ -86,6 +88,7 @@ limitations under the License.
     stroke-linejoin: round;
   }
 }
+
 .managedDbSvg {
   .cls-1,.cls-3 {
     fill: none;
@@ -105,6 +108,7 @@ limitations under the License.
     fill: #fff;
   }
 }
+
 .spacesSvg {
   .cls-1 {
     fill: none;
@@ -118,6 +122,7 @@ limitations under the License.
     fill: #fff;
   }
 }
+
 .userSvg {
   .cls-1,.cls-3{
     fill: none;
@@ -137,6 +142,7 @@ limitations under the License.
     stroke-width: 1.49px;
   }
 }
+
 .apiSvg {
   .cls-1,
   .cls-3 {
@@ -179,6 +185,7 @@ limitations under the License.
     letter-spacing: -0.08em;
   }
 }
+
 .monitoringSvg {
   .cls-1,
   .cls-3 {
@@ -199,6 +206,7 @@ limitations under the License.
     stroke-width: 1.49px;
   }
 }
+
 .customImageSvg {
   .cls-1,
   .cls-3,
@@ -230,6 +238,7 @@ limitations under the License.
     stroke-linejoin: round;
   }
 }
+
 .ciCdSvg {
   .cls-1 {
     fill: none;
@@ -245,6 +254,7 @@ limitations under the License.
     fill: #fff;
   }
 }
+
 .workerSvg {
   .cls-1,
   .cls-3,
@@ -292,6 +302,7 @@ limitations under the License.
     stroke-dasharray: 0 2.95;
   }
 }
+
 .terraformSvg {
   .cls-1,
   .cls-3 {
@@ -312,6 +323,7 @@ limitations under the License.
     stroke-width: 1.49px;
   }
 }
+
 .mySqlSvg {
   .cls-1,
   .cls-4 {
@@ -362,6 +374,7 @@ limitations under the License.
     letter-spacing: -0.01em;
   }
 }
+
 .redisSvg {
   .cls-1,
   .cls-3 {
@@ -386,6 +399,7 @@ limitations under the License.
     fill: #fff;
   }
 }
+
 .postgresSvg {
   .cls-1,
   .cls-3 {
@@ -434,5 +448,25 @@ limitations under the License.
 
   .cls-29 {
     letter-spacing: -0.01em;
+  }
+}
+
+.dnsSvg {
+  .cls-1,.cls-3 {
+    fill: none;
+  }
+
+  .cls-1 {
+    stroke: #000;
+    stroke-miterlimit: 10;
+  }
+
+  .cls-2 {
+    fill: #0069ff;
+  }
+
+  .cls-3 {
+    stroke: #fff;
+    stroke-width: 1.49px;
   }
 }

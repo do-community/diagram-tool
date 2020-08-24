@@ -9,6 +9,7 @@ import ciCd from './nodes/ciCd';
 import cloudflare from './nodes/cloudflare';
 import dbServer from './nodes/dbServer';
 import developerDevice from './nodes/developerDevice';
+import dns from './nodes/dns';
 import droplet from './nodes/droplet';
 import floatingIp from './nodes/floatingIp';
 import githubRepo from './nodes/githubRepo';
@@ -25,4 +26,4 @@ import terraform from './nodes/terraform';
 import user from './nodes/user';
 import workerServer from './nodes/workerServer';
 
-export default {appServer, browser, cacheServer, ciCd, cloudflare, dbServer, developerDevice, droplet, floatingIp, githubRepo, internet, iotDevice, loadBalancer, logServer, mobile, mySqlServer, postgresServer, redisServer, spaces, terraform, user, workerServer} as {[index: string]: Node};
+export default {appServer, browser, cacheServer, ciCd, cloudflare, dbServer, developerDevice, dns, droplet, floatingIp, githubRepo, internet, iotDevice, loadBalancer, logServer, mobile, mySqlServer, postgresServer, redisServer, spaces, terraform, user, workerServer} as {[index: string]: Node};
