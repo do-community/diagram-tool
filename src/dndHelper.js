@@ -156,7 +156,6 @@ export default {
 				let node = pos.pop();
 				if (node && node.position[0] === props.nodes[item.key].position[0] && node.position[1] === props.nodes[item.key].position[1]) node = undefined;
 
-
 				// Get the diff.
 				const diff = [
 					pos[0] - props.nodes[item.key].position[0],

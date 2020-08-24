@@ -36,7 +36,7 @@ class CategoryNameEdit extends React.Component {
 
     const c = this.handleChange.bind(this);
     return <span>
-      <div className="diagramMetadata hoverParent do-bulma" style={{textAlign: 'center', left: '50%', transform: 'translateX(-50%)'}}>
+      <div className="diagramMetadata hoverParent do-bulma" style={{textAlign: 'center', left: '50%', transform: 'translateX(-50%)', zIndex: 999999999}}>
         <div>
           <input type="text" className="input" style={{textAlign: 'center', fontSize: '14px', padding: '5px'}} onChange={c} name="name" value={this.state.categoryName || ''} placeholder="Category name" />
           <br /><br />
