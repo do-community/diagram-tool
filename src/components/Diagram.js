@@ -28,6 +28,7 @@ import FirstUsageTutorial from './FirstUsageTutorial';
 
 import data from '../data';
 import helpers from '../helpers.js';
+import { saveStore } from '../store.js';
 
 export let mappedNodes = {};
 
@@ -369,6 +370,7 @@ class Diagram extends React.Component {
 
   render() {
     window.scrollTo(0, 0);
+    saveStore();
 
     const {
         nodes,
