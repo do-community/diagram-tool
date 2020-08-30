@@ -193,9 +193,9 @@ class Connector extends React.Component {
 				data-selected={this.props.selected === true}
 				className="hoverParent"
 			>
-				<label className="hoverShow">
+				{/* <label className="hoverShow">
 					{connectorTemplate.name}
-				</label>
+				</label> */}
 
 				<svg
 					width="100%"
@@ -228,7 +228,7 @@ class Connector extends React.Component {
 						}
 					/>
 
-					{(!metadata || !metadata.encryption) && connectorTemplate.mode === 'duplex' ? (
+					{/* {(!metadata || !metadata.encryption) && connectorTemplate.mode === 'duplex' ? (
 						<path
 							className="offwhitestroked"
 							d={dString}
@@ -236,7 +236,7 @@ class Connector extends React.Component {
 						/>
 					) : (
 						undefined
-					)}*/}
+					)} */}
 
 					{metadata && metadata.dns ? (
 						<path
