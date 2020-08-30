@@ -30,9 +30,11 @@ import data from '../data';
 import helpers from '../helpers.js';
 import { saveStore } from '../store.js';
 
-export let mappedNodes = {};
+let mappedNodes = {};
 
 export let refreshDiagram;
+
+export const mappedPositions = {};
 
 class Diagram extends React.Component {
   constructor(props) {
@@ -44,7 +46,6 @@ class Diagram extends React.Component {
     this.mouseDown = this.mouseDown.bind(this);
     this.composeSelectionObject = this.composeSelectionObject.bind(this);
     this.diagramDrop = this.diagramDrop.bind(this);
-    this.share = this.share.bind(this);
     helpers.initializeState(function(response) {
       props.initialize(response);
     });
@@ -347,24 +348,6 @@ class Diagram extends React.Component {
     dndHelper.handleDrop(this.props, targetCategory, target, item, offset);
   }
 
-  share(e) {
-    e.stopPropagation();
-    helpers.remoteSaveState(
-      {
-        metadata: this.props.metadata,
-        nodes: this.props.nodes,
-        connectors: this.props.connectors
-      },
-      function(uuid) {
-        const link = document.querySelector('.shareText');
-        link.value = window.location.href + uuid;
-        link.select();
-        document.execCommand('copy');
-      }
-    );
-    return false;
-  }
-
   saveCategoryNames() {
     localStorage.setItem('diagramToolCategoryNames', JSON.stringify(this.state.categoryNames));
   }
@@ -389,7 +372,7 @@ class Diagram extends React.Component {
       categoryNames = this.state.categoryNames;
 
       const mappedNodesElements = {};
-      Object.keys(nodes).forEach(key => (
+      Object.keys(nodes).forEach(key => {
         mappedNodesElements[key] = <Node
           key={key}
           id={key}
@@ -400,13 +383,16 @@ class Diagram extends React.Component {
           selected={selection.nodes.indexOf(key) >= 0}
           tags={tags}
           nodes={nodes}
+          beginDrag={rect =>
+            mappedPositions[key] = {x: window.event.clientX - rect.x, y: window.event.clientY - rect.y}
+          }
           onDrop={(item, offset) =>
             this.diagramDrop('node', key, item, offset)
           }
           updateDiagram={this.forceUpdate.bind(this)}
           rendered={x => mappedNodes[key] = x}
-        />
-      ));
+        />;
+      });
 
       const diagramDiv = <div className="diagram">
       {Object.keys(categories).map(category => (

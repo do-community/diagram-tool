@@ -21,7 +21,7 @@ import DATA from './data';
 import helpers from './helpers.js';
 import flow from 'lodash/flow';
 import { saveStore } from './store';
-import { refreshDiagram } from './components/Diagram';
+import { refreshDiagram, mappedPositions } from './components/Diagram';
 
 const getCategory = (props, x, y) => {
 	// Get the categories.
@@ -70,7 +70,7 @@ export default {
 			isOver: m.isOver(),
 			isOverCurrent: m.isOver(),
 			canDrop: m.canDrop(),
-			itemType: m.getItemType()
+			itemType: m.getItemType(),
 		};
 	},
 
@@ -82,6 +82,7 @@ export default {
 				type,
 				{
 					beginDrag: p => {
+						if (p.beginDrag) p.beginDrag(document.querySelector('*[data-click_key="' + p.id + '"]').childNodes[0].childNodes[0].getBoundingClientRect());
 						return { type: type, action: action, key: p.id || p.parent };
 					}
 				},
@@ -155,6 +156,11 @@ export default {
 				);
 				let node = pos.pop();
 				if (node && node.position[0] === props.nodes[item.key].position[0] && node.position[1] === props.nodes[item.key].position[1]) node = undefined;
+
+				// Get the mapped position of the cursor. Subtract this.
+				const cursorPos = mappedPositions[item.key];
+				pos[0] -= cursorPos.x;
+				pos[1] -= cursorPos.y - 32;
 
 				// Get the diff.
 				const diff = [
