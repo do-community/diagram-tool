@@ -237,16 +237,16 @@ class Diagram extends React.Component {
 
   click(event) {
     let target = event.target;
-    const isNode = () => {
+    const isNodeOrConnector = () => {
       let t = target;
       for (;;) {
-        // If no parent node, return false.
-        if (!t.parentNode) return false;
+        // If no parent node, return null.
+        if (!t.parentNode) return null;
 
         // Check if this is a note.
-        if (t.getAttribute('data-category') === 'node') {
+        if (t.getAttribute('data-category') === 'node' || t.getAttribute('data-category') === 'connector') {
           target = t;
-          return true;
+          return t.getAttribute('data-category');
         }
 
         // Get the next parent.
@@ -272,11 +272,12 @@ class Diagram extends React.Component {
           );
         }
       } else {
-        if (isNode())
+        const x = isNodeOrConnector();
+        if (x === 'node')
           target.dataset.selected === 'false'
             ? this.props.selectNodes(target.dataset.click_key, event.shiftKey)
             : this.props.deselectNodes(target.dataset.click_key);
-        else if (target.dataset.category === 'connector')
+        else if (x === 'connector')
           target.dataset.selected === 'false'
             ? this.props.selectConnectors(
                 parseInt(target.dataset.click_key, 10),
@@ -456,7 +457,7 @@ class Diagram extends React.Component {
           onMouseDown={this.mouseDown}
           onClick={this.click}
         >
-          <NodeEditor {...selected} deleteNode={this.props.deleteNode} updateDiagram={this.forceUpdate.bind(this)} nodes={this.props.nodes} />
+          <NodeEditor {...selected} deleteNode={this.props.deleteNode} deleteConnector={this.props.deleteConnector} updateDiagram={this.forceUpdate.bind(this)} nodes={this.props.nodes} />
 
           {blankNodeElement}
 

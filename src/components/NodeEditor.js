@@ -19,7 +19,6 @@ import DATA from '../data';
 import { saveStore } from '../store';
 
 class NodeEditor extends React.Component {
-
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -31,6 +30,10 @@ class NodeEditor extends React.Component {
 
   rmNode() {
     this.props.deleteNode(this.props.identifier);
+  }
+
+  rmConnector() {
+    this.props.deleteConnector(this.props.identifier);
   }
 
   rmCats() {
@@ -64,7 +67,10 @@ class NodeEditor extends React.Component {
 
     return (
       <div className="node-config panel">
-        <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3>
+        {
+          itemType === 'node' ? <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3> :
+          <h3>Connector settings:</h3>
+        }
         <p>{template.description}</p>
         <form className="bui-Form--spacing">
           {
@@ -73,7 +79,7 @@ class NodeEditor extends React.Component {
             </p> : undefined
           }
           <p>
-            <a style={{cursor: 'pointer'}} onClick={this.rmNode.bind(this)}>Remove node</a>
+            <a style={{cursor: 'pointer'}} onClick={itemType === 'node' ? this.rmNode.bind(this) : this.rmConnector.bind(this)}>Remove {itemType}</a>
           </p>
         </form>
       </div>
