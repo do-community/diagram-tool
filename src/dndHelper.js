@@ -82,7 +82,7 @@ export default {
 				type,
 				{
 					beginDrag: p => {
-						if (p.beginDrag) p.beginDrag(document.querySelector('*[data-click_key="' + p.id + '"]').childNodes[0].childNodes[0].getBoundingClientRect());
+						if (p.beginDrag) p.beginDrag(document.querySelector('*[data-click_key="' + p.id + '"]').getBoundingClientRect());
 						return { type: type, action: action, key: p.id || p.parent };
 					}
 				},
@@ -159,8 +159,8 @@ export default {
 
 				// Get the mapped position of the cursor. Subtract this.
 				const cursorPos = mappedPositions[item.key];
-				pos[0] -= cursorPos.x;
-				pos[1] -= cursorPos.y - 32;
+				pos[0] -= cursorPos.x - 14;
+				pos[1] -= cursorPos.y - 48;
 
 				// Get the diff.
 				const diff = [
