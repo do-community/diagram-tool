@@ -268,7 +268,7 @@ class Connector extends React.Component {
 					/>
 				</svg>
 
-				{metadata && metadata.dns ? (
+				{/* {metadata && metadata.dns ? (
 					<dl
 						className="dns-label"
 						title={metadata.dns}
@@ -284,7 +284,7 @@ class Connector extends React.Component {
 					</dl>
 				) : (
 					''
-				)}
+				)} */}
 			</div>
 		);
 	}
