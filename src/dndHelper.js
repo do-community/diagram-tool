@@ -219,7 +219,7 @@ export default {
 				refreshDiagram();
 
 				// Handle any selected nodes.
-				for (const nodeKey of props.selection.nodes.filter(x => x !== item.key)) props.moveNode(nodeKey, ...diff, true);
+				if (props.selection.nodes.includes(item.key)) for (const nodeKey of props.selection.nodes.filter(x => x !== item.key)) props.moveNode(nodeKey, ...diff, true);
 			} else if (item.action === 'add') {
 				//IF DROPPED ONTO CONNECTOR - DELETE THE CONNECTOR AND CREATE TWO NEW CONNECTIONS
 				if (targetCategory === 'connector') {
