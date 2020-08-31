@@ -559,7 +559,7 @@ const helpers = {
       update.connections
     );
 
-    return true;
+    return update.guid;
   },
 
   nodeMaxedOut(nodeKey, nodeType, connections) {

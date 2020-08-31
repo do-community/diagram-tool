@@ -85,7 +85,11 @@ class Diagram extends React.Component {
       ['input', 'textarea'].indexOf(event.target.tagName.toLowerCase()) === -1
     ) {
       let move = [0, 0];
-      if (keyCode === 37) {
+      if (keyCode === 67) {
+        this.copy();
+      } else if (keyCode === 86) {
+        this.paste();
+      } else if (keyCode === 37) {
         move[0] = -8;
       } else if (keyCode === 38) {
         move[1] = -8;
@@ -214,24 +218,53 @@ class Diagram extends React.Component {
 
   copy() {
     if(!helpers.copyPastingText()) {
-      this.props.copyNodes(
-        this.props.selection.nodes.reduce((a, n) => {
-          a[n] = this.props.nodes[n];
-          return a;
-        }, {})
-      );
+      // Check if there's a category shared across all nodes.
+      let allCategoryMembers;
+      const newCat = Math.random().toString();
+      if (this.props.selection.nodes.length !== 0) {
+        // Get the first item.
+        const first = this.props.nodes[this.props.selection.nodes[0]];
+
+        for (const cat of ((first.metadata || {}).categories) || []) {
+          // Get every item after this and check if the category exists.
+          let consistent = false;
+          for (const otherNode of this.props.selection.nodes.slice(1)) {
+            console.log(otherNode);
+            consistent = this.props.nodes[otherNode].metadata.categories.includes(cat);
+            if (!consistent) break;
+          }
+
+          // If this is consistent, set it and break.
+          if (consistent) {
+            allCategoryMembers = cat;
+            break;
+          }
+        }
+      }
+
+      // Get the clipboard.
+      const clipboard = this.props.selection.nodes.reduce((a, n) => {
+        const node = Object.assign({}, this.props.nodes[n]);
+        node.metadata = Object.assign({}, node.metadata);
+        if (allCategoryMembers) node.metadata.categories = [newCat];
+        a[Math.random().toString()] = node;
+        return a;
+      }, {});
+      navigator.clipboard.writeText(JSON.stringify(clipboard));
     }
   }
 
   paste() {
     if(!helpers.copyPastingText()) {
-      Object.values(this.props.selection.clipboard).map(c => {
-        helpers.addNodeAndConnections(
+      navigator.clipboard.readText().then(text => {
+        const items = Object.values(JSON.parse(text));
+        const nodeIds = items.map(c => helpers.addNodeAndConnections(
           c.type,
           c.position,
           c.metadata,
           this.props
-        );
+        ));
+        this.props.selectNodes(nodeIds);
       });
     }
   }

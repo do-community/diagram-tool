@@ -87,13 +87,6 @@ export function selectNodes(keys, additive=false) {
   };
 }
 
-export function copyNodes(nodes) {
-  return {
-    type: 'COPY',
-    nodes
-  };
-}
-
 //deselect everything
 export function deselectNodes(keys) {
   if(!keys) return {
