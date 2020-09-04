@@ -562,21 +562,6 @@ const helpers = {
     return update.guid;
   },
 
-  nodeMaxedOut(nodeKey, nodeType, connections) {
-    if (
-      typeof get(DATA.nodes[nodeType], 'behavior.maxConnections') === 'number'
-    ) {
-      return (
-        DATA.nodes[nodeType].behavior.maxConnections <=
-        connections.reduce((ct, c) => {
-          if (c.between[0] === nodeKey || c.between[1] === nodeKey) ct++;
-          return ct;
-        }, 0)
-      );
-    }
-    return false;
-  },
-
   nodeTypesCompatible(nodeA, nodeB) {
     //Check each node for disallowed connections (node.behavior.incompatibleWith)
     if (
@@ -612,15 +597,6 @@ const helpers = {
   },
 
   connectNewNodeAndNode(newNode, toNode, nodes, connections) {
-    //Check that toNode isnt maxed out
-    if (this.nodeMaxedOut(toNode, nodes[toNode].type, connections)) {
-      return {
-        error:
-          'Too many connections on ' +
-          (nodes[toNode].metadata.name || nodes[toNode].type)
-      };
-    }
-
     //Check that one node doesnt disallow the other
     if (!this.nodeTypesCompatible(newNode, nodes[toNode].type)) {
       return {
@@ -640,24 +616,6 @@ const helpers = {
   },
 
   connectNodes(fromNode, toNode, nodes, connections) {
-    //Check that fromNode isnt maxed out
-    if (this.nodeMaxedOut(fromNode, nodes[fromNode].type, connections)) {
-      return {
-        error:
-          'Too many connections on ' +
-          (nodes[fromNode].metadata.name || nodes[fromNode].type)
-      };
-    }
-
-    //Check that toNode isnt maxed out
-    if (this.nodeMaxedOut(toNode, nodes[toNode].type, connections)) {
-      return {
-        error:
-          'Too many connections on ' +
-          (nodes[toNode].metadata.name || nodes[toNode].type)
-      };
-    }
-
     //Check that one node doesnt disallow the other
     if (!this.nodeTypesCompatible(nodes[toNode].type, nodes[fromNode].type)) {
       return {
