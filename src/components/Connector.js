@@ -209,7 +209,7 @@ class Connector extends React.Component {
 				>
 					<path
 						data-js={'wire_' + id}
-						className="offwhitestroked"
+						fill="none"
 						d={dString}
 						strokeWidth="5px"
 					/>

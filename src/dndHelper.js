@@ -22,6 +22,7 @@ import helpers from './helpers.js';
 import flow from 'lodash/flow';
 import { saveStore } from './store';
 import { refreshDiagram, mappedPositions } from './components/Diagram';
+import { clear } from './showWhereClick';
 
 const getCategory = (props, x, y) => {
 	// Get the categories.
@@ -140,6 +141,8 @@ export default {
 	},
 
 	handleDrop(props, targetCategory, target, item, offset) {
+		clear();
+
 		if (targetCategory === 'tray') {
 			/* Dragging to Tray = Deleting*/
 			props['delete' + helpers.capitalize(item.type)](item.key);

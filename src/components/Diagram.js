@@ -306,6 +306,7 @@ class Diagram extends React.Component {
           );
         }
       } else {
+        clear();
         const x = isNodeOrConnector();
         if (x === 'node')
           target.dataset.selected === 'false'
@@ -322,7 +323,6 @@ class Diagram extends React.Component {
           console.log('play');
         else if (event.target.getAttribute('class') === 'diagram' || event.target.getAttribute('data-category') === 'category') {
           if (viewVisible()) {
-            clear();
             lineGenerator();
           } else {
             showWhereClick(<Tray

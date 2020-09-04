@@ -102,7 +102,7 @@ $paddingsmall: 0.5rem;
     margin: 0;
   }
 
-  figure[data-category="connector"] {
+  div[data-category="connector"] {
     svg {
       stroke-width: 1px;
       opacity: 0.75;
@@ -113,7 +113,7 @@ $paddingsmall: 0.5rem;
     display: none;
   }
 
-  figure[data-category="connector"][data-selected="true"], figure[data-category="node"][data-selected="true"] {
+  div[data-category="connector"][data-selected="true"], figure[data-category="node"][data-selected="true"] {
     outline: none;
     svg {
       stroke-width: 2px;
