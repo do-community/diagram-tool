@@ -35,6 +35,7 @@ let mappedNodes = {};
 export let refreshDiagram;
 
 export let getLeftOffset;
+export let getTopOffset;
 
 export const mappedPositions = {};
 
@@ -51,9 +52,14 @@ class Diagram extends React.Component {
     helpers.initializeState(function(response) {
       props.initialize(response);
     });
-    this.state = {categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}'), left: 0};
+    this.state = {categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}'), left: 0, top: 0};
     refreshDiagram = this.forceUpdate.bind(this);
     getLeftOffset = this.getLeftOffset.bind(this);
+    getTopOffset = this.getTopOffset.bind(this);
+  }
+
+  getTopOffset() {
+    return this.state.top * -1;
   }
 
   getLeftOffset() {
@@ -224,7 +230,10 @@ class Diagram extends React.Component {
           // Move the canvas.
           let left = this.state.left + (move[0] * -1);
           if (left > 0) left = 0;
-          this.setState({left});
+          let top = this.state.top + (move[1] * -1);
+          if (top > 0) top = 0;
+          this.setState({left, top});
+          clear();
         }
       }
     }
@@ -441,7 +450,7 @@ class Diagram extends React.Component {
         />;
       });
 
-      const diagramDiv = <div className="diagram" style={{left: `${this.state.left}px`}}>
+      const diagramDiv = <div className="diagram" style={{left: `${this.state.left}px`, top: `${this.state.top}px`}}>
       {Object.keys(categories).map(category => (
         <Category
           key={category}

@@ -21,7 +21,7 @@ import DATA from './data';
 import * as helpers from './helpers.js';
 import flow from 'lodash/flow';
 import { saveStore } from './store';
-import { refreshDiagram, mappedPositions, getLeftOffset } from './components/Diagram';
+import { refreshDiagram, mappedPositions, getLeftOffset, getTopOffset } from './components/Diagram';
 import { clear } from './showWhereClick';
 
 const getCategory = (props, x, y) => {
@@ -154,8 +154,9 @@ export function handleDrop(props, targetCategory, target, item, offset) {
 			let node = pos.pop();
 			if (node && node.position[0] === props.nodes[item.key].position[0] && node.position[1] === props.nodes[item.key].position[1]) node = undefined;
 
-			// Add the offset.
+			// Add the offset for the diagram.
 			pos[0] += getLeftOffset();
+			pos[1] += getTopOffset();
 
 			// Get the mapped position of the cursor. Subtract this.
 			const cursorPos = mappedPositions[item.key];
