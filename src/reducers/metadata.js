@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function metadata(state = [], action) {
+export default function metadata(state = [], action) {
   switch(action.type) {
     case 'INITIALIZE' :
       return action.data.metadata && typeof(action.data.metadata) === 'object' ? action.data.metadata : {};
@@ -25,5 +25,3 @@ function metadata(state = [], action) {
       return state;
   }
 }
-
-export default metadata;

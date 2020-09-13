@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function connectors(state = [], action) {
+export default function connectors(state = [], action) {
   switch(action.type) {
     case 'INITIALIZE' :
       return action.data.connectors && action.data.connectors.length ? action.data.connectors : [];
@@ -51,5 +51,3 @@ function connectors(state = [], action) {
       return state;
   }
 }
-
-export default connectors;

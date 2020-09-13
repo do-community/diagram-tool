@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import React from 'react';
-import dndHelper from '../dndHelper.js';
+import * as dndHelper from '../dndHelper.js';
 
 class ConnectorDragHandle extends React.Component {
   render(){

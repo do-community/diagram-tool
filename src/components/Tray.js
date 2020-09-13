@@ -17,7 +17,7 @@ limitations under the License.
 import React from 'react';
 import DATA from '../data';
 import { getPosition, clear, updatePosition } from '../showWhereClick';
-import helpers from '../helpers';
+import * as helpers from '../helpers';
 import FileLikeBrowser from './FileLikeBrowser';
 
 export default class Tray extends React.Component {

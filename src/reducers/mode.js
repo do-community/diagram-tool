@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function mode(state = [], action) {
+export default function mode(state = [], action) {
   switch(action.type) {
   	case 'INITIALIZE' :
   	  return 'Build';
@@ -26,5 +26,3 @@ function mode(state = [], action) {
       return state;
   }
 }
-
-export default mode;

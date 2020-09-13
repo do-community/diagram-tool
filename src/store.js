@@ -22,7 +22,7 @@ import throttle from 'lodash/throttle';
 import rootReducer from './reducers/index';
 
 //helpers
-import helpers from './helpers.js';
+import * as helpers from './helpers.js';
 
 
 

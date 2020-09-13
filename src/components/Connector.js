@@ -15,9 +15,9 @@ limitations under the License.
 */
 
 import React from 'react';
-import dndHelper from '../dndHelper.js';
+import * as dndHelper from '../dndHelper.js';
 
-import helpers from '../helpers.js';
+import * as helpers from '../helpers.js';
 
 class Connector extends React.Component {
 	render() {

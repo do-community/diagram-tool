@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function nodes(state = [], action) {
+export default function nodes(state = [], action) {
   switch(action.type) {
     case 'INITIALIZE' :
       return action.data.nodes && typeof(action.data.nodes) === 'object' ? action.data.nodes : {};
@@ -59,5 +59,3 @@ function nodes(state = [], action) {
       return state;
   }
 }
-
-export default nodes;

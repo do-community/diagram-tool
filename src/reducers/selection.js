@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function selection(state = [], action) {
+export default function selection(state = [], action) {
   switch(action.type) {
     case 'INITIALIZE' :
       return {
@@ -63,5 +63,3 @@ function selection(state = [], action) {
       return state;
   }
 }
-
-export default selection;

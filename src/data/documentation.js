@@ -19,7 +19,7 @@ limitations under the License.
 	that can be associated with Nodes, Connectors, Diagrams
 */
 
-const documentation = {
+export default {
 	node: {
 		name: {
 			type:'string',
@@ -241,5 +241,3 @@ const documentation = {
 	    }
 	}
 };
-
-export default documentation;

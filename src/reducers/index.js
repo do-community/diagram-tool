@@ -25,6 +25,4 @@ import selection from './selection';
 import mode from './mode';
 import categoryNames from './categoryNames';
 
-const rootReducer = combineReducers({categoryNames, metadata, connectors, nodes, selection, mode, routing: routerReducer});
-
-export default rootReducer;
+export default combineReducers({categoryNames, metadata, connectors, nodes, selection, mode, routing: routerReducer});

@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import React from 'react';
-import dndHelper from '../dndHelper.js';
+import * as dndHelper from '../dndHelper.js';
 //import nodes from '../data/nodes';
 import data from '../data';
 import ConnectorDragHandle from './ConnectorDragHandle';

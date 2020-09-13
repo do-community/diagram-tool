@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function categoryNames(state = [], action) {
+export default function categoryNames(state = [], action) {
   switch(action.type) {
   	case 'INITIALIZE' :
   	  return {};
@@ -23,5 +23,3 @@ function categoryNames(state = [], action) {
       return state;
   }
 }
-
-export default categoryNames;
