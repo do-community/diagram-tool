@@ -14,10 +14,45 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-window.resizeQueue = [];
-window.onresize = () => {
-  for (const x of window.resizeQueue) x();
-};
+class QueueItem {
+  constructor(item) {
+    this.item = item;
+    this.next = undefined;
+  }
+}
+
+class QueueRoot {
+  constructor() {
+    this.start = undefined;
+    this.end = undefined;
+  }
+
+  forEach(f) {
+    let nextInQueue = this.start;
+    while (nextInQueue) {
+      // Call the function.
+      f(nextInQueue.item);
+
+      // Get the next item.
+      nextInQueue = nextInQueue.next;
+    }
+  }
+
+  push(item) {
+    if (this.end) {
+      // Add to the end.
+      this.end.next = new QueueItem(item);
+      this.end = this.end.next;
+    } else {
+      // Create the end and start.
+      this.start = new QueueItem(item);
+      this.end = this.start;
+    }
+  }
+}
+
+window.resizeQueue = new QueueRoot();
+window.onresize = () => window.resizeQueue.forEach(x => x());
 
 import './styles/style.scss';
 
