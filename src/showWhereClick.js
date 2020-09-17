@@ -45,7 +45,8 @@ class CloseEnoughPositioner extends React.Component {
         super(props);
         this.state = {contentWidth: 0, contentHeight: 0, pageWidth: 0, pageHeight: 0};
         this.componentDidMount = this.getWidthsHeights.bind(this);
-        window.onresize = this.getWidthsHeights.bind(this);
+        const x = this.getWidthsHeights.bind(this);
+        window.resizeQueue.push(x);
         this.ref = React.createRef();
         positioner = this;
     }

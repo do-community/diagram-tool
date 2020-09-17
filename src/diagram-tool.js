@@ -14,6 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+window.resizeQueue = [];
+window.onresize = () => {
+  for (const x of window.resizeQueue) x();
+};
+
 import './styles/style.scss';
 
 import React from 'react';

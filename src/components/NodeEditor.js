@@ -18,7 +18,7 @@ import React from 'react';
 import DATA from '../data';
 import { saveStore } from '../store';
 
-class NodeEditor extends React.Component {
+export default class NodeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -86,5 +86,3 @@ class NodeEditor extends React.Component {
     );
   }
 };
-
-export default NodeEditor;

@@ -52,10 +52,20 @@ class Diagram extends React.Component {
     helpers.initializeState(function(response) {
       props.initialize(response);
     });
-    this.state = {categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}'), left: 0, top: 0};
+    this.state = {
+      categoryNames: JSON.parse(localStorage.getItem('diagramToolCategoryNames') || '{}'),
+      left: 0, top: 0,
+      width: `${window.innerWidth}px`, height: `${window.innerHeight}px`,
+    };
+    const x = this.setExactPos.bind(this);
+    window.resizeQueue.push(x);
     refreshDiagram = this.forceUpdate.bind(this);
     getLeftOffset = this.getLeftOffset.bind(this);
     getTopOffset = this.getTopOffset.bind(this);
+  }
+
+  setExactPos() {
+    this.setState({width: `${window.innerWidth}px`, height: `${window.innerHeight}px`});
   }
 
   getTopOffset() {
@@ -488,31 +498,29 @@ class Diagram extends React.Component {
     let blankNodeElement;
     if (Object.keys(nodes).length === 0) blankNodeElement = <FirstUsageTutorial />;
 
-    return connectDropTarget(<div className="modal" style={{display: 'initial', top: 0}}>
-      <div className="modal-content" style={{width: '100%', height: '100%', padding: 0, margin: 0}}>
-        <div
-          className="main"
-          tabIndex="0"
-          onKeyDown={this.keyDown}
-          onCopy={this.copy}
-          onPaste={this.paste}
-          onMouseDown={this.mouseDown}
-          onClick={this.click}
-        >
-          <NodeEditor {...selected} deleteNode={this.props.deleteNode} deleteConnector={this.props.deleteConnector} updateDiagram={this.forceUpdate.bind(this)} nodes={this.props.nodes} />
+    return connectDropTarget(<div className="overlay-base" style={{width: this.state.width, height: this.state.height}}>
+      <div
+        className="main"
+        tabIndex="0"
+        onKeyDown={this.keyDown}
+        onCopy={this.copy}
+        onPaste={this.paste}
+        onMouseDown={this.mouseDown}
+        onClick={this.click}
+      >
+        <NodeEditor {...selected} deleteNode={this.props.deleteNode} deleteConnector={this.props.deleteConnector} updateDiagram={this.forceUpdate.bind(this)} nodes={this.props.nodes} />
 
-          {blankNodeElement}
+        {blankNodeElement}
 
-          <DiagramMetadata
-            {...this.props.metadata}
-            switchToNew={this.props.switchToNew}
-            switchToSave={this.props.switchToSave}
-            editAction={this.props.editDiagramMetadata}
-            nodes={nodes}
-          />
+        <DiagramMetadata
+          {...this.props.metadata}
+          switchToNew={this.props.switchToNew}
+          switchToSave={this.props.switchToSave}
+          editAction={this.props.editDiagramMetadata}
+          nodes={nodes}
+        />
 
-          {diagramDiv}
-        </div>
+        {diagramDiv}
       </div>
     </div>);
   }

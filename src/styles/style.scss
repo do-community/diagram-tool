@@ -135,3 +135,12 @@ $paddingsmall: 0.5rem;
     display: none;
   }
 }
+
+.overlay-base {
+  position: absolute;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  margin: 0;
+  background-color: white;
+}
