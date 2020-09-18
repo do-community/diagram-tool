@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { getLeftOffset } from '../components/Diagram';
+import { getLeftOffset, getTopOffset } from '../components/Diagram';
 
 export function initialize(data) {
   return {
@@ -31,7 +31,7 @@ export function addNode(key, nodeType, x, y, metadata, connections = []) {
       key,
       nodeType,
       x: x + getLeftOffset(),
-      y,
+      y: y + getTopOffset(),
       metadata
     });
 

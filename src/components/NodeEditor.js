@@ -17,8 +17,9 @@ limitations under the License.
 import React from 'react';
 import DATA from '../data';
 import { saveStore } from '../store';
+import * as dndHelper from '../dndHelper'
 
-export default class NodeEditor extends React.Component {
+class NodeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -65,7 +66,7 @@ export default class NodeEditor extends React.Component {
 
     const allMetadata = Object.assign({}, (itemType === 'node' && DATA.nodes[item.type].extends && DATA.nodes[item.type].extends === 'droplet' ? DATA.nodes.droplet.metadata : {}), (itemType === 'node' ? DATA.nodes[item.type].metadata : DATA.connectors[item.type].metadata), item.metadata);
 
-    return (
+    return this.props.connectDropTarget(
       <div className="node-config panel">
         {
           itemType === 'node' ? <h3>{template.name}{Object.keys(allMetadata).length === 0 ? '' : ' settings'}:</h3> :
@@ -86,3 +87,5 @@ export default class NodeEditor extends React.Component {
     );
   }
 };
+
+export default dndHelper.composeDrop(NodeEditor);

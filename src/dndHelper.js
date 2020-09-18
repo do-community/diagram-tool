@@ -139,8 +139,7 @@ export function handleDrop(props, targetCategory, target, item, offset) {
 
 	if (targetCategory === 'tray') {
 		/* Dragging to Tray = Deleting*/
-		props['delete' + helpers.capitalize(item.type)](item.key);
-		return { action: 'deleted', success: true };
+		return {};
 	}
 
 	// Add or Move Item

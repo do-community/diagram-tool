@@ -508,7 +508,16 @@ class Diagram extends React.Component {
         onMouseDown={this.mouseDown}
         onClick={this.click}
       >
-        <NodeEditor {...selected} deleteNode={this.props.deleteNode} deleteConnector={this.props.deleteConnector} updateDiagram={this.forceUpdate.bind(this)} nodes={this.props.nodes} />
+        <NodeEditor
+          {...selected}
+          deleteNode={this.props.deleteNode}
+          deleteConnector={this.props.deleteConnector}
+          updateDiagram={this.forceUpdate.bind(this)}
+          nodes={this.props.nodes}
+          onDrop={(item, offset) =>
+            this.diagramDrop('tray', i, item, offset)
+          }
+        />
 
         {blankNodeElement}
 
