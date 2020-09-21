@@ -49,7 +49,7 @@ export default class Tray extends React.Component {
 			const buttons = Object.keys(DATA.nodesByCategory[this.state.category]).map(id => {
 				const node = DATA.nodes[id];
 				return {
-					id, icon: node.icon, name: node.name,
+					id, icon: node.icon, name: node.name, __FAST_RENDER: node.__FAST_RENDER,
 				};
 			});
 

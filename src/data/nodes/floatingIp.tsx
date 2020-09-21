@@ -33,7 +33,6 @@ export default {
         ],
         connectionPreference: ['https', 'http', 'websocket', 'udp'],
         requests: 'passThrough',
-        minConnections: 2,
         edge: true,
     },
     icon: <g transform="scale(1.5) translate(12, 12)" className="floatingIpSvg">

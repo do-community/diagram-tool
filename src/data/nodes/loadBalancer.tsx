@@ -31,7 +31,6 @@ export default {
         {nodeTypes:['appServer'], via: 'https', all:true}
       ],
       connectionPreference:['https', 'http', 'tcp', 'websocket'],
-      minConnections: 2,
       requests: 'loadBalanced',
       edge: true,
     },

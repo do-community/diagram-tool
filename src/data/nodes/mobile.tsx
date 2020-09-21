@@ -34,7 +34,6 @@ export default {
       connectionPreference: ['https', 'http', 'websockets', 'udp'],
       incompatibleWith: ['iotDevice', 'browser'],
       requests: 'creator',
-      minConnections: 1,
       categoryless: true,
     },
     icon: <g transform="scale(0.5) translate(50, 50)">

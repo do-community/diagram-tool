@@ -78,3 +78,6 @@ const router = (
 );
 
 render(router, document.getElementById('root'));
+
+import iconLoader from './iconLoader';
+window.iconLoader = iconLoader;

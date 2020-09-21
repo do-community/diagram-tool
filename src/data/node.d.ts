@@ -45,7 +45,6 @@ interface Behavior {
     connectionPreference?: string[];
     incompatibleWith?: string[];
     requests?: string;
-    minConnections?: number;
     edge?: boolean;
 } 
 

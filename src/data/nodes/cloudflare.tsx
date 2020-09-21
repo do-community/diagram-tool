@@ -32,8 +32,6 @@ export default {
             {nodeTypes:['loadBalancer', 'floatingIp', 'gateway'], via: 'https'},
         ],
         connectionLimitations:['http', 'https', 'udp', 'websockets'],
-        minConnections: 2,
-        maxConnections: 2,
         categoryless: true,
         requests: 'passThrough',
     },

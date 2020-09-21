@@ -62,53 +62,55 @@ class Node extends React.Component {
           data-selected={this.props.selected === true}
           className="hoverParent"
         >
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 100 100"
-            style={metadata.color ? { color: metadata.color } : {}}
-          >
-            {nodeTemplate.extends && nodeTemplate.extends === 'droplet'
-              ?
-              additionalIcons.droplet
-              :
-              undefined
-            }
-            {nodeTemplate.icon}
-            {
-              metadata.blockStorage ?
-              <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{additionalIcons.blockStorage}</svg>
-              :
-              null
-            }
+          {
+            nodeTemplate.__FAST_RENDER ? nodeTemplate.icon : <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 100 100"
+              style={metadata.color ? { color: metadata.color } : {}}
+            >
+              {nodeTemplate.extends && nodeTemplate.extends === 'droplet'
+                ?
+                additionalIcons.droplet
+                :
+                undefined
+              }
+              {nodeTemplate.icon}
+              {
+                metadata.blockStorage ?
+                <svg width="20px" height="20px" x="54px" y="40px" style={{width: '20px', height: '20px'}} >{additionalIcons.blockStorage}</svg>
+                :
+                null
+              }
 
-            {metadata.managementMethod ? (
-              <svg
-                width={scale + 'px'}
-                height={scale + 'px'}
-                style={{width: scale + 'px', height: scale + 'px'}}
-                x={Math.round(((100 - scale) / 2) - (metadata.blockStorage ? Math.cbrt(Math.max(1000,metadata.blockStorage))/2.0 : 0)) + 'px'}
-                y={Math.round((100 - scale) / 2) + 'px'}
-              >
-                {additionalIcons[metadata.managementMethod]}
-              </svg>
-            ) : null}
+              {metadata.managementMethod ? (
+                <svg
+                  width={scale + 'px'}
+                  height={scale + 'px'}
+                  style={{width: scale + 'px', height: scale + 'px'}}
+                  x={Math.round(((100 - scale) / 2) - (metadata.blockStorage ? Math.cbrt(Math.max(1000,metadata.blockStorage))/2.0 : 0)) + 'px'}
+                  y={Math.round((100 - scale) / 2) + 'px'}
+                >
+                  {additionalIcons[metadata.managementMethod]}
+                </svg>
+              ) : null}
 
-            {metadata.activeDisableTemporarily ? (
-              <circle className="active" r="4" cx="12" cy="89" />
-            ) : null}
+              {metadata.activeDisableTemporarily ? (
+                <circle className="active" r="4" cx="12" cy="89" />
+              ) : null}
 
-            {metadata.favicon ? (
-              <image
-                xlinkHref={metadata.favicon}
-                x="34"
-                y="38"
-                height="32px"
-                width="32px"
-                style={{width: '32px', height: '32px'}}
-              />
-            ) : null}
-          </svg>
+              {metadata.favicon ? (
+                <image
+                  xlinkHref={metadata.favicon}
+                  x="34"
+                  y="38"
+                  height="32px"
+                  width="32px"
+                  style={{width: '32px', height: '32px'}}
+                />
+              ) : null}
+            </svg>
+          }
 
           <figcaption style={labelOffset}>
             {metadata.name || nodeTemplate.shortName}

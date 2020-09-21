@@ -31,7 +31,6 @@ export default {
         connectionPreference: ['ssh'],
         incompatibleWith: ['iotDevice', 'mobile', 'floatingIp', 'loadBalancer'],
         requests: 'creator',
-        minConnections: 1,
         categoryless: true,
     },
     icon: <g transform="scale(0.5) translate(40, 39)" xmlns="http://www.w3.org/2000/svg" viewBox="14 14 100 100">
