@@ -17,7 +17,7 @@ limitations under the License.
 import React from 'react';
 import DATA from '../data';
 import { saveStore } from '../store';
-import * as dndHelper from '../dndHelper'
+import * as dndHelper from '../dndHelper';
 
 class NodeEditor extends React.Component {
   constructor(props) {
